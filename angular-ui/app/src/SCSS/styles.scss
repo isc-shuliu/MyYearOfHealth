@@ -16,18 +16,12 @@ body {
   max-width: 390px;
 }
 
-.header,
 .footer {
   height: 7vh;
-  background-color: var(--base-dark-color);
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-}
-
-.header {
-  height: 8vh;
 }
 
 .wrapper {
@@ -38,5 +32,9 @@ body {
 
 .main {
   flex: 1 1 auto;
+  padding: 20px 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 

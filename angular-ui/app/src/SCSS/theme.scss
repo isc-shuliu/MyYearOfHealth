@@ -8,7 +8,7 @@ $bright-navy-blue-palette: (
   400: #5ea2f6,
   500: #4292f4,
   600: #3c8af3,
-  700: #337ff1,
+  700: #659dbd,
   800: #2b75ef,
   900: #1d63ec,
   A100: #ffffff,
@@ -120,7 +120,7 @@ $crimson-palette: (
     900: white,
   ),
 );
-$bluesky-primary: mat.define-palette($bright-navy-blue-palette, 700, 300, 900);
+$bluesky-primary: mat.define-palette($bright-navy-blue-palette, 700);
 $bluesky-accent: mat.define-palette($yellow-palette, 300);
 $bluesky-warn: mat.define-palette($crimson-palette, 700);
 $bluesky-theme: mat.define-light-theme(

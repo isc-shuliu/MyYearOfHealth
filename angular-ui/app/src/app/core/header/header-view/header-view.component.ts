@@ -1,10 +1,11 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HeaderMenuComponent } from '../../../components/header-menu/header-menu.component';
 
 @Component({
   selector: 'app-header-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderMenuComponent],
   templateUrl: './header-view.component.html',
   styleUrls: ['./header-view.component.scss']
 })

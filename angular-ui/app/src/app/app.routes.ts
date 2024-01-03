@@ -15,6 +15,15 @@ export const routes: Routes = [
         (c) => c.AuthComponent
       ),
     pathMatch: 'full',
+    title: 'Auth'
+  },
+  {
+    path: 'about',
+    loadComponent: () =>
+      import('./pages/about/about-view/about-view.component').then(
+        (c) => c.AboutViewComponent
+      ),
+    pathMatch: 'full',
     title: 'About'
   },
   {

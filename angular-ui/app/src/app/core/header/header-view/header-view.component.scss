@@ -1,3 +1,12 @@
-.header-container {
-
+.header {
+  height: 7vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: var(--primary-blue-color);
+}
+.header-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
