@@ -1,0 +1,19 @@
+<div class="page">
+    <div class="main-container">
+        <div class="auth-page">
+            <!-- <div class="big-logo"></div> -->
+            <div class="title">The place for your soul and body</div>
+
+            <div class="instruction">
+                <span class="instruction">{{ instruction }}</span>
+                <span class="btn-link" (click)="onGoToOppositeForm.emit()">{{
+                    titleLink
+                    }}</span>
+            </div>
+            <app-auth-form (onSignin)="onSignin.emit($event)"></app-auth-form>
+            <button mat-raised-button color="primary" (click)="onGoToAboutPage.emit()">
+                About
+            </button>
+        </div>
+    </div>
+</div>

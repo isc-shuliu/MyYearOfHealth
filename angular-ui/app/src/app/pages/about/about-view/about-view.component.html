@@ -1,0 +1,90 @@
+<div class="page-light">
+  <div class="main-container">
+    <div class="page">
+      <div class="content">
+        <h3>About:</h3>
+        <h5>
+          Example of using InterSystems IRIS Cloud SQL and IntegratedML to build
+          a sleep analysis applicaion
+        </h5>
+
+        <p>
+          This project demonstrates an application for sleep quality monitoring
+          and analysis. Client side: TypeScript with Angular framework. Server
+          side: Python with FastAPI and DB-API to connect to the database.
+          Database: The database is hosted in InterSystems IRIS Cloud SQL, and
+          we used one of its features, IntegratedML, to predict sleep quality.
+        </p>
+        <h5>InterSystems IRIS Cloud SQL</h5>
+        <p>
+          To do this, set up a deployment in the IRIS Cloud SQL portal and write
+          the connection parameters into docker-compose file in the environment
+          section.
+        </p>
+        <h5>Filling with data</h5>
+        <p>
+          The "sleeps" table of our database is populated with the generated
+          data. To do this, run the following commands in the docker
+          terminal:<br />
+        </p>
+
+        <p>/opt/venv/bin/activate - activate virtual environment</p>
+        <p>cd src</p>
+        <p>python.\sleepTrack\db_init.py - create tables</p>
+        <p>python.\sleepTrack\generator.py - generate data</p>
+        <h5>IntegratedML</h5>
+        <p>
+          The following sql queries are required to implement machine learning
+          algorithms:
+        </p>
+        <p>Create model sleep predicting (quality) from SQLUser.Sleeps</p>
+        <p>Train model sleeps</p>
+        <p>
+          Here we create a machine learning model based on the Sleeps database
+          table. For prediction, we specify the field "quality" ("quality of
+          sleep", the user's sensation after sleep). As a result of training, we
+          get prediction and probability_quality fields, which we use later, for
+          example, in such a sql query:
+        </p>
+        <p>
+          SELECT PREDICT(sleeps use sleeps) as prediction, quality,
+          PROBABILITY(sleeps use sleeps for '3') as probability_quality, * FROM
+          SQLUser.Sleeps where user_id = 1 and id = 1 <br />
+          where the prediction field contains a prediction of the quality of
+          sleep, the probability_quality field contains the probability that the
+          dream will be "qualitative" based on its entered characteristics.
+        </p>
+
+        <div>
+          <h5>Developers of project:</h5>
+          <p>/team of Banksia Global/</p>
+          <p>Backend: Maria Gladkova</p>
+          <p>Backend: Maria Nesterenko</p>
+          <p>Frontend: Katsiaryna Shaustruk</p>
+        </div>
+        <h5>
+          Documentation:
+          <a href="https://github.com/banksiaglobal/MyYearOfHealth" target="_blank">github</a>
+        </h5>
+      </div>
+      <div class="registre-box">
+        <div class="registre-box-title">
+          <div class="registre-box-title white-font title-mini bolder-weight">
+            Boost your sleep.
+          </div>
+          <div class="registre-box-title dark-gray-font title-mini bolder-weight">
+            Start using 'Sheep's galaxy' today.
+          </div>
+        </div>
+        <div class="registre-box-btns">
+          <button mat-raised-button color="primary" (click)="clickGoToRegistrePage()">
+            Sign up for free
+          </button>
+          <button mat-raised-button color="primary" (click)="clickGoToLoginPage()">
+            Login
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
