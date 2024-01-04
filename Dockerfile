@@ -1,6 +1,8 @@
 ARG IMAGE=intersystemsdc/irishealth-community:latest
 FROM $IMAGE as builder
 
+COPY data/fhir/ /opt/irisapp/fhirdata/
+
 WORKDIR /home/irisowner/irisdev
 
 RUN --mount=type=bind,src=.,dst=. \
