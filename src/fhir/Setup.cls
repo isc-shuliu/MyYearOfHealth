@@ -39,6 +39,8 @@ ClassMethod SetupFHIRServer(ns) As %Status
     quit st
 }
 
+// d ##class(fhir.Setup).LoadPatientData("/irisdev/app/output/fhir","FHIRSERVER","/fhir/r4")
+
 ClassMethod LoadPatientData(path, namespace, appKey) As %Status
 {
     quit ##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles(path, namespace, appKey)
