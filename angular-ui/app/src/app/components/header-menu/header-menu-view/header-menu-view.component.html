@@ -1,0 +1,17 @@
+<button color="accent" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>menu</mat-icon>
+</button>
+<mat-menu #menu="matMenu" color="primary">
+    <div class="header-menu">
+        <a mat-button color="primary" (click)="goToAboutPage()">
+            <mat-icon>home</mat-icon>
+            <span>About App</span>
+        </a>
+        @if ("isUserLogin") {
+        <a mat-button color="primary" (click)="userLogout()">
+            <mat-icon>logout</mat-icon>
+            <span>logout</span>
+        </a>
+        }
+    </div>
+</mat-menu>

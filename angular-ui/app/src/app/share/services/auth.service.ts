@@ -34,16 +34,14 @@ export class AuthService {
     }
   }
 
-  signIn(user: IUserAuth): Observable<IToken> {
-    return this.httpClient
-      .post<IToken>(environment.apiUrl + 'auth/sign-in', user)
-      .pipe(
-        tap((response: IToken) => {
-          this.storage.saveTokens(response.access_token);
-        }),
-        tap(() => this.getCurrentUser().subscribe()),
-        shareReplay()
-      );
+  signIn(user: IUserAuth) {
+    console.log(user);
+    // return this.httpClient
+    //   .post<IToken>(environment.apiUrl + 'auth/sign-in', user)
+    //   .pipe(
+    //     tap(() => this.getCurrentUser().subscribe()),
+    //     shareReplay()
+    //   );
   }
 
   getCurrentUser(): Observable<IUser> {
@@ -60,14 +58,10 @@ export class AuthService {
   public logout(): void {
     this.storage.clean();
     this.user.next('');
-    this.router.navigate(['/signin']);
+    this.router.navigate(['/auth']);
   }
 
   private goToApp(): void {
-    this.router.navigate(['/sleeps']);
-  }
-
-  public getToken(): string {
-    return this.storage.getAccessToken();
+    this.router.navigate(['/user-info']);
   }
 }

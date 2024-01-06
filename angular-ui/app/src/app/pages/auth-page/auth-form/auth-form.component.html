@@ -1,9 +1,9 @@
 <form class="user-form" [formGroup]="authForm" (ngSubmit)="submitForm()">
     <mat-form-field appearance="outline">
-        <mat-label>Name</mat-label>
-        <input matInput autocomplete="off" formControlName="username" #username />
-        <mat-error *ngIf="authForm.controls['username'].invalid">
-            Enter your name
+        <mat-label>Contact Number</mat-label>
+        <input matInput autocomplete="off" formControlName="phone" #policy />
+        <mat-error *ngIf="authForm.controls['phone'].invalid">
+            Enter your contact number
         </mat-error>
     </mat-form-field>
     <mat-form-field class="user-form__password" appearance="outline">
@@ -14,7 +14,8 @@
             }}</mat-icon>
     </mat-form-field>
 
-    <button class="btn-primary" mat-raised-button cdkFocusInitial type="submit" [disabled]="authForm.invalid">
+    <button class="btn-accent" color="accent" mat-raised-button cdkFocusInitial type="submit"
+        [disabled]="authForm.invalid">
         Sign in
     </button>
 </form>

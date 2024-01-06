@@ -18,6 +18,15 @@ export const routes: Routes = [
     title: 'Auth'
   },
   {
+    path: 'user-info',
+    loadComponent: () =>
+      import('./pages/user-info/user-info/user-info.component').then(
+        (c) => c.UserInfoComponent
+      ),
+    pathMatch: 'full',
+    title: 'Info'
+  },
+  {
     path: 'about',
     loadComponent: () =>
       import('./pages/about/about-view/about-view.component').then(

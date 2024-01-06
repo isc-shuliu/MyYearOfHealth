@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { tap, catchError, throwError, Observable } from 'rxjs';
+import { tap, catchError, throwError, Observable, map } from 'rxjs';
 import { IUserAuth } from '../../../share/interfaces/auth';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../share/services/auth.service';
@@ -22,16 +22,18 @@ export class AuthComponent {
   public currentUser$: Observable<any>;
 
   public onSignin(signinForm: IUserAuth): void {
-    const currentUser$ = this.auth.signIn(signinForm).pipe(
-      tap(() => {}),
-      catchError((error: any) => {
-        return throwError(() => error);
-      })
-    );
+    // this.currentUser$ = this.auth.signIn(signinForm).pipe(
+    //   map((data) => data),
+    //   catchError((error: any) => {
+    //     tap(() => this.goToApp());
+    //     return throwError(() => error);
+    //   })
+    // );
   }
 
   private goToApp(): void {
-    this.router.navigate(['/sleep']);
+    console.log('user-info');
+    this.router.navigate(['/user-info']);
   }
 
   public onGoToOppositeForm() {

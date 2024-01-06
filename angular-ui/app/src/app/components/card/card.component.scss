@@ -1,15 +1,27 @@
 .form-card {
   min-height: 400px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; 
 
-  &-title {
-    margin-bottom: 20px;
-    font-size: 20px;
-    color: var(--accent-color);
-    font-weight: 800;
+  &-logo {
+    background: url('../../../assets/logo-svg.svg') no-repeat;
+    height: 50px;
+    width: 50px;
   }
+
+  &-title-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  &-title {    
+    font-size: 20px;
+    color: var(--primary-green-color);
+    font-weight: 800;
+  } 
 
   &__form-title {
     font-size: 20px;

@@ -1,12 +1,16 @@
 .header {
-  height: 7vh;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   background-color: var(--primary-blue-color);
+}
+
+.header-container {
+  padding-left: 5px;
+  width: 100%;
+
 }
 .header-box {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
