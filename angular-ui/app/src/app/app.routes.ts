@@ -18,6 +18,15 @@ export const routes: Routes = [
     title: 'Auth'
   },
   {
+    path: 'welcome',
+    loadComponent: () =>
+      import('./pages/greetings/greetings/greetings.component').then(
+        (c) => c.GreetingsComponent
+      ),
+    pathMatch: 'full',
+    title: 'Welcome!'
+  },
+  {
     path: 'user-info',
     loadComponent: () =>
       import('./pages/user-info/user-info/user-info.component').then(
@@ -25,6 +34,31 @@ export const routes: Routes = [
       ),
     pathMatch: 'full',
     title: 'Info'
+  },
+  {
+    path: 'choice',
+    loadComponent: () =>
+      import('./pages/btns/btns/btns.component').then((c) => c.BtnsComponent),
+    pathMatch: 'full',
+    title: 'Menu'
+  },
+  {
+    path: 'observation-data',
+    loadComponent: () =>
+      import('./pages/results/results/results.component').then(
+        (c) => c.ResultsComponent
+      ),
+    pathMatch: 'full',
+    title: 'Results'
+  },
+  {
+    path: 'plan',
+    loadComponent: () =>
+      import('./pages/description/description/description.component').then(
+        (c) => c.DescriptionComponent
+      ),
+    pathMatch: 'full',
+    title: 'Plan'
   },
   {
     path: 'about',

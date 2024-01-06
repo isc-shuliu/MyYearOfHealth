@@ -29,6 +29,7 @@ export class AuthComponent {
     //     return throwError(() => error);
     //   })
     // );
+    this.router.navigate(['/welcome']);
   }
 
   private goToApp(): void {
