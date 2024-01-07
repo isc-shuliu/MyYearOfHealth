@@ -1,0 +1,40 @@
+.btn-container {
+    justify-content: center;
+    height: 100%;
+
+}
+.box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.item-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 250px;
+    margin-bottom: 75px;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &__title {
+        font-size: 30px;
+        font-weight: bold;
+        color: var(--dark-font-color);
+    }
+}
+
+.observation-box {
+    background-color: var(--light-blue-color);
+}
+
+.plan-box {
+    background-color: var(--primary-green-font-color);
+}
+
+.drugs-box {
+    background-color: var(--gray-color);
+}

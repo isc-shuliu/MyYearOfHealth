@@ -43,7 +43,7 @@ export const routes: Routes = [
     title: 'Menu'
   },
   {
-    path: 'observation-data',
+    path: 'data-results',
     loadComponent: () =>
       import('./pages/results/results/results.component').then(
         (c) => c.ResultsComponent
