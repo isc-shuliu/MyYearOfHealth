@@ -1,4 +1,57 @@
 <div class="page">
-    <div class="greeting-box"></div>
-    <div class="data-box"></div>
+    <div class="main-container">
+        <div class="patient-box">
+            <div class="patient-box__title">Patient info</div>
+        </div>
+        <div class="observation-data-box select-box">
+            <div class="observation-data-box__title select-box__title">Observation</div>
+            <div class="observation-data-box__content">
+                <mat-form-field>
+                    <mat-label>Choose a parameter</mat-label>
+                    <mat-select [formControl]="observationData" multiple>
+                        <mat-select-trigger>
+                            {{observationDataList?.[0] || ''}}
+                            @if ((observationDataList?.length || 0) > 1) {
+                            <span class="example-additional-selection">
+                                (+{{(observationDataList?.length || 0) - 1}} {{observationDataList?.length
+                                === 2 ? 'other' :
+                                'others'}})
+                            </span>
+                            }
+                        </mat-select-trigger>
+                        @for (parametr of observationDataList; track parametr) {
+                        <mat-option [value]="parametr">{{parametr}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+        </div>
+        <div class="plan-box select-box">
+            <div class="plan-box__title select-box__title">Care Plan</div>
+            <div class="plan-box__content">
+                <mat-form-field>
+                    <mat-label>Choose a plan</mat-label>
+                    <mat-select [formControl]="careData" multiple>
+                        <mat-select-trigger>
+                            {{careDataList?.[0] || ''}}
+                            @if ((careDataList?.length || 0) > 1) {
+                            <span class="example-additional-selection">
+                                (+{{(careDataList?.length || 0) - 1}} {{careDataList?.length === 2 ? 'other'
+                                :
+                                'others'}})
+                            </span>
+                            }
+                        </mat-select-trigger>
+                        @for (itemOfPlan of careDataList; track itemOfPlan) {
+                        <mat-option [value]="itemOfPlan">{{itemOfPlan}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+
+        <app-set-btn [btnTitle]="btnTitle" (click)="setYourSettings()" />
+    </div>
 </div>

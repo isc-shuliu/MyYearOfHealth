@@ -1,0 +1,32 @@
+.patient-box {
+  width: 300px;
+  padding: 25px;
+  margin-bottom: 30px;
+  background-color: var(--primary-green-color);
+  border-radius: 10px;
+}
+
+.observation-data-box {  
+    &__title {       
+        color: var(--primary-blue-color);
+    }
+}
+
+.plan-box {  
+    &__title {     
+        color: var(--primary-green-font-color);
+    }
+}
+
+.select-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+    
+    &__title {
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: 800;   
+    }
+}

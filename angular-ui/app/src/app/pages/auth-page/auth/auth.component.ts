@@ -10,8 +10,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-auth',
   standalone: true,
   imports: [CommonModule, AuthViewComponent],
-  templateUrl: './auth.component.html',
-  styleUrl: './auth.component.scss'
+  templateUrl: './auth.component.html'
 })
 export class AuthComponent {
   constructor(
@@ -30,18 +29,5 @@ export class AuthComponent {
     //   })
     // );
     this.router.navigate(['/welcome']);
-  }
-
-  private goToApp(): void {
-    console.log('user-info');
-    this.router.navigate(['/user-info']);
-  }
-
-  public onGoToOppositeForm() {
-    this.router.navigate(['/signup']);
-  }
-
-  public onGoToAboutPage() {
-    this.router.navigate(['/about']);
   }
 }

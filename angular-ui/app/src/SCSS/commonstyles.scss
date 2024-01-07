@@ -10,7 +10,6 @@
   justify-content: center;
 }
 
-
 .main-container {
   display: flex;
   align-items: center;
@@ -24,5 +23,13 @@
 
 .page {
   padding-top: 25px;
+}
+
+.primary-h2-font {
+  color: var(--primary-blue-color);
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 40px;
+  text-align: center;
 }
 

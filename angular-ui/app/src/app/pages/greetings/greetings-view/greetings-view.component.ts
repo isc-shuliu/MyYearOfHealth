@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { SetBtnComponent } from '../../../components/set-btn/set-btn.component';
 
 @Component({
@@ -10,4 +10,6 @@ import { SetBtnComponent } from '../../../components/set-btn/set-btn.component';
 })
 export class GreetingsViewComponent {
   public btnTitle = 'Set your goals';
+
+  @Output() setGoals = new EventEmitter<any>();
 }

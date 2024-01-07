@@ -21,6 +21,6 @@
                 medical information, and craft a
                 personalized health care plan, Health Harbour is your dedicated partner in your health journey.</div>
         </div>
-        <app-set-btn [btnTitle]="btnTitle" />
+        <app-set-btn [btnTitle]="btnTitle" (click)="setGoals.emit()" />
     </div>
 </div>

@@ -18,6 +18,4 @@ export class AuthViewComponent {
   public instructionAction = '';
 
   @Output() onSignin = new EventEmitter<any>();
-
-  @Output() onGoToOppositeForm = new EventEmitter<Event>();
 }
