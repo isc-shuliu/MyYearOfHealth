@@ -1,0 +1,46 @@
+.data-box-header {
+    margin-bottom: 20px;
+
+    &__title {
+        font-size: 20px;
+        font-weight: bold;        
+    }
+
+    &__date {
+       color: var(--primary-green-font-color);        
+    }
+}
+.data-box-item {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--gray-color);  
+
+    &__title {
+        margin-bottom: 10px;
+    }
+}
+
+.data-box-item-result {
+    display: flex;
+    justify-content: space-between;
+}
+
+.normal-data {
+    font-size: 20px;
+    color: var(--warn-color);
+}
+
+.normal-data::after {
+  content: ('(norm)');
+  font-size: 12px;
+}
+
+
+.user-data {
+    font-size: 20px;
+}
+
+.user-data::after {
+    content: ('(mine)');
+    font-size: 12px;
+  }
