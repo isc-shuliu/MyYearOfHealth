@@ -1,5 +1,20 @@
-.logo {
-    background: url('../../../../assets/logo-svg.svg') no-repeat;
-    height: 50px;
-    width: 50px;
+.main-container {
+  flex: 1 1 auto;
+  &__title {
+    margin-bottom: 20px;
   }
+
+  &__greeting {   
+    padding: 25px;
+    margin-bottom: 30px;
+    background-color: var(--primary-green-color);
+    border-radius: 10px;
+  }
+
+  &__greeting-item {
+    margin-bottom: 10px;
+    text-indent: 15px;
+    font-size: 20px;
+    line-height: 20px;
+  }
+}

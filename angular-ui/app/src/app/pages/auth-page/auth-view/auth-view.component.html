@@ -1,11 +1,10 @@
-<div class="auth-page">
-    <div class="main-container">
+<div class="page">
+    <div class="top-box">
         <div class="big-logo"></div>
-        <app-card class="account-box__card" [titleForm]="titleForm" [titleBox]="titleBox">
-            <div class="mat-card-instruction dark-gray-font">
-                <span class="account-box__title-form">{{ instructionAction }}</span>
-                <span class="link" (click)="onGoToOppositeForm.emit()">{{ titleLink }}</span>
-            </div>
+        <h1 class="main-title">Health Harbour</h1>
+    </div>
+    <div class="main-container">
+        <app-card class="account-box__card" [titleForm]="titleForm">
             <app-auth-form (onSignin)="onSignin.emit($event)"></app-auth-form>
         </app-card>
     </div>

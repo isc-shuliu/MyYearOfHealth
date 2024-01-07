@@ -8,12 +8,13 @@
 html,
 body {
   height: 100%;
+  color: var(--dark-font-color);
 }
 
 body {
   margin: 0 auto;
   font-family: "Inder", sans-serif;
-  max-width: 390px;
+  max-width: 800px;  
 }
 
 .footer {
@@ -23,16 +24,4 @@ body {
   justify-content: center;
 }
 
-.wrapper {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.main {
-  flex: 1 1 auto;
-  padding: 20px 0 0 0;
-  display: flex;
-  justify-content: center;
-}
 

@@ -13,11 +13,7 @@ import { CardComponent } from '../../../components/card/card.component';
 export class AuthViewComponent {
   @Input() currentUser: any;
 
-  public titleBox = 'HealthHarbor';
-
-  public titleForm = 'Sign in';
-
-  public titleLink = '';
+  public titleForm = 'Log In';
 
   public instructionAction = '';
 

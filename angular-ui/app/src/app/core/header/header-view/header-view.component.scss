@@ -1,16 +1,23 @@
 .header {
   display: flex;
   align-items: center;
-  background-color: var(--primary-blue-color);
+  box-shadow: 0 15px 10px -19px #111;
+  background-color: #E5E5E5;
 }
 
 .header-container {
-  padding-left: 5px;
   width: 100%;
-
+  padding: 0 10px 0 10px;
 }
+
 .header-box {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
+}
+
+.logo {
+  background: url('../../../../assets/logo-small.svg') no-repeat;
+  height: 40px;
+  width: 30px;
 }
