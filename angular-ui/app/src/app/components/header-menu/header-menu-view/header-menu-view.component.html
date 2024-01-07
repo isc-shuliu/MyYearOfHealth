@@ -9,15 +9,20 @@
 </button>
 <mat-menu #menu="matMenu" color="primary">
     <div class="header-menu">
-        <a mat-button color="primary" (click)="goToAboutPage()">
-            <mat-icon>home</mat-icon>
-            <span>About App</span>
-        </a>
+
         @if ("isUserLogin") {
+        <a mat-button color="primary" (click)="userLogout()">
+            <mat-icon>menu</mat-icon>
+            <span>Menu</span>
+        </a>
         <a mat-button color="primary" (click)="userLogout()">
             <mat-icon>logout</mat-icon>
             <span>logout</span>
         </a>
         }
+        <a mat-button color="primary" (click)="goToAboutPage()">
+            <mat-icon>home</mat-icon>
+            <span>About App</span>
+        </a>
     </div>
 </mat-menu>

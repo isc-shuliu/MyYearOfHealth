@@ -1,0 +1,13 @@
+.main-container {
+    &__title {
+        margin-bottom: 20px;
+    }
+
+    &__plan {
+        padding: 25px;
+        margin-bottom: 30px;
+        max-width: 400px;
+        background-color: var(--primary-green-color);
+        border-radius: 10px;
+    }
+}
