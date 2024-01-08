@@ -1,1 +1,1 @@
-<app-header-menu-view (logout)="logout()" />
+<app-header-menu-view (logout)="logout()" [isUserLogin]="isUserLogin$ | async" [isUserLogout]="isUserLogout$ | async" />

@@ -21,6 +21,7 @@ export class AuthComponent {
   public currentUser$: Observable<any>;
 
   public onSignin(signinForm: IUserAuth): void {
+    console.log(signinForm);
     // this.currentUser$ = this.auth.signIn(signinForm).pipe(
     //   map((data) => data),
     //   catchError((error: any) => {
@@ -28,6 +29,7 @@ export class AuthComponent {
     //     return throwError(() => error);
     //   })
     // );
+    this.auth.signIn(signinForm);
     this.router.navigate(['/welcome']);
   }
 }

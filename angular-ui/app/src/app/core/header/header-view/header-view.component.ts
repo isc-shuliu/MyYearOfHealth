@@ -11,10 +11,12 @@ import { HeaderMenuComponent } from '../../../components/header-menu/header-menu
 })
 export class HeaderViewComponent implements OnInit {
   public isUser: boolean = false;
-  ngOnInit(): void {}
-  // @Input() isUserLogout: boolean | null;
+  ngOnInit(): void {
+    console.log(this.isUserLogin, this.isUserLogout, this.user);
+  }
+  @Input() isUserLogout: boolean | null;
 
-  // @Input() isUserLogin: boolean | null;
+  @Input() isUserLogin: boolean | null;
 
-  // @Input() user: string | null;
+  @Input() user: string | null;
 }

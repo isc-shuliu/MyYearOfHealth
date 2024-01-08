@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../share/services/auth.service';
 import { HeaderMenuViewComponent } from '../header-menu-view/header-menu-view.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header-menu',
   standalone: true,
-  imports: [HeaderMenuViewComponent],
+  imports: [CommonModule, HeaderMenuViewComponent],
   templateUrl: './header-menu.component.html',
   styleUrl: './header-menu.component.scss'
 })

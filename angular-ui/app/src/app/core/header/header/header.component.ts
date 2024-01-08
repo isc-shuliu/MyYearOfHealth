@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderViewComponent } from '../header-view/header-view.component';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../../share/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,19 +12,19 @@ import { HeaderViewComponent } from '../header-view/header-view.component';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  // constructor(public auth: AuthService) {}
-  // public isUserLogin$: Observable<boolean>;
+  constructor(public auth: AuthService) {}
 
-  // public isUserLogout$: Observable<boolean>;
-  // public user$: Observable<string>;
+  public isUserLogin$: Observable<boolean>;
+  public isUserLogout$: Observable<boolean>;
+  public user$: Observable<string>;
 
   ngOnInit(): void {
     this.ckeckIsLogin();
   }
 
   private ckeckIsLogin() {
-    // this.isUserLogin$ = this.auth.isLoggedIn$;
-    // this.isUserLogout$ = this.auth.isLoggedOut$;
-    // this.user$ = this.auth.user$;
+    this.isUserLogin$ = this.auth.isLoggedIn$;
+    this.isUserLogout$ = this.auth.isLoggedOut$;
+    this.user$ = this.auth.user$;
   }
 }
