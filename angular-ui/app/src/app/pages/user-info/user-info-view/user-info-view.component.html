@@ -1,7 +1,8 @@
 <div class="page">
     <div class="main-container">
         <div class="patient-box">
-            <div class="patient-box__title">Patient info</div>
+            <div class="patient-box__title">Patient info: </div>
+            <div class="patient-box__user">{{user}}</div>
         </div>
         <div class="observation-data-box select-box">
             <div class="observation-data-box__title select-box__title">Observation</div>
@@ -50,8 +51,6 @@
                 </mat-form-field>
             </div>
         </div>
-
-
-        <app-set-btn [btnTitle]="btnTitle" (click)="setYourSettings()" />
+        <app-set-btn [btnTitle]="btnTitle" (click)="clickSetUserSettings()" />
     </div>
 </div>

@@ -52,13 +52,22 @@ export const routes: Routes = [
     title: 'Results'
   },
   {
-    path: 'plan',
+    path: 'description-plan',
     loadComponent: () =>
       import('./pages/description/description/description.component').then(
         (c) => c.DescriptionComponent
       ),
     pathMatch: 'full',
-    title: 'Plan'
+    title: 'Description Plan'
+  },
+  {
+    path: 'create-own-plan',
+    loadComponent: () =>
+      import('./pages/create-own-plan/create-plan/create-plan.component').then(
+        (c) => c.CreatePlanComponent
+      ),
+    pathMatch: 'full',
+    title: 'Create Your Plan'
   },
   {
     path: 'about',

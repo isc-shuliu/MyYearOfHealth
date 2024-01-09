@@ -11,5 +11,5 @@ import { SetBtnComponent } from '../../../components/set-btn/set-btn.component';
 export class DescriptionViewComponent {
   public btnTitle = 'Make it real';
 
-  @Output() createPlan = new EventEmitter<any>();
+  @Output() createOwnPlan = new EventEmitter<any>();
 }

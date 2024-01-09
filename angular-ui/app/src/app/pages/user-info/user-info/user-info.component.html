@@ -1,1 +1,1 @@
-<app-user-info-view (setData)="setData($event)" />
+<app-user-info-view (setUserSettings)="setUserSettings($event)" [user]="user$ | async" />

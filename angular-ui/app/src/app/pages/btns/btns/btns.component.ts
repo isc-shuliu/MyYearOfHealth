@@ -15,6 +15,6 @@ export class BtnsComponent {
   }
 
   public clickPlanCare() {
-    this.router.navigate(['/plan']);
+    this.router.navigate(['/description-plan']);
   }
 }

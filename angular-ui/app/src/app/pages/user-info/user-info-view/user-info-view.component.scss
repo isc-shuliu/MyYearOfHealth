@@ -1,9 +1,15 @@
 .patient-box {
+  display: flex;
+  justify-content: space-around;
   width: 300px;
   padding: 25px;
   margin-bottom: 30px;
   background-color: var(--primary-green-color);
   border-radius: 10px;
+
+  &__user {
+    font-weight: bold;
+  }
 }
 
 .observation-data-box {  

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SetBtnComponent } from '../../../components/set-btn/set-btn.component';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -19,10 +19,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 export class UserInfoViewComponent {
   public btnTitle = 'Set';
-  @Output() setObservationData = new EventEmitter<any>();
 
-  public clickSetObservationData() {
-    this.setObservationData.emit('1');
+  @Input() user: string | null;
+
+  @Output() setUserSettings = new EventEmitter<any>();
+
+  public clickSetUserSettings() {
+    this.setUserSettings.emit({
+      observation: ['blood pressure'],
+      carePlan: ['stop smoking']
+    });
   }
 
   observationData = new FormControl('');
@@ -52,10 +58,4 @@ export class UserInfoViewComponent {
     'Sausage',
     'Tomato'
   ];
-
-  @Output() setData = new EventEmitter<any>();
-
-  public setYourSettings() {
-    this.setData.emit('set your data');
-  }
 }
