@@ -1,15 +1,18 @@
 <div class="page">
     <div class="main-container">
         <div class="main-container-plan">
-            <div class="main-container__description">
+            <div class="main-container__description green-box">
                 Let's celebrate the small victories — a morning stretch, a nutritious meal, a moment of mindfulness.
                 Health is a holistic journey, and every positive choice creates a ripple effect, enhancing your
                 physical, mental, and emotional vitality.
             </div>
             <div class="main-container-details">
-
+                <div class="main-container-details__title">Pick a healthy habit or
+                    set your own</div>
+                <div class="form-container">
+                    <app-create-plan-form (createOwnPlan)="setOwnPlanPoints.emit($event)"></app-create-plan-form>
+                </div>
             </div>
         </div>
-        <app-set-btn [btnTitle]="btnTitle" (click)="setYourDetailsPlan()" />
     </div>
 </div>

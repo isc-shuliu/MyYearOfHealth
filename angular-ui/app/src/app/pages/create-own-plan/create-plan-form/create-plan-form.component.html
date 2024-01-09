@@ -1,0 +1,20 @@
+<form class="form-container" [formGroup]="userPlanPoints" (ngSubmit)="submitUserPlan()">
+    <mat-checkbox formControlName="steps">5000 steps</mat-checkbox>
+    <mat-checkbox formControlName="meditation">Meditation</mat-checkbox>
+    <mat-checkbox formControlName="workOut">10-minute work-out</mat-checkbox>
+    <mat-form-field>
+        <input matInput formControlName="customSettings" />
+        <mat-hint>{{ userPlanPoints.value.customSettings?.length }}/240 symbols
+        </mat-hint>
+        <mat-error *ngIf="
+          userPlanPoints.controls[
+            'customSettings'
+          ].hasError('maxlength')
+        ">
+            If possible, please enter more short
+            habit</mat-error>
+    </mat-form-field>
+    <button class="form-container-btn set-btn" mat-stroked-button color="primary" type="submit"
+        [disabled]="disabledCondition">Set
+    </button>
+</form>
