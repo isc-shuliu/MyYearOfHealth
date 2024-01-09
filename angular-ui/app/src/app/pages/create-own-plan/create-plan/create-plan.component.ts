@@ -10,4 +10,8 @@ import { Router } from '@angular/router';
 })
 export class CreatePlanComponent {
   constructor(private router: Router) {}
+
+  public setPersonalPlan(userPlanPoints: any) {
+    console.log(userPlanPoints);
+  }
 }

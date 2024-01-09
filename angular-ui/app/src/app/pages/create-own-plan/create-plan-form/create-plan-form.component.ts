@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,8 +21,18 @@ import { CommonModule } from '@angular/common';
   templateUrl: './create-plan-form.component.html',
   styleUrl: './create-plan-form.component.scss'
 })
-export class CreatePlanFormComponent {
+export class CreatePlanFormComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
+
+  public disabledCondition = true;
+  ngOnInit(): void {
+    this.userPlanPoints.valueChanges.subscribe((value) => {
+      this.disabledCondition =
+        value.steps === false &&
+        value.meditation === false &&
+        value.workOut === false;
+    });
+  }
 
   public btnTitle = 'Set';
 
@@ -35,13 +45,9 @@ export class CreatePlanFormComponent {
     customSettings: ''
   });
 
-  public disabledCondition =
-    this.userPlanPoints.value.steps == false &&
-    this.userPlanPoints.value.meditation &&
-    this.userPlanPoints.value.workOut &&
-    !this.userPlanPoints.value.customSettings?.length;
-
   public submitUserPlan(): void {
-    this.setPersonalPlan.emit(this.userPlanPoints.value);
+    if (!this.disabledCondition) {
+      this.setPersonalPlan.emit(this.userPlanPoints.value);
+    }
   }
 }
