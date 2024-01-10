@@ -12,7 +12,7 @@
     <Invoke Class="fhir.Setup" Method="SetupFHIRServer" Phase="Activate" When="After" ></Invoke>
     </Invokes>
     <Resource Name="fhir.PKG"/>
-    <FileCopy Name="data/fhir/" Target="${mgrdir}test-data-fhir/"/>
+    <FileCopy Name="data/fhir/" Target="${mgrdir}dataFhir/"/>
     </Module>
   </Document>
 </Export>

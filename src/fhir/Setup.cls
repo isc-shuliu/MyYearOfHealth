@@ -11,18 +11,13 @@ ClassMethod SetupFHIRServer(ns) As %Status
     Set strategyClass = "HS.FHIRServer.Storage.Json.InteractionsStrategy"
     set metadataPackages = $lb("hl7.fhir.r4.core@4.0.1")
     Set metadataConfigKey = "HL7v40"
-    ;set importdir="/opt/irisapp/src"
 
-    //Install a Foundation namespace and change to it
-    //Do ##class(HS.HC.Util.Installer).InstallFoundation(namespace)
     Do ##class(HS.Util.Installer.Foundation).Install(namespace)
 
     zn namespace
 
-    // Install elements that are required for a FHIR-enabled namespace
     do ##class(HS.FHIRServer.Installer).InstallNamespace()
 
-    // Install an instance of a FHIR Service into the current namespace
     if '##class(HS.FHIRServer.ServiceAdmin).EndpointExists(appKey) {
        do ##class(HS.FHIRServer.Installer).InstallInstance(appKey, strategyClass, metadataPackages)
     }
@@ -32,18 +27,10 @@ ClassMethod SetupFHIRServer(ns) As %Status
     set config.DebugMode = 4
     do strategy.SaveServiceConfigData(config)
 
-    set dir=$System.Util.ManagerDirectory()_"test-data-fhir"
-    write !," ====== Load test data in "_ns_" from "_dir
+    set dir=$System.Util.ManagerDirectory()_"dataFhir"
     set st=##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles(dir, "FHIRServer", appKey)
     if 'st write $System.Status.GetErrorText(st)
     quit st
-}
-
-// d ##class(fhir.Setup).LoadPatientData("/irisdev/app/output/fhir","FHIRSERVER","/fhir/r4")
-
-ClassMethod LoadPatientData(path, namespace, appKey) As %Status
-{
-    quit ##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles(path, namespace, appKey)
 }
 
 }

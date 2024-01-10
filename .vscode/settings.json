@@ -6,7 +6,7 @@
       },
     "objectscript.conn" :{
       "ns": "FHIRSERVER",
-      "active": false,
+      "active": true,
       "username": "_SYSTEM",
       "password": "SYS",
       "docker-compose": {
@@ -22,10 +22,10 @@
         "askForPassword": false,
         "connectionMethod": "Server and Port",
         "driver": "InterSystems IRIS",
-        "name": "iris-fhir-template",
+        "name": "myyearofhealth",
         "namespace": "FHIRSERVER",
         "password": "SYS",
-        "port": 32783,
+        "port": 56773,
         "previewLimit": 50,
         "server": "localhost",
         "showSystem": false,

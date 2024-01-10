@@ -7,9 +7,14 @@ services:
     restart: always
     ports: 
       - 32782:1972
-      - 32783:52773
+      - 56773:52773
       - 32784:53773
+    volumes:
+      - durable:/durable
     command: 
       - -a
       - iris session iris -U%SYS '##class(Security.Users).UnExpireUserPasswords("*")'
       - --check-caps false
+    
+volumes:
+  durable: 
