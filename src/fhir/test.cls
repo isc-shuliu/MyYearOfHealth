@@ -5,7 +5,7 @@ Class fhir.test Extends %RegisteredObject
 
 ClassMethod TestMetod() As %Status
 {
-        w !, "hello"
+        w !, "hello my year of health!"
         Return $$$OK
 }
 

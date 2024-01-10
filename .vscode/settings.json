@@ -25,7 +25,7 @@
         "name": "myyearofhealth",
         "namespace": "FHIRSERVER",
         "password": "SYS",
-        "port": 56773,
+        "port": 32783,
         "previewLimit": 50,
         "server": "localhost",
         "showSystem": false,

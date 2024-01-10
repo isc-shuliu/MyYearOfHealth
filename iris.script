@@ -4,7 +4,7 @@
     halt
 
     zn "HSLIB"
-    set namespace="FHIR"
+    set namespace="FHIRSERVER"
 
     Set appKey = "/fhir/r4"
     Set strategyClass = "HS.FHIRServer.Storage.Json.InteractionsStrategy"
