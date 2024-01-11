@@ -12,6 +12,16 @@
     <Invoke Class="fhir.Setup" Method="SetupFHIRServer" Phase="Activate" When="After" ></Invoke>
     </Invokes>
     <Resource Name="fhir.PKG"/>
+    <Resource Name="REST.PKG"/>
+    <CSPApplication
+        Url="/api"
+        DispatchClass="REST.UserMethods"
+        MatchRoles=":{$dbrole}"
+        DelegatedAuthEnabled="0"
+        Recurse="1"
+        UseCookies="2"
+        CookiePath="/api"
+      />
     <FileCopy Name="data/fhir/" Target="${mgrdir}dataFhir/"/>
     </Module>
   </Document>
