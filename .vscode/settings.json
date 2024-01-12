@@ -16,7 +16,7 @@
       "links": {
         "FHIR server test": "http://localhost:${port}/fhir/r4/metadata"
       },
-      "server": "fihr"
+      "server": "fhir"
     },
     "sqltools.connections": [
       {
