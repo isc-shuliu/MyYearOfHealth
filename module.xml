@@ -13,6 +13,7 @@
       </Invokes>
       <Resource Name="fhir.PKG"/>
       <Resource Name="REST.PKG"/>
+      <Resource Name="Model.PKG"/>
       <FileCopy Name="data/fhir/" Target="${mgrdir}dataFhir/"/>
       <CSPApplication 
         Url="/api"
