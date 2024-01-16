@@ -3,7 +3,7 @@ Class Model.DateGoal Extends %Persistent
 
 Property UserId As %String;
 
-Property Date As %DateTime;
+Property DateTime As %DateTime;
 
 Relationship Goal As Model.Goal [ Cardinality = one, Inverse = Goal ];
 
@@ -14,13 +14,13 @@ Storage Default
 <Value>%%CLASSNAME</Value>
 </Value>
 <Value name="2">
-<Value>Date</Value>
+<Value>UserId</Value>
 </Value>
 <Value name="3">
-<Value>Goal</Value>
+<Value>DateTime</Value>
 </Value>
 <Value name="4">
-<Value>UserId</Value>
+<Value>Goal</Value>
 </Value>
 </Data>
 <DataLocation>^Model.DateGoalD</DataLocation>

@@ -3,6 +3,10 @@ Class Model.Goal Extends %Persistent
 
 Property UserId As %String;
 
+Property Name As %String;
+
+Property IsActive As %Boolean;
+
 Relationship Goal As Model.DateGoal [ Cardinality = many, Inverse = Goal ];
 
 Storage Default
@@ -13,6 +17,12 @@ Storage Default
 </Value>
 <Value name="2">
 <Value>UserId</Value>
+</Value>
+<Value name="3">
+<Value>Name</Value>
+</Value>
+<Value name="4">
+<Value>IsActive</Value>
 </Value>
 </Data>
 <DataLocation>^Model.GoalD</DataLocation>

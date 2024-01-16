@@ -11,12 +11,19 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 {
 <Routes>
 <Route Url="/_ping" Method="GET" Call="Ping"/>
+
 <Route Url="/observation" Method="POST" Call="SaveObservation"/>
+<Route Url="/observation/:userId" Method="GET" Call="GetObservation"/>
+
 <Route Url="/care-plan" Method="POST" Call="SaveCarePlan"/>
+<Route Url="/care-plan/:userId" Method="GET" Call="GetCarePlan"/>
+
 <Route Url="/goal" Method="POST" Call="SaveGoal"/>
+<Route Url="/goal/:userId" Method="GET" Call="GetGoal"/>
+<Route Url="/goal/:goalId" Method="PATCH" Call="EditGoal"/>
+
 <Route Url="/daily-goal" Method="POST" Call="SaveDailyGoal"/>
-<Route Url="/observation" Method="GET" Call="GetObservation"/>
-<Route Url="/care-plan/:userId" Method="GET" Call="GetCarePlan" Cors="true"/>
+<Route Url="/daily-goal/:userId" Method="GET" Call="GetDailyGoal"/>
 </Routes>
 }
 
@@ -54,7 +61,7 @@ ClassMethod SaveObservation()
     set iterator = json.observations.%GetIterator()
     while iterator.%GetNext(.key,.value) {
         set Observation = ##class(Model.UserObservation).%New()
-        set Observation.UserId = json.UserId
+        set Observation.UserId = json.userId
         set Observation.Observation = value
         do Observation.%Save()
     }
@@ -69,7 +76,7 @@ ClassMethod SaveCarePlan()
     set iterator = json.careplans.%GetIterator()
     while iterator.%GetNext(.key,.value) {
         set CarePlan = ##class(Model.UserCarePlan).%New()
-        set CarePlan.UserId = json.UserId
+        set CarePlan.UserId = json.userId
         set CarePlan.CarePlan = value
         do CarePlan.%Save()
     }
@@ -84,10 +91,8 @@ ClassMethod GetCarePlan(userId As %String)
     set sql = "select * from Model.UserCarePlan where UserId = ?"
     set tcStatement = ##class(%SQL.Statement).%New()
     set tcStatus = tcStatement.%Prepare(sql)
-    set tcResult = tcStatement.%Execute(1)
-    return ..Response(tcStatus)
+    set tcResult = tcStatement.%Execute(userId)
 	while tcResult.%Next() {
-        
         set UserCarePlan = {}
         set UserCarePlan.userId = tcResult.UserId
         set UserCarePlan.carePlan = tcResult.CarePlan
@@ -97,21 +102,67 @@ ClassMethod GetCarePlan(userId As %String)
     return ..Response(response)
 }
 
+ClassMethod GetObservation(userId As %String)
+{
+    set response = []
+    set sql = "select * from Model.UserObservation where UserId = ?"
+    set tcStatement = ##class(%SQL.Statement).%New()
+    set tcStatus = tcStatement.%Prepare(sql)
+    set tcResult = tcStatement.%Execute(userId)
+	while tcResult.%Next() {
+        set UserObservation = {}
+        set UserObservation.userId = tcResult.UserId
+        set UserObservation.observation = tcResult.Observation
+        do response.%Push(UserObservation)
+    }
+
+    return ..Response(response)
+}
+
 // list of goals for user
+
+ClassMethod GetGoal(userId As %String)
+{
+    set response = []
+    set isActive = %request.Get("isActive")
+    set sql = "select * from Model.Goal where UserId = ?"
+    if (isActive '= "") {
+        set sql = sql_" and IsActive = 1"
+    }
+    set tcStatement = ##class(%SQL.Statement).%New()
+    set tcStatus = tcStatement.%Prepare(sql)
+    set tcResult = tcStatement.%Execute(userId)
+   
+	while tcResult.%Next() {
+        set Goal = {}
+        set Goal.userId = tcResult.UserId
+        set Goal.name = tcResult.Name
+        set Goal.isActive = tcResult.IsActive
+        do response.%Push(Goal)
+    }
+
+    return ..Response(response)
+}
 
 ClassMethod SaveGoal()
 {
     set json = {}.%FromJSON(%request.Content)
-    set iterator = json.goals.%GetIterator()
-    while iterator.%GetNext(.key,.value) {
-        set Goal = ##class(Model.Goal).%New()
-        set Goal.UserId = json.UserId
-        set Goal.Goal = value
-        do Goal.%Save()
-    }
-    set response = {}
+    set Goal = ##class(Model.Goal).%New()
+    set Goal.UserId = json.userId
+    set Goal.Name = json.name
+    set Goal.IsActive = json.isActive
+    do Goal.%Save()
+    return ..Response({})
+}
 
-    return ..Response(response)
+ClassMethod EditGoal(goalId As %String)
+{
+    set json = {}.%FromJSON(%request.Content)
+    set Goal = ##class(Model.Goal).%OpenId(goalId)
+    set Goal.Name = json.name
+    set Goal.IsActive = json.isActive
+    do Goal.%Save()
+    return ..Response({})
 }
 
 // daily progress
@@ -121,13 +172,33 @@ ClassMethod SaveDailyGoal()
     set json = {}.%FromJSON(%request.Content)
     set iterator = json.goals.%GetIterator()
     while iterator.%GetNext(.key,.value) {
-        set Goal = ##class(Model.Goal).%New()
-        set Goal.UserId = json.userId
-        set Goal.Date = json.date
-        set Goal.Goal = value
-        do Goal.%Save()
+        set Goal = ##class(Model.Goal).%OpenId(value)
+        set DateGoal = ##class(Model.DateGoal).%New()
+        set DateGoal.UserId = json.userId
+        set DateGoal.DateTime = json.date
+        set DateGoal.Goal = Goal
+        do DateGoal.%Save()
     }
-    set response = {}
+
+    return ..Response({})
+}
+
+ClassMethod GetDailyGoal(userId As %String)
+{
+    set response = []
+    set dateFrom = %request.Get("dateFrom")
+    set dateTo = %request.Get("dateTo")
+    set sql = "SELECT DAY(DateTime) AS DayOfMonth, COUNT(*) AS CompletedGoals, (SELECT COUNT(DISTINCT ID) FROM Model.Goal WHERE UserId = ? AND IsActive = 1) AS TotalActiveGoals FROM Model.DateGoal WHERE UserId = ? AND DateTime BETWEEN ? AND ? GROUP BY DAY(DateTime) ORDER BY DAY(DateTime)"
+    set tcStatement = ##class(%SQL.Statement).%New()
+    set tcStatus = tcStatement.%Prepare(sql)
+    set tcResult = tcStatement.%Execute(userId, userId, dateFrom, dateTo)
+	while tcResult.%Next() {
+        set DayOfMonth = {}
+        set DayOfMonth.dayOfMonth = tcResult.DayOfMonth
+        set DayOfMonth.completedGoals = tcResult.CompletedGoals
+        set DayOfMonth.totalActiveGoals = tcResult.TotalActiveGoals
+        do response.%Push(DayOfMonth)
+    }
 
     return ..Response(response)
 }
