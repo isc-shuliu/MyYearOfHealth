@@ -5,8 +5,8 @@
         "iris.script": "objectscript"
       },
     "objectscript.conn" :{
-      "ns": "FHIRSERVER",
-      "active": false,
+      "ns": "USER",
+      "active": true,
       "username": "_SYSTEM",
       "password": "SYS",
       "docker-compose": {
@@ -15,14 +15,15 @@
       },
       "links": {
         "FHIR server test": "http://localhost:${port}/fhir/r4/metadata"
-      }
+      },
+      "server": "fhir"
     },
     "sqltools.connections": [
       {
         "askForPassword": false,
         "connectionMethod": "Server and Port",
         "driver": "InterSystems IRIS",
-        "name": "iris-fhir-template",
+        "name": "myyearofhealth",
         "namespace": "FHIRSERVER",
         "password": "SYS",
         "port": 32783,
