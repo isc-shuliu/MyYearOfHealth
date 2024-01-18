@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 
 enum DATA {
-  CURRENT_USER = 'user'
+  USER_ID = 'userID',
+  USER_NAME = 'userName',
+  USER_PREFIX = 'prefix'
 }
 
 @Injectable({
@@ -12,14 +14,22 @@ export class LocalStorageService {
     localStorage.clear();
   }
 
-  public saveUser(user: string): void {
+  public saveUserID(user: string): void {
     console.log(user);
-    localStorage.removeItem(DATA.CURRENT_USER);
-    localStorage.setItem(DATA.CURRENT_USER, JSON.stringify(user));
+    localStorage.clear();
+    localStorage.setItem(DATA.USER_ID, JSON.stringify(user));
+  }
+
+  public saveUserName(user: any): void {
+    console.log(user);
+    localStorage.removeItem(DATA.USER_NAME);
+    localStorage.removeItem(DATA.USER_PREFIX);
+    localStorage.setItem(DATA.USER_NAME, JSON.stringify(user.given[0]));
+    localStorage.setItem(DATA.USER_PREFIX, JSON.stringify(user.prefix[0]));
   }
 
   public getUser(): string {
-    const user = localStorage.getItem(DATA.CURRENT_USER);
+    const user = localStorage.getItem(DATA.USER_ID);
     console.log(user);
 
     if (user) {

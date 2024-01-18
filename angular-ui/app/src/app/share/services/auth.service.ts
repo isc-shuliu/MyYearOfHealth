@@ -53,7 +53,8 @@ export class AuthService {
       this.user.next('');
       this.router.navigate(['/auth']);
     } else {
-      this.storage.saveUser(userResponse.id);
+      this.storage.saveUserID(userResponse.id);
+      this.storage.saveUserName(userResponse.entry[0].resource.name[0]);
       this.user.next(userResponse.id);
       this.goToApp();
     }
