@@ -1,11 +1,11 @@
 <div class="page">
     <div class="top-box">
         <div class="big-logo"></div>
-        <div class="main-title primary-h2-font">Health Harbour</div>
+        <div class="main-title primary-h2-font">Health Harbor</div>
     </div>
     <div class="main-container">
         <app-card class="account-box__card" [titleForm]="titleForm">
-            <app-auth-form (onSignin)="onSignin.emit($event)"></app-auth-form>
+            <app-auth-form (onSignin)="onSignin.emit($event)" [formError]="formError"></app-auth-form>
         </app-card>
     </div>
 </div>

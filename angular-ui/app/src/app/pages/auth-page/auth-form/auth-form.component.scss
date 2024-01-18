@@ -16,4 +16,19 @@
   margin-bottom: 10px;
 }
 
+
+.error input {
+  background-color: #ffe6e6; /* Любой цвет, обозначающий ошибку */
+}
+
+.error div {
+  color: red;
+}
+
+mat-error {
+  font-size: 14px;
+  text-align: center;
+}
+
+
   

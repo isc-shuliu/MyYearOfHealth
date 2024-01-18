@@ -1,4 +1,3 @@
 export interface IUserAuth {
-  username: string;
-  password: string;
+  telecom: string;
 }

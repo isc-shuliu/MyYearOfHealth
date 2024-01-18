@@ -9,7 +9,7 @@ import { SetBtnComponent } from '../../../components/set-btn/set-btn.component';
   styleUrl: './greetings-view.component.scss'
 })
 export class GreetingsViewComponent {
-  public btnTitle = 'Set your goals';
+  public btnTitle = 'Start journey';
 
   @Output() setGoals = new EventEmitter<any>();
 }

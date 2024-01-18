@@ -1,12 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map, of, shareReplay, tap } from 'rxjs';
 import { LocalStorageService } from './localStorage.service';
-import { IUserAuth } from '../interfaces/auth';
-import { IToken } from '../interfaces/token';
-import { IUser } from '../interfaces/user';
 import { Router } from '@angular/router';
 import { environment } from '../../../environment/env';
+import { IUserAuth } from '../interfaces/auth';
 // import { environment } from 'src/environment/env';
 
 @Injectable({ providedIn: 'root' })
@@ -36,23 +34,29 @@ export class AuthService {
     }
   }
 
-  signIn(userform: any) {
+  signIn(userform: IUserAuth) {
     console.log(userform);
-
-    // return this.httpClient
-    //   .post<IToken>(environment.apiUrl + 'auth/sign-in', user)
-    //   .pipe(
-    //     tap(() => this.getCurrentUser().subscribe()),
-    //     shareReplay()
-    //   );
-    const user = { username: 'Sammy Snake', sex: 'f', age: '30' };
-    this.getCurrentUser(user.username);
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('telecom', userform.telecom);
+    return this.httpClient
+      .get<string>(environment.apiUrl + 'Patient', { params: queryParams })
+      .pipe(
+        tap((data) => console.log(data)),
+        map((data) => this.getCurrentUser(data)),
+        shareReplay()
+      );
   }
 
-  getCurrentUser(user: any) {
-    this.storage.saveUser(user);
-    this.user.next(user);
-    this.goToApp();
+  getCurrentUser(userResponse: any) {
+    if (userResponse.total == 0) {
+      this.storage.clean();
+      this.user.next('');
+      this.router.navigate(['/auth']);
+    } else {
+      this.storage.saveUser(userResponse.id);
+      this.user.next(userResponse.id);
+      this.goToApp();
+    }
   }
 
   public logout(): void {

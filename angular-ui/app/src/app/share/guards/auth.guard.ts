@@ -1,38 +1,40 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree,
+  UrlTree
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth.service';
 import { LocalStorageService } from '../services/localStorage.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthGuard {
   constructor(
-    private authService: AuthService,
-    private router: Router,
-    private storage: LocalStorageService
+    private authStore: AuthService,
+    private localStorage: LocalStorageService,
+    private router: Router
   ) {}
-  canActivate():
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const user = this.authService.user.value;
+    const user = this.authStore.user.value;
 
-    const userUser = this.storage.getUser();
-    if (!user && !userUser) {
-      this.router.navigate(['/signin']);
-      return false;
+    if (user) {
+      return true;
+    } else {
+      console.log('no user');
+      this.localStorage.clean();
+      this.router.navigate(['/auth']);
     }
-    // logged in, so return true
-
-    return true;
+    return false;
   }
 }

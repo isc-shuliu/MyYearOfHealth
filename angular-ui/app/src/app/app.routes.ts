@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './share/guards/auth.guard';
 // import { AuthGuard } from './share/guards/auth.guard';
 // import { DataGuard } from './share/guards/data.guard';
 
@@ -24,7 +25,8 @@ export const routes: Routes = [
         (c) => c.GreetingsComponent
       ),
     pathMatch: 'full',
-    title: 'Welcome!'
+    title: 'Welcome!',
+    canActivate: [AuthGuard]
   },
   {
     path: 'user-info',
@@ -33,14 +35,16 @@ export const routes: Routes = [
         (c) => c.UserInfoComponent
       ),
     pathMatch: 'full',
-    title: 'Info'
+    title: 'Info',
+    canActivate: [AuthGuard]
   },
   {
     path: 'choice',
     loadComponent: () =>
       import('./pages/btns/btns/btns.component').then((c) => c.BtnsComponent),
     pathMatch: 'full',
-    title: 'Menu'
+    title: 'Menu',
+    canActivate: [AuthGuard]
   },
   {
     path: 'data-results',
@@ -49,7 +53,8 @@ export const routes: Routes = [
         (c) => c.ResultsComponent
       ),
     pathMatch: 'full',
-    title: 'Results'
+    title: 'Results',
+    canActivate: [AuthGuard]
   },
   {
     path: 'description-plan',
@@ -58,7 +63,8 @@ export const routes: Routes = [
         (c) => c.DescriptionComponent
       ),
     pathMatch: 'full',
-    title: 'Description Plan'
+    title: 'Description Plan',
+    canActivate: [AuthGuard]
   },
   {
     path: 'create-own-plan',
@@ -67,7 +73,8 @@ export const routes: Routes = [
         (c) => c.CreatePlanComponent
       ),
     pathMatch: 'full',
-    title: 'Create Your Plan'
+    title: 'Create Your Plan',
+    canActivate: [AuthGuard]
   },
   {
     path: 'about',
@@ -76,7 +83,8 @@ export const routes: Routes = [
         (c) => c.AboutViewComponent
       ),
     pathMatch: 'full',
-    title: 'About'
+    title: 'About',
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

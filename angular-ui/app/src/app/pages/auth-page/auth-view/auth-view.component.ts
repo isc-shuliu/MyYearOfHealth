@@ -13,6 +13,8 @@ import { CardComponent } from '../../../components/card/card.component';
 export class AuthViewComponent {
   @Input() currentUser: any;
 
+  @Input() formError: boolean = false;
+
   public titleForm = 'Log In';
 
   public instructionAction = '';
