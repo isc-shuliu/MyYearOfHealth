@@ -5,7 +5,6 @@ import { LocalStorageService } from './localStorage.service';
 import { Router } from '@angular/router';
 import { environment } from '../../../environment/env';
 import { IUserAuth } from '../interfaces/auth';
-// import { environment } from 'src/environment/env';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -26,7 +25,7 @@ export class AuthService {
 
     this.isLoggedOut$ = this.isLoggedIn$.pipe(map((loggedIn) => !loggedIn));
 
-    const user = this.storage.getUser();
+    const user = this.storage.getUserID();
     console.log(user);
     if (user) {
       console.log(user);
@@ -39,10 +38,9 @@ export class AuthService {
     let queryParams = new HttpParams();
     queryParams = queryParams.append('telecom', userform.telecom);
     return this.httpClient
-      .get<string>(environment.apiUrl + 'Patient', { params: queryParams })
+      .get<any>(environment.apiUrl + 'Patient', { params: queryParams })
       .pipe(
-        tap((data) => console.log(data)),
-        map((data) => this.getCurrentUser(data)),
+        tap((data) => this.getCurrentUser(data.entry[0].resource)),
         shareReplay()
       );
   }
@@ -53,8 +51,7 @@ export class AuthService {
       this.user.next('');
       this.router.navigate(['/auth']);
     } else {
-      this.storage.saveUserID(userResponse.id);
-      this.storage.saveUserName(userResponse.entry[0].resource.name[0]);
+      this.storage.saveUserData(userResponse);
       this.user.next(userResponse.id);
       this.goToApp();
     }

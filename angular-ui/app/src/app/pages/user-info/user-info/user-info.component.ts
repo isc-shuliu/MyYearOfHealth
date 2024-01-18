@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserInfoViewComponent } from '../user-info-view/user-info-view.component';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from '../../../share/services/auth.service';
+import { Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { LocalStorageService } from '../../../share/services/localStorage.service';
 
 @Component({
   selector: 'app-user-info',
@@ -14,14 +14,14 @@ import { CommonModule } from '@angular/common';
 export class UserInfoComponent implements OnInit {
   constructor(
     private router: Router,
-    public auth: AuthService
+    public storage: LocalStorageService
   ) {}
 
   ngOnInit(): void {
     this.loadUserData();
   }
 
-  public user$: Observable<string>;
+  public user$: Observable<any>;
 
   public setUserSettings(data: any) {
     console.log(data);
@@ -29,6 +29,6 @@ export class UserInfoComponent implements OnInit {
   }
 
   private loadUserData(): void {
-    this.user$ = this.auth.user$;
+    this.user$ = of(this.storage.getUserData());
   }
 }

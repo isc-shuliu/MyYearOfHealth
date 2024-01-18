@@ -2,7 +2,14 @@
     <div class="main-container">
         <div class="patient-box">
             <div class="patient-box__title">Patient info: </div>
-            <div class="patient-box__user">{{user}}</div>
+            <div class="patient-box__user-name">
+                <div>
+                    <span>Name: <b>{{user.prefix}}</b></span>
+                    <span><b>{{user.name}}</b></span>
+                </div>
+                <div>Birth date: <span><b>{{user.birthDate}}</b></span></div>
+                <div>Phone: <span><b>{{user.telecom}}</b></span></div>
+            </div>
         </div>
         <div class="observation-data-box select-box">
             <div class="observation-data-box__title select-box__title">Observation</div>

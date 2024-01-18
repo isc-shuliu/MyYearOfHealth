@@ -1,5 +1,6 @@
 .patient-box {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   width: 300px;
   padding: 25px;
@@ -9,6 +10,10 @@
 
   &__user {
     font-weight: bold;
+  }
+
+  &__title {
+    margin-bottom: 10px;    
   }
 }
 

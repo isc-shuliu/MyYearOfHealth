@@ -20,7 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 export class UserInfoViewComponent {
   public btnTitle = 'Set';
 
-  @Input() user: string | null;
+  @Input() user: any | null;
 
   @Output() setUserSettings = new EventEmitter<any>();
 

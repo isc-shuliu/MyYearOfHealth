@@ -25,7 +25,6 @@ export class AuthComponent {
   public formError: boolean = false;
 
   public onSignin(signinForm: IUserAuth): void {
-    console.log(signinForm);
     this.auth
       .signIn(signinForm)
       .pipe(
