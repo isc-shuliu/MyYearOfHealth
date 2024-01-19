@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { tap, catchError, throwError, Observable, map } from 'rxjs';
-import { IUserAuth } from '../../../share/interfaces/auth';
+import { IUserAuth } from '../../../share/interfaces/auth.interface';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../share/services/auth.service';
 import { AuthViewComponent } from '../auth-view/auth-view.component';

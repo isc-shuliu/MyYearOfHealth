@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SetBtnComponent } from '../../../components/set-btn/set-btn.component';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-info-view',
@@ -12,50 +13,34 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatFormFieldModule,
     MatSelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
   ],
   templateUrl: './user-info-view.component.html',
   styleUrl: './user-info-view.component.scss'
 })
-export class UserInfoViewComponent {
+export class UserInfoViewComponent implements OnInit {
+  ngOnInit(): void {
+    console.log(this.carePlanData);
+  }
+
   public btnTitle = 'Set';
 
   @Input() user: any | null;
 
+  @Input() carePlanData: any;
+
   @Output() setUserSettings = new EventEmitter<any>();
 
   public clickSetUserSettings() {
-    this.setUserSettings.emit({
-      observation: ['blood pressure'],
-      carePlan: ['stop smoking']
-    });
+    const settings = {
+      carePlan: this.careDataControl.value,
+      observationData: this.observationDataControl.value
+    };
+    console.log(this.careDataControl.value);
+    this.setUserSettings.emit(settings);
   }
 
-  observationData = new FormControl('');
-
-  observationDataList: string[] = [
-    'Extra cheese',
-    'Mushroom',
-    'Onion',
-    'Pepperoni',
-    'Sausage',
-    'Tomato',
-    'Extra cheese',
-    'Mushroom',
-    'Onion',
-    'Pepperoni',
-    'Sausage',
-    'Tomato'
-  ];
-
-  careData = new FormControl('');
-
-  careDataList: string[] = [
-    'Extra cheese',
-    'Mushroom',
-    'Onion',
-    'Pepperoni',
-    'Sausage',
-    'Tomato'
-  ];
+  observationDataControl = new FormControl('');
+  careDataControl = new FormControl('');
 }

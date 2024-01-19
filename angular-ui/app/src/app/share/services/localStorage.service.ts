@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IUserPersonalInfo } from '../pipes/userPersonalData.interface';
+import { IUserPersonalInfo } from '../interfaces/userPersonalData.interface';
 
 enum DATA {
   USER_ID = 'userID',

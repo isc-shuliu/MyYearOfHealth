@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, map, of, shareReplay, tap } from 'rxjs';
 import { LocalStorageService } from './localStorage.service';
 import { Router } from '@angular/router';
 import { environment } from '../../../environment/env';
-import { IUserAuth } from '../interfaces/auth';
+import { IUserAuth } from '../interfaces/auth.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

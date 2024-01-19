@@ -1,0 +1,303 @@
+openapi: 3.0.3
+info:
+  title: HealthHarbour API
+  version: 1.0.0
+paths:
+  /api/observation:
+    post:
+      tags:
+        - Observation
+      summary: Save observations
+      description: Add a new pet to the store
+      operationId: addObservations
+      requestBody:
+        description: Create a new pet in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Observations'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+  /api/observation/{userId}:
+    get:
+      tags:
+        - Observation
+      summary: Get users observations
+      operationId: getObservations
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObservationArray'          
+  /api/care-plan:
+    post:
+      tags:
+        - Care plan
+      summary: Save care plan
+      operationId: addCarePlan
+      requestBody:
+        description: Create a new pet in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarePlans'
+      responses:
+        '200':
+          description: successful operation
+  /api/care-plan/{userId}:
+    get:
+      tags:
+        - Care plan
+      summary: Get users care plans
+      operationId: getCarePlans
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CarePlanArray' 
+  /api/goal:
+    post:
+      tags:
+        - Goal
+      summary: Save goal
+      operationId: addGoal
+      requestBody:
+        description: Create a new pet in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Goals'
+      responses:
+        '200':
+          description: successful operation
+  /api/goal/{userId}:
+    patch:
+      tags:
+        - Goal
+      summary: Update goal
+      operationId: updateGoal
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoalsPatch'
+      responses:
+        '200':
+          description: successful operation
+    get:
+      tags:
+        - Goal
+      summary: Get goals
+      operationId: getGoals
+      parameters:
+        - name: userId
+          in: path
+          description: ID of pet to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Goals'     
+  /daily-goal:
+    post:
+      tags:
+        - Daily goal
+      summary: Add goal info
+      operationId: addGoalInfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DailyGoal'
+      responses:
+        '200':
+          description: successful operation
+  /daily-goal/{userId}:
+    get:
+      tags:
+        - Daily goal
+      summary: Get goal info for period
+      operationId: getGoalInfoForPeriod
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: dateFrom
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: dateTo
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DailyGoalPeriod' 
+components:
+  schemas:
+    Observations:
+      required:
+        - userId
+        - observations
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+          example: 10
+        observations:
+          type: array
+          items:
+            type: number
+    ObservationArray:
+      required:
+          - userId
+          - observation
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+          example: 10
+        observations:
+          type: string
+    CarePlans:
+      required:
+        - userId
+        - careplans
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+          example: 10
+        careplans:
+          type: array
+          items:
+            type: number
+    CarePlanArray:
+      required:
+          - userId
+          - carePlan
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+          example: 10
+        carePlan:
+          type: string
+    Goals:
+      required:
+        - userId
+        - name
+        - isActive
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+        isActive:
+          type: boolean 
+    GoalsPatch:
+      required:
+        - isActive
+      type: object
+      properties:
+        isActive:
+          type: boolean      
+    DailyGoal: 
+      required:
+        - userId
+        - goals
+        - date
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+          example: 10
+        goals:
+          type: array
+          items:
+            type: number 
+        date:
+          type: string
+          format: date
+    DailyGoalPeriod:
+      required:
+          - dayOfMonth
+          - completedGoals
+          - totalActiveGoals
+      type: object
+      properties:
+        dayOfMonth:
+          type: integer
+          format: int64
+          example: 10
+        completedGoals:
+          type: integer
+          example: 2
+        totalActiveGoals:
+          type: integer
+          example: 3
+  
