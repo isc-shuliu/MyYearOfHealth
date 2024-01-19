@@ -37,7 +37,7 @@ export class UserInfoViewComponent implements OnInit {
       carePlan: this.careDataControl.value,
       observationData: this.observationDataControl.value
     };
-    console.log(this.careDataControl.value);
+
     this.setUserSettings.emit(settings);
   }
 

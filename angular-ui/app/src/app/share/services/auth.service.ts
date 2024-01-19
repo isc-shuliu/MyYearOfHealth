@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map, of, shareReplay, tap } from 'rxjs';
 import { LocalStorageService } from './localStorage.service';
 import { Router } from '@angular/router';
-import { environment } from '../../../environment/env';
+import { environmentFHIR } from '../../../environment/env';
 import { IUserAuth } from '../interfaces/auth.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -38,7 +38,7 @@ export class AuthService {
     let queryParams = new HttpParams();
     queryParams = queryParams.append('telecom', userform.telecom);
     return this.httpClient
-      .get<any>(environment.apiUrl + 'Patient', { params: queryParams })
+      .get<any>(environmentFHIR.apiUrl + 'Patient', { params: queryParams })
       .pipe(
         tap((data) => this.getCurrentUser(data.entry[0].resource)),
         shareReplay()

@@ -10,7 +10,7 @@ import {
   throwError
 } from 'rxjs';
 import { LocalStorageService } from './localStorage.service';
-import { environment } from '../../../environment/env';
+import { environmentAPI, environmentFHIR } from '../../../environment/env';
 import { ICarePlan, ICarePlanData } from '../interfaces/carePlan.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -21,7 +21,7 @@ export class CarePlanService {
   ) {}
   //http://localhost:32783/fhir/r4/CarePlan?patient=1384&status=active
 
-  getCarePlan(): Observable<ICarePlan[]> {
+  getMainCarePlan(): Observable<ICarePlan[]> {
     const userID = this.storage.getUserID();
     if (userID == '') {
       return of();
@@ -32,7 +32,7 @@ export class CarePlanService {
         status: 'active'
       });
       return this.httpClient
-        .get<ICarePlanData>(environment.apiUrl + 'CarePlan', {
+        .get<ICarePlanData>(environmentFHIR.apiUrl + 'CarePlan', {
           params: queryParams
         })
         .pipe(
@@ -44,5 +44,19 @@ export class CarePlanService {
           shareReplay()
         );
     }
+  }
+
+  sendUserCarePlanData(body: {
+    careplans: string[];
+    userId: number;
+  }): Observable<any> {
+    return this.httpClient
+      .post<any>(environmentAPI.apiUrl + 'care-plan', body)
+      .pipe(
+        map((data) => {
+          return data;
+        }),
+        shareReplay()
+      );
   }
 }

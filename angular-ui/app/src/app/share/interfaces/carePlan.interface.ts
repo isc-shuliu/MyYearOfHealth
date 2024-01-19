@@ -5,6 +5,7 @@ export interface ICarePlanData {
 export interface ICarePlan {
   resource: {
     activity: IActivity[];
+    id: string;
     period: {
       start: string;
     };
@@ -16,12 +17,20 @@ interface IActivity {
 }
 
 export interface IDetailsPlanItem {
-  code: {
-    coding: { code: string; display: string; system: string }[];
-    text: string;
-  };
+  code: ICodeCarePlan;
   location: {
     display: string;
   };
   status: string;
+}
+
+export interface ICustomItem {
+  id: number;
+  list: IDetailsPlanItem[];
+  start: string;
+}
+
+interface ICodeCarePlan {
+  coding: { code: string; display: string; system: string }[];
+  text: string;
 }

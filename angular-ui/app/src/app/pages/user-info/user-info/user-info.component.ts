@@ -7,7 +7,8 @@ import { LocalStorageService } from '../../../share/services/localStorage.servic
 import { CarePlanService } from '../../../share/services/care.service';
 import {
   ICarePlan,
-  ICarePlanData
+  ICarePlanData,
+  ICustomItem
 } from '../../../share/interfaces/carePlan.interface';
 
 @Component({
@@ -32,8 +33,17 @@ export class UserInfoComponent implements OnInit {
 
   public user$: Observable<any>;
 
-  public setUserSettings(data: any) {
+  public setUserSettings(data: {
+    carePlan: string[];
+    observationData: string[];
+  }) {
     console.log(data);
+    const body = {
+      userId: Number(this.storage.getUserID()),
+      careplans: data.carePlan
+    };
+    this.careService.sendUserCarePlanData(body).subscribe();
+
     this.router.navigate(['/choice']);
   }
 
@@ -42,7 +52,7 @@ export class UserInfoComponent implements OnInit {
   }
 
   private carePlan() {
-    this.carePlanData$ = this.careService.getCarePlan().pipe(
+    this.carePlanData$ = this.careService.getMainCarePlan().pipe(
       map((data) => {
         return this.changeElementsPlan(data);
       })
@@ -51,7 +61,17 @@ export class UserInfoComponent implements OnInit {
   }
 
   private changeElementsPlan(data: ICarePlan[]) {
+    // const customItems: ICustomItem[] = data.map((carePlan) => {
+    //   const customItem: ICustomItem = {
+    //     id: +carePlan.resource.id, // Преобразование id в число (если оно строковое)
+    //     list: carePlan.resource.activity.flatMap((activity) => activity.detail),
+    //     start: carePlan.resource.period.start
+    //   };
+
+    //   return customItem;
+    // });
     const arr = data.flatMap((el) => el.resource.activity);
+    // return customItems;
     return arr;
   }
 }
