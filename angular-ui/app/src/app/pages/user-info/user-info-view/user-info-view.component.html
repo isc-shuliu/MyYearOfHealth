@@ -42,7 +42,7 @@
                     <mat-label>Choose a plan</mat-label>
                     <mat-select placeholder="Care plan" [formControl]="careDataControl" multiple>
                         <mat-option *ngFor="let itemPlan of carePlanData"
-                            [value]="itemPlan.detail.code.coding[0].code">{{itemPlan.detail.code.text}}</mat-option>
+                            [value]="itemPlan.id">{{itemPlan.item}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>

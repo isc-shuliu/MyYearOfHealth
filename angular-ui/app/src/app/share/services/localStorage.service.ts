@@ -78,7 +78,7 @@ export class LocalStorageService {
     } else return { prefix: '', name: '', birthDate: '', telecom: '' };
   }
 
-  public getUserCarePlans() {
+  public getUserCarePlans(): string[] {
     const carePlanList = localStorage.getItem(DATA.USER_CarePlanItems);
 
     if (carePlanList) {

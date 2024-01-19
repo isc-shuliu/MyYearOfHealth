@@ -5,6 +5,10 @@ export interface ICarePlanData {
 export interface ICarePlan {
   resource: {
     activity: IActivity[];
+    category: {
+      coding: { code: string; display: string; system: string }[];
+      text: string;
+    }[];
     id: string;
     period: {
       start: string;
@@ -26,8 +30,7 @@ export interface IDetailsPlanItem {
 
 export interface ICustomItem {
   id: number;
-  list: IDetailsPlanItem[];
-  start: string;
+  item: string;
 }
 
 interface ICodeCarePlan {

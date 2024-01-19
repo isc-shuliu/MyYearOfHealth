@@ -42,6 +42,7 @@ export class UserInfoComponent implements OnInit {
       careplans: data.carePlan
     };
     this.careService.sendUserCarePlanData(body).subscribe();
+
     this.storage.saveUserCarePlanItems(data.carePlan);
     this.router.navigate(['/choice']);
   }
@@ -60,17 +61,14 @@ export class UserInfoComponent implements OnInit {
   }
 
   private changeElementsPlan(data: ICarePlan[]) {
-    // const customItems: ICustomItem[] = data.map((carePlan) => {
-    //   const customItem: ICustomItem = {
-    //     id: +carePlan.resource.id, // Преобразование id в число (если оно строковое)
-    //     list: carePlan.resource.activity.flatMap((activity) => activity.detail),
-    //     start: carePlan.resource.period.start
-    //   };
+    const customItems: ICustomItem[] = data.map((carePlan) => {
+      const customItem: ICustomItem = {
+        id: +carePlan.resource.id,
+        item: carePlan.resource.category[0].text
+      };
 
-    //   return customItem;
-    // });
-    const arr = data.flatMap((el) => el.resource.activity);
-    // return customItems;
-    return arr;
+      return customItem;
+    });
+    return customItems;
   }
 }
