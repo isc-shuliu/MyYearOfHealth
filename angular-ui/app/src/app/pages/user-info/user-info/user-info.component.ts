@@ -37,13 +37,12 @@ export class UserInfoComponent implements OnInit {
     carePlan: string[];
     observationData: string[];
   }) {
-    console.log(data);
     const body = {
       userId: Number(this.storage.getUserID()),
       careplans: data.carePlan
     };
     this.careService.sendUserCarePlanData(body).subscribe();
-
+    this.storage.saveUserCarePlanItems(data.carePlan);
     this.router.navigate(['/choice']);
   }
 

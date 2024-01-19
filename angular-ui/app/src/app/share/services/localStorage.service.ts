@@ -6,7 +6,9 @@ enum DATA {
   USER_NAME = 'userName',
   USER_PREFIX = 'prefix',
   USER_birthDate = 'birthDate',
-  USER_TEL = 'telecom'
+  USER_TEL = 'telecom',
+  USER_CarePlanItems = 'carePlan',
+  USER_OBS_DATA = 'observatiionData'
 }
 
 @Injectable({
@@ -42,6 +44,11 @@ export class LocalStorageService {
     localStorage.setItem(DATA.USER_TEL, JSON.stringify(telecom));
   }
 
+  public saveUserCarePlanItems(careplan: string[]) {
+    localStorage.removeItem(DATA.USER_CarePlanItems);
+    localStorage.setItem(DATA.USER_CarePlanItems, JSON.stringify(careplan));
+  }
+
   public getUserID(): string {
     const user = localStorage.getItem(DATA.USER_ID);
 
@@ -69,5 +76,15 @@ export class LocalStorageService {
         telecom: telecom
       };
     } else return { prefix: '', name: '', birthDate: '', telecom: '' };
+  }
+
+  public getUserCarePlans() {
+    const carePlanList = localStorage.getItem(DATA.USER_CarePlanItems);
+
+    if (carePlanList) {
+      return JSON.parse(carePlanList);
+    }
+
+    return [];
   }
 }
