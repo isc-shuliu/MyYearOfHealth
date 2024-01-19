@@ -7,7 +7,6 @@ import { LocalStorageService } from '../../../share/services/localStorage.servic
 import { CarePlanService } from '../../../share/services/care.service';
 import {
   ICarePlan,
-  ICarePlanData,
   ICustomItem
 } from '../../../share/interfaces/carePlan.interface';
 
@@ -25,6 +24,7 @@ export class UserInfoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getUserId();
     this.loadUserData();
     this.carePlan();
   }
@@ -32,6 +32,8 @@ export class UserInfoComponent implements OnInit {
   public carePlanData$: Observable<any>;
 
   public user$: Observable<any>;
+
+  public userId: string;
 
   public setUserSettings(data: {
     carePlan: string[];
@@ -47,12 +49,16 @@ export class UserInfoComponent implements OnInit {
     this.router.navigate(['/choice']);
   }
 
+  private getUserId() {
+    this.userId = this.storage.getUserID();
+  }
+
   private loadUserData(): void {
     this.user$ = of(this.storage.getUserData());
   }
 
   private carePlan() {
-    this.carePlanData$ = this.careService.getMainCarePlan().pipe(
+    this.carePlanData$ = this.careService.getMainCarePlan(this.userId).pipe(
       map((data) => {
         return this.changeElementsPlan(data);
       })

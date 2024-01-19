@@ -26,15 +26,12 @@ export class AuthService {
     this.isLoggedOut$ = this.isLoggedIn$.pipe(map((loggedIn) => !loggedIn));
 
     const user = this.storage.getUserID();
-    console.log(user);
     if (user) {
-      console.log(user);
       this.user.next(user);
     }
   }
 
   signIn(userform: IUserAuth) {
-    console.log(userform);
     let queryParams = new HttpParams();
     queryParams = queryParams.append('telecom', userform.telecom);
     return this.httpClient

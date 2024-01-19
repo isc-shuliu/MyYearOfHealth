@@ -17,7 +17,10 @@ export class DescriptionComponent implements OnInit {
     private carePlanService: CarePlanService
   ) {}
 
+  public userId: string;
+
   ngOnInit(): void {
+    this.getUserId();
     this.loadCarePlan();
   }
 
@@ -27,9 +30,15 @@ export class DescriptionComponent implements OnInit {
 
   private loadCarePlan() {
     const carePlanItems = this.storage.getUserCarePlans();
-    this.carePlanService.getDataAboutCarePlanItem().subscribe();
+    this.carePlanService.getDataAboutCarePlanItem(this.userId).subscribe();
     carePlanItems.forEach((item) =>
-      this.carePlanService.getFHIRDataAboutCarePlanItem(item).subscribe()
+      this.carePlanService
+        .getFHIRDataAboutCarePlanItem(item, this.userId)
+        .subscribe()
     );
+  }
+
+  private getUserId() {
+    this.userId = this.storage.getUserID();
   }
 }

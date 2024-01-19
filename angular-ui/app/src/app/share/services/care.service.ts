@@ -13,12 +13,10 @@ export class CarePlanService {
   ) {}
   //http://localhost:32783/fhir/r4/CarePlan?patient=1384&status=active
 
-  private userId = this.storage.getUserID();
-
-  getMainCarePlan(): Observable<ICarePlan[]> {
+  getMainCarePlan(userId: string): Observable<ICarePlan[]> {
     let queryParams = new HttpParams();
     queryParams = queryParams.appendAll({
-      patient: this.userId,
+      patient: userId,
       status: 'active'
     });
     return this.httpClient
@@ -49,9 +47,9 @@ export class CarePlanService {
       );
   }
 
-  getDataAboutCarePlanItem() {
+  getDataAboutCarePlanItem(userId: string) {
     return this.httpClient
-      .get<any>(environmentAPI.apiUrl + 'care-plan/' + this.userId)
+      .get<any>(environmentAPI.apiUrl + 'care-plan/' + userId)
       .pipe(
         map((data) => data),
         catchError((err) => {
@@ -62,10 +60,10 @@ export class CarePlanService {
       );
   }
 
-  getFHIRDataAboutCarePlanItem(item: string) {
+  getFHIRDataAboutCarePlanItem(item: string, userId: string) {
     let queryParams = new HttpParams();
     queryParams = queryParams.appendAll({
-      patient: this.userId,
+      patient: userId,
       code: item
     });
     return this.httpClient

@@ -28,6 +28,7 @@ export class LocalStorageService {
   }
 
   private saveUserID(user: any): void {
+    localStorage.removeItem(DATA.USER_ID);
     localStorage.setItem(DATA.USER_ID, JSON.stringify(user));
   }
 
