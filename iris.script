@@ -4,6 +4,10 @@
     halt
 
     zn "HSLIB"
+
+    Do ##class(HS.HC.FHIRSQL.Utils.Setup).CreateWebApps("HSSYS",1)
+    Do ##class(HS.HC.FHIRSQL.Utils.Setup).DefineDocDBs("HSSYS")
+
     set namespace="FHIRSERVER"
 
     Set appKey = "/fhir/r4"
