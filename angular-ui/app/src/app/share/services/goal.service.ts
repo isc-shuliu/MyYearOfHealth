@@ -2,7 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, shareReplay, throwError } from 'rxjs';
 import { LocalStorageService } from './localStorage.service';
-import { IDailyGoal, IGoalsPeriod } from '../interfaces/goals.interfaces';
+import {
+  ICustomGoal,
+  IDailyGoal,
+  IGoalsPeriod
+} from '../interfaces/goals.interfaces';
 import { environmentAPI } from '../../../environment/env';
 
 @Injectable({ providedIn: 'root' })
@@ -12,7 +16,7 @@ export class GoalsService {
     private httpClient: HttpClient
   ) {}
 
-  createPlanGoals(body: any) {
+  addCustomGoal(body: ICustomGoal) {
     return this.httpClient.post<any>(environmentAPI.apiUrl + 'goal', body).pipe(
       map((data) => {
         return data;

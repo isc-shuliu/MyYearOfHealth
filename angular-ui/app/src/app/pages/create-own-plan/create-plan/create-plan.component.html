@@ -1,1 +1,2 @@
-<app-create-plan-view (setOwnPlanPoints)="setPersonalPlan($event)" />
+<app-create-plan-view (addUserCustomHabit)="setCustomHabit($event)" (setOwnPlanPoints)="setPersonalPlan($event)"
+    [listPersonalHabits]="listPersonalHabits$ | async" />

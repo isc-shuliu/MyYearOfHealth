@@ -9,3 +9,9 @@ export interface IGoalsPeriod {
   dateFrom: string;
   dateTo: string;
 }
+
+export interface ICustomGoal {
+  userId: number;
+  name: string;
+  isActive: boolean;
+}

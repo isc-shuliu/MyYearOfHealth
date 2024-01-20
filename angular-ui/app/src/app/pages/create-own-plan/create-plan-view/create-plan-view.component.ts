@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SetBtnComponent } from '../../../components/set-btn/set-btn.component';
 import { CreatePlanFormComponent } from '../create-plan-form/create-plan-form.component';
 
@@ -10,5 +10,9 @@ import { CreatePlanFormComponent } from '../create-plan-form/create-plan-form.co
   styleUrl: './create-plan-view.component.scss'
 })
 export class CreatePlanViewComponent {
+  @Input() listPersonalHabits: any[] | null;
+
   @Output() setOwnPlanPoints = new EventEmitter<any>();
+
+  @Output() addUserCustomHabit = new EventEmitter<any>();
 }

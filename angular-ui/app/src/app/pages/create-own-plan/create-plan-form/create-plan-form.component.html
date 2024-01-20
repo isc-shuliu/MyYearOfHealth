@@ -1,20 +1,27 @@
 <form class="form-container" [formGroup]="userPlanPoints" (ngSubmit)="submitUserPlan()">
-  <mat-checkbox class="checkbox" color="primary" formControlName="steps">5000 steps</mat-checkbox>
-  <mat-checkbox color="primary" formControlName="meditation">Meditation</mat-checkbox>
-  <mat-checkbox color="primary" formControlName="workOut">10-minute work-out</mat-checkbox>
-  <mat-form-field>
-    <input matInput formControlName="customSettings" />
-    <mat-hint>{{ userPlanPoints.value.customSettings?.length }}/240 symbols
-    </mat-hint>
-    <mat-error *ngIf="
-          userPlanPoints.controls[
-            'customSettings'
-          ].hasError('maxlength')
-        ">
-      If possible, please enter more short
-      habit</mat-error>
-  </mat-form-field>
+  <mat-checkbox *ngFor="let item of listPersonalHabits; let i = index" class="checkbox" color="primary"
+    [formControlName]="item">
+    {{ item }}
+  </mat-checkbox>
+
+  <div *ngFor="let text of customListHabbits; let i = index">
+    <mat-checkbox class="checkbox" color="primary" [checked]="true">
+      {{ text }}
+    </mat-checkbox>
+  </div>
+
+  <div class="text-box">
+    <mat-form-field>
+      <input matInput [(ngModel)]="currentCustomSettings" [ngModelOptions]="{standalone: true}" name="customSettings" />
+      <mat-hint>{{ currentCustomSettings?.length }}/240 symbols</mat-hint>
+      <mat-error *ngIf="currentCustomSettings.length > 240">
+        If possible, please enter more short habit
+      </mat-error>
+    </mat-form-field>
+    <button mat-icon-button color="primary" (click)="addCheckbox()" type="button">
+      <mat-icon>add_circle</mat-icon>
+    </button>
+  </div>
   <button class="form-container-btn set-btn" mat-stroked-button color="primary" type="submit"
-    [disabled]="disabledCondition">Set
-  </button>
+    [disabled]="!isCheckedFields()">Set</button>
 </form>
