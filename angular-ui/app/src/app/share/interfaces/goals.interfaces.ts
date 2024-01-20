@@ -1,5 +1,11 @@
-export interface IGoal {
+export interface IDailyGoal {
   userId: string;
-  name: string;
-  isActive: boolean;
+  goals: string[];
+  date: string;
+}
+
+export interface IGoalsPeriod {
+  userId: string;
+  dateFrom: string;
+  dateTo: string;
 }

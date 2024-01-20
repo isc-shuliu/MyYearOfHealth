@@ -38,4 +38,12 @@ export class HeaderMenuViewComponent implements OnInit {
   public userLogout() {
     this.logout.emit();
   }
+
+  public trackerHabbits() {
+    this.router.navigate(['/tracker-calendar']);
+  }
+
+  public changeYourHabbits() {
+    this.router.navigate(['/create-own-plan']);
+  }
 }

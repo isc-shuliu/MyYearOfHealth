@@ -20,14 +20,21 @@
     }
 
     &-details__title {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         font-size: 20px;
         font-weight: bold;
         color: var(--primary-blue-color);
-        line-height: 20px;
+        line-height: 25px;
+        text-align: center;
+    }
+
+    &-details {
+        max-width: 400px;
     }
 }
 
 .form-container {
+    display: flex;
+    justify-content: center;
     width: 100%;
 }

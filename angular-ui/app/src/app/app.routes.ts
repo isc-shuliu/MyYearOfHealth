@@ -53,7 +53,7 @@ export const routes: Routes = [
         (c) => c.ResultsComponent
       ),
     pathMatch: 'full',
-    title: 'Results',
+    title: 'Observation Data',
     canActivate: [AuthGuard]
   },
   {
@@ -63,7 +63,7 @@ export const routes: Routes = [
         (c) => c.DescriptionComponent
       ),
     pathMatch: 'full',
-    title: 'Description Plan',
+    title: 'Description Care Plan',
     canActivate: [AuthGuard]
   },
   {
@@ -74,6 +74,16 @@ export const routes: Routes = [
       ),
     pathMatch: 'full',
     title: 'Create Your Plan',
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'tracker-calendar',
+    loadComponent: () =>
+      import('./pages/calendar/calendar/calendar.component').then(
+        (c) => c.CalendarComponent
+      ),
+    pathMatch: 'full',
+    title: 'Track Your Habbits',
     canActivate: [AuthGuard]
   },
   {

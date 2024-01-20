@@ -19,10 +19,20 @@
             <mat-icon>menu</mat-icon>
             <span>Menu</span>
         </a>
+        <a mat-button color="primary" (click)="changeYourHabbits()">
+            <mat-icon>add_chart</mat-icon>
+            <span>Fix your habbits</span>
+        </a>
+        <a mat-button color="primary" (click)="trackerHabbits()">
+            <mat-icon>insert_chart</mat-icon>
+            <span>Track your habbits</span>
+        </a>
+
         <a mat-button color="primary" (click)="userLogout()">
             <mat-icon>logout</mat-icon>
             <span>logout</span>
         </a>
+
         }
         @if (isUserLogout) {
         <a mat-button color="primary" (click)="logIn()">
