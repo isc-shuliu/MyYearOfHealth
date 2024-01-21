@@ -3,15 +3,34 @@ info:
   title: HealthHarbour API
   version: 1.0.0
 paths:
+  /api/user/{userId}:
+    get:
+      tags:
+        - User
+      summary: Get data from FHIR
+      operationId: getFihrData
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserFhirData' 
   /api/observation:
     post:
       tags:
         - Observation
       summary: Save observations
-      description: Add a new pet to the store
       operationId: addObservations
       requestBody:
-        description: Create a new pet in the store
         content:
           application/json:
             schema:
@@ -50,7 +69,6 @@ paths:
       summary: Save care plan
       operationId: addCarePlan
       requestBody:
-        description: Create a new pet in the store
         content:
           application/json:
             schema:
@@ -88,7 +106,6 @@ paths:
       summary: Save goal
       operationId: addGoal
       requestBody:
-        description: Create a new pet in the store
         content:
           application/json:
             schema:
@@ -96,28 +113,22 @@ paths:
       responses:
         '200':
           description: successful operation
-  /api/goal/{userId}:
     patch:
       tags:
         - Goal
       summary: Update goal
       operationId: updateGoal
-      parameters:
-        - name: userId
-          in: path
-          description: ID of user
-          required: true
-          schema:
-            type: integer
-            format: int64
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GoalsPatch'
+              type: array
+              items:
+                $ref: '#/components/schemas/GoalsPatch'
       responses:
         '200':
           description: successful operation
+  /api/goal/{userId}:
     get:
       tags:
         - Goal
@@ -126,11 +137,15 @@ paths:
       parameters:
         - name: userId
           in: path
-          description: ID of pet to return
           required: true
           schema:
             type: integer
             format: int64
+        - name: isActive
+          in: query
+          required: false
+          schema:
+            type: boolean   
       responses:
         '200':
           description: successful operation
@@ -260,11 +275,16 @@ components:
           type: boolean 
     GoalsPatch:
       required:
+        - goalId
         - isActive
       type: object
       properties:
         isActive:
-          type: boolean      
+          type: boolean  
+        name:
+          type: string  
+        goalId:
+          type: number
     DailyGoal: 
       required:
         - userId
@@ -300,4 +320,48 @@ components:
         totalActiveGoals:
           type: integer
           example: 3
+    UserFhirData:
+      required:
+          - observations
+          - carePlans
+          - user
+      type: object
+      properties:
+        observations:
+            $ref: '#/components/schemas/ObservationsFhir'
+        carePlans:
+            $ref: '#/components/schemas/CarePlansFhir'
+        user:
+            $ref: '#/components/schemas/UserFhir'
+    ObservationsFhir: 
+      items: 
+        type: object
+        properties: 
+          code: 
+            type: string
+          observation: 
+            type: string
+    CarePlansFhir: 
+      items: 
+        type: object
+        properties: 
+          code: 
+            type: string
+          careplan: 
+            type: string
+    UserFhir: 
+      properties: 
+        gender: 
+          type: string
+        hame: 
+          type: string
+        status: 
+          type: string
+        surname: 
+          type: string
+        telecom: 
+          type: string
+        birthDate: 
+          type: string
+          format: date
   

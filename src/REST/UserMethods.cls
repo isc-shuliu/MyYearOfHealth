@@ -12,6 +12,8 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 <Routes>
 <Route Url="/_ping" Method="GET" Call="Ping"/>
 
+<Route Url="/user/:userId" Method="GET" Call="GetUserInfo"/>
+
 <Route Url="/observation" Method="POST" Call="SaveObservation"/>
 <Route Url="/observation/:userId" Method="GET" Call="GetObservation"/>
 
@@ -20,7 +22,7 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 
 <Route Url="/goal" Method="POST" Call="SaveGoal"/>
 <Route Url="/goal/:userId" Method="GET" Call="GetGoal"/>
-<Route Url="/goal/:goalId" Method="PATCH" Call="EditGoal"/>
+<Route Url="/goal" Method="PATCH" Call="EditGoal"/>
 
 <Route Url="/daily-goal" Method="POST" Call="SaveDailyGoal"/>
 <Route Url="/daily-goal/:userId" Method="GET" Call="GetDailyGoal"/>
@@ -85,6 +87,46 @@ ClassMethod SaveCarePlan()
     return ..Response(response)
 }
 
+ClassMethod GetUserInfo(userId As %String) As %Status
+{
+    SET ns="FHIRSERVER"
+    ZNSPACE ns
+    set response = {}
+    set response.observations = []
+    set sql = "select * from HarbourFHIR.Observation where SubjectReference = ? group by CodeCodingCode"
+    set tcStatement = ##class(%SQL.Statement).%New()
+    set tcStatus = tcStatement.%Prepare(sql)
+    set tcResult = tcStatement.%Execute("Patient/"_userId)
+	while tcResult.%Next() {
+        set UserObservation = {}
+        set UserObservation.code = tcResult.CodeCodingCode
+        set UserObservation.observation = tcResult.CodeText
+        do response.observations.%Push(UserObservation)
+    }
+    set response.carePlans = []
+    set sql = "select * from HarbourFHIR.CarePlan where SubjectReference = ? group by CategoryCodingDisplay"
+    set tcStatement = ##class(%SQL.Statement).%New()
+    set tcStatus = tcStatement.%Prepare(sql)
+    set tcResult = tcStatement.%Execute("Patient/"_userId)
+	while tcResult.%Next() {
+        set UserObservation = {}
+        set UserObservation.code = tcResult.CategoryCodingCode
+        set UserObservation.careplan = tcResult.CategoryCodingDisplay
+        do response.carePlans.%Push(UserObservation)
+    }
+    &sql(select Gender, Name, Status, Surname, Telecom, BirthDate into :gender, :name, :status, :surname, :telecom, :birthDate from HarbourFHIR.Patient where ID = :userId)
+    set User = {}
+    set User.gender = gender
+    set User.hame = name
+    set User.status = status
+    set User.surname = surname
+    set User.telecom = telecom
+    set User.birthDate = birthDate
+    set response.user = User
+    
+    return ..Response(response)
+}
+
 ClassMethod GetCarePlan(userId As %String)
 {
     set response = []
@@ -92,7 +134,7 @@ ClassMethod GetCarePlan(userId As %String)
     set tcStatement = ##class(%SQL.Statement).%New()
     set tcStatus = tcStatement.%Prepare(sql)
     set tcResult = tcStatement.%Execute(userId)
-	while tcResult.%Next() {
+    while tcResult.%Next() {
         set UserCarePlan = {}
         set UserCarePlan.userId = tcResult.UserId
         set UserCarePlan.carePlan = tcResult.CarePlan
@@ -104,18 +146,19 @@ ClassMethod GetCarePlan(userId As %String)
 
 ClassMethod GetObservation(userId As %String)
 {
+    SET ns="FHIRSERVER"
+    ZNSPACE ns
     set response = []
-    set sql = "select * from Model.UserObservation where UserId = ?"
+    set sql = "select * from HarbourFHIR.Observation where SubjectReference = ? group by CodeCodingCode"
     set tcStatement = ##class(%SQL.Statement).%New()
     set tcStatus = tcStatement.%Prepare(sql)
-    set tcResult = tcStatement.%Execute(userId)
+    set tcResult = tcStatement.%Execute("Patient/"_userId)
 	while tcResult.%Next() {
         set UserObservation = {}
-        set UserObservation.userId = tcResult.UserId
-        set UserObservation.observation = tcResult.Observation
+        set UserObservation.code = tcResult.CodeCodingCode
+        set UserObservation.observation = tcResult.CodeText
         do response.%Push(UserObservation)
     }
-
     return ..Response(response)
 }
 
@@ -155,14 +198,17 @@ ClassMethod SaveGoal()
     return ..Response({})
 }
 
-ClassMethod EditGoal(goalId As %String)
+ClassMethod EditGoal()
 {
     set json = {}.%FromJSON(%request.Content)
-    set Goal = ##class(Model.Goal).%OpenId(goalId)
-    set Goal.Name = json.name
-    set Goal.IsActive = json.isActive
-    do Goal.%Save()
-    return ..Response({})
+    set iterator = json.%GetIterator()
+    while iterator.%GetNext(.key,.value) {
+        set Goal = ##class(Model.Goal).%OpenId(value.goalId)
+        set Goal.Name = value.name
+        set Goal.IsActive = value.isActive
+        do Goal.%Save()
+    }
+    return ..Response()
 }
 
 // daily progress
