@@ -35,6 +35,18 @@ export class HeaderMenuViewComponent implements OnInit {
     this.router.navigate(['/autn']);
   }
 
+  public userInfo() {
+    this.router.navigate(['/user-info']);
+  }
+
+  public measurement() {
+    this.router.navigate(['/data-results']);
+  }
+
+  public planCare() {
+    this.router.navigate(['/description-plan']);
+  }
+
   public userLogout() {
     this.logout.emit();
   }

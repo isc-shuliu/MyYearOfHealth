@@ -15,6 +15,18 @@
         </a>
 
         @if (isUserLogin) {
+        <a mat-button color="primary" (click)="userInfo()">
+            <mat-icon>settings_accessibility</mat-icon>
+            <span>Patient</span>
+        </a>
+        <a mat-button color="primary" (click)="measurement()">
+            <mat-icon>bubble_chart</mat-icon>
+            <span>Measurement</span>
+        </a>
+        <a mat-button color="primary" (click)="planCare()">
+            <mat-icon>self_improvement</mat-icon>
+            <span>Plan care</span>
+        </a>
         <a mat-button color="primary" (click)="menuPage()">
             <mat-icon>menu</mat-icon>
             <span>Menu</span>

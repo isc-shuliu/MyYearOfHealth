@@ -4,16 +4,14 @@
       <div class="content">
         <h3>About:</h3>
         <h5>
-          Example of using InterSystems IRIS Cloud SQL and IntegratedML to build
-          a sleep analysis applicaion
+          Example of using InterSystems IRIS for Health, Health Connect, FHIR server to build
+          an applicaion to help improve your health
         </h5>
 
         <p>
-          This project demonstrates an application for sleep quality monitoring
-          and analysis. Client side: TypeScript with Angular framework. Server
-          side: Python with FastAPI and DB-API to connect to the database.
-          Database: The database is hosted in InterSystems IRIS Cloud SQL, and
-          we used one of its features, IntegratedML, to predict sleep quality.
+          Welcome to Health Harbour, an all-in-one health companion! Our dedicated team has crafted an application that
+          seamlessly combines the functionalities of a medical assistant with the power of habit tracking, designed to
+          empower users on their journey to better health.
         </p>
         <h5>InterSystems IRIS Cloud SQL</h5>
         <p>
@@ -68,23 +66,9 @@
         </h5>
       </div>
       <div class="registre-box">
-        <div class="registre-box-title">
-          <div class="registre-box-title white-font title-mini bolder-weight">
-            Boost your sleep.
-          </div>
-          <div class="registre-box-title dark-gray-font title-mini bolder-weight">
-            Start using 'Sheep's galaxy' today.
-          </div>
-        </div>
-        <div class="registre-box-btns">
-          <button mat-raised-button color="primary" (click)="clickGoToRegistrePage()">
-            Sign up for free
-          </button>
-          <button mat-raised-button color="primary" (click)="clickGoToLoginPage()">
-            Login
-          </button>
-        </div>
+        <button mat-raised-button color="primary" (click)="goToLoginPage.emit($event)">
+          Boost your health.
+        </button>
       </div>
     </div>
   </div>
-</div>

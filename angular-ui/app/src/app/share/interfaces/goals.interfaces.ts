@@ -15,3 +15,9 @@ export interface ICustomGoal {
   name: string;
   isActive: boolean;
 }
+
+export interface IGoalsForPeriod {
+  dayOfMonth: number;
+  completedGoals: number;
+  totalActiveGoals: number;
+}

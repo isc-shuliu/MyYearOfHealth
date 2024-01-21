@@ -18,13 +18,4 @@ export class AboutViewComponent implements OnInit {
   // @Input() isUserLogin: boolean | null;
 
   @Output() goToLoginPage = new EventEmitter<any>();
-
-  @Output() goToRegistrePage = new EventEmitter<any>();
-  public clickGoToLoginPage(): void {
-    this.goToLoginPage.emit();
-  }
-
-  public clickGoToRegistrePage(): void {
-    this.goToRegistrePage.emit();
-  }
 }

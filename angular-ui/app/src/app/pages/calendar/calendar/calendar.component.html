@@ -1,1 +1,3 @@
-<app-calendar-view [goalsList]="goalsList$ | async" />
+<app-calendar-view [goalsListForPeriod]="goalsListForPeriod$ | async" [listPersonalHabits]="listPersonalHabits$ | async"
+    (checkDayActivities)="checkDayActivities($event)" (changePeriodToObserve)="changePeriodToObserve($event)"
+    [today]="today" />

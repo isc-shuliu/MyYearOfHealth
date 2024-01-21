@@ -65,7 +65,7 @@ $yellow-palette: (
   ),
 );
 $gainsboro-palette: (
-  50: #f9f9fa,
+  50: #00B5AF,
   100: #f3f3f4,
   200: #ebebec,
   300: #dcdcdd,
@@ -121,7 +121,7 @@ $crimson-palette: (
   ),
 );
 $bluesky-primary: mat.define-palette($bright-navy-blue-palette, 700);
-$bluesky-accent: mat.define-palette($yellow-palette, 300);
+$bluesky-accent: mat.define-palette($gainsboro-palette, 50);
 $bluesky-warn: mat.define-palette($crimson-palette, 700);
 $bluesky-theme: mat.define-light-theme(
   (

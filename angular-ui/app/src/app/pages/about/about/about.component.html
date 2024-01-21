@@ -1,6 +1,1 @@
-<app-about-view></app-about-view>
-<!-- <app-about-view
-  [isUserLogin]="isUserLogin$ | async"
-  (goToRegistrePage)="goToRegistrePage()"
-  (goToLoginPage)="goToLoginPage()"
-></app-about-view> -->
+<app-about-view (goToLoginPage)="goToLoginPage($event)"></app-about-view>

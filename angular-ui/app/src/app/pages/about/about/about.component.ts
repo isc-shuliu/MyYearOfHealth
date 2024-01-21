@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AboutViewComponent } from '../about-view/about-view.component';
+import { Router } from '@angular/router';
 // import { AuthService } from 'src/app/share/services/auth.service';
 // import { Router } from '@angular/router';
 // import { Observable, map, of } from 'rxjs';
@@ -14,29 +15,33 @@ import { AboutViewComponent } from '../about-view/about-view.component';
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
+  public userId: string;
+
   // public isUserLogin$: Observable<boolean> = of(false);
 
   // public isUserLogout$: Observable<boolean>;
-  // constructor(public auth: AuthService, private router: Router) {}
+  constructor(private router: Router) {}
+
   ngOnInit(): void {
     this.ckeckIsLogin();
   }
 
   private ckeckIsLogin() {
-    // this.auth.isLoggedIn$
-    //   .pipe(
-    //     map((res) => {
-    //       this.isUserLogin$ = of(res);
-    //     })
-    //   )
-    //   .subscribe();
+    this.auth.isLoggedIn$
+      .pipe(
+        map((res) => {
+          this.isUserLogin$ = of(res);
+        })
+      )
+      .subscribe();
   }
 
-  public goToLoginPage(): void {
-    // this.router.navigate(['/signin']);
+  public goToLoginPage(event: Event): void {
+    console.log(event);
+    this.router.navigate(['/auth']);
   }
 
-  public goToRegistrePage(): void {
-    // this.router.navigate(['/signup']);
+  private getUserId() {
+    this.userId = this.storage.getUserID();
   }
 }

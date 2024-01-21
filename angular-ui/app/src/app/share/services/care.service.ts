@@ -1,16 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of, shareReplay, throwError } from 'rxjs';
-import { LocalStorageService } from './localStorage.service';
+import { Observable, catchError, map, shareReplay, throwError } from 'rxjs';
 import { environmentAPI, environmentFHIR } from '../../../environment/env';
 import { ICarePlan, ICarePlanData } from '../interfaces/carePlan.interface';
 
 @Injectable({ providedIn: 'root' })
 export class CarePlanService {
-  constructor(
-    private storage: LocalStorageService,
-    private httpClient: HttpClient
-  ) {}
+  constructor(private httpClient: HttpClient) {}
   //http://localhost:32783/fhir/r4/CarePlan?patient=1384&status=active
 
   getMainCarePlan(userId: string): Observable<ICarePlan[]> {

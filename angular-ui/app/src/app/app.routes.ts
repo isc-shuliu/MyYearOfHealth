@@ -1,7 +1,12 @@
-import { Routes } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Routes,
+  createUrlTreeFromSnapshot
+} from '@angular/router';
 import { AuthGuard } from './share/guards/auth.guard';
-// import { AuthGuard } from './share/guards/auth.guard';
-// import { DataGuard } from './share/guards/data.guard';
+import { inject } from '@angular/core';
+import { map } from 'rxjs';
+import { AuthService } from './share/services/auth.service';
 
 export const routes: Routes = [
   {
@@ -16,7 +21,18 @@ export const routes: Routes = [
         (c) => c.AuthComponent
       ),
     pathMatch: 'full',
-    title: 'Auth'
+    title: 'Auth',
+    canActivate: [
+      (next: ActivatedRouteSnapshot) => {
+        return inject(AuthService).isLoggedOut$.pipe(
+          map((isLoggedOut) =>
+            isLoggedOut
+              ? true
+              : createUrlTreeFromSnapshot(next, ['/', 'welcome'])
+          )
+        );
+      }
+    ]
   },
   {
     path: 'welcome',

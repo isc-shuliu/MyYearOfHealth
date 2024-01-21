@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, shareReplay, throwError } from 'rxjs';
 import { LocalStorageService } from './localStorage.service';
@@ -15,6 +15,8 @@ export class GoalsService {
     private storage: LocalStorageService,
     private httpClient: HttpClient
   ) {}
+
+  queryParams = new HttpParams();
 
   addCustomGoal(body: ICustomGoal) {
     return this.httpClient.post<any>(environmentAPI.apiUrl + 'goal', body).pipe(
@@ -56,8 +58,14 @@ export class GoalsService {
   }
 
   getDailyGoalForPeriod(body: IGoalsPeriod) {
+    this.queryParams = this.queryParams.appendAll({
+      dateFrom: body.dateFrom,
+      dateTo: body.dateTo
+    });
     return this.httpClient
-      .get<any>(environmentAPI.apiUrl + 'daily-goal/' + body.userId)
+      .get<any>(environmentAPI.apiUrl + 'daily-goal/' + body.userId, {
+        params: this.queryParams
+      })
       .pipe(
         map((data) => data),
         catchError((err) => {
