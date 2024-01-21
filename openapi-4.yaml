@@ -92,7 +92,6 @@ paths:
       responses:
         '200':
           description: successful operation
-  /api/goal/{goalId}:
     patch:
       tags:
         - Goal
@@ -110,7 +109,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GoalsPatch'
+              type: array
+              items:
+                $ref: '#/components/schemas/GoalsPatch'
       responses:
         '200':
           description: successful operation
@@ -261,6 +262,7 @@ components:
           type: boolean 
     GoalsPatch:
       required:
+        - goalId
         - isActive
       type: object
       properties:
@@ -268,6 +270,8 @@ components:
           type: boolean  
         name:
           type: string  
+        goalId:
+          type: number
     DailyGoal: 
       required:
         - userId

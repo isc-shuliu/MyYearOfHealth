@@ -20,7 +20,7 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 
 <Route Url="/goal" Method="POST" Call="SaveGoal"/>
 <Route Url="/goal/:userId" Method="GET" Call="GetGoal"/>
-<Route Url="/goal/:goalId" Method="PATCH" Call="EditGoal"/>
+<Route Url="/goal" Method="PATCH" Call="EditGoal"/>
 
 <Route Url="/daily-goal" Method="POST" Call="SaveDailyGoal"/>
 <Route Url="/daily-goal/:userId" Method="GET" Call="GetDailyGoal"/>
@@ -155,14 +155,17 @@ ClassMethod SaveGoal()
     return ..Response({})
 }
 
-ClassMethod EditGoal(goalId As %String)
+ClassMethod EditGoal()
 {
     set json = {}.%FromJSON(%request.Content)
-    set Goal = ##class(Model.Goal).%OpenId(goalId)
-    set Goal.Name = json.name
-    set Goal.IsActive = json.isActive
-    do Goal.%Save()
-    return ..Response({})
+    set iterator = json.%GetIterator()
+    while iterator.%GetNext(.key,.value) {
+        set Goal = ##class(Model.Goal).%OpenId(value.goalId)
+        set Goal.Name = value.name
+        set Goal.IsActive = value.isActive
+        do Goal.%Save()
+    }
+    return ..Response()
 }
 
 // daily progress
