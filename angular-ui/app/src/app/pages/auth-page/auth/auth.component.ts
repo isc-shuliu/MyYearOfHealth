@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../share/services/auth.service';
 import { AuthViewComponent } from '../auth-view/auth-view.component';
 import { CommonModule } from '@angular/common';
-import { LocalStorageService } from '../../../share/services/localStorage.service';
 
 @Component({
   selector: 'app-auth',
@@ -16,8 +15,7 @@ import { LocalStorageService } from '../../../share/services/localStorage.servic
 export class AuthComponent {
   constructor(
     private router: Router,
-    private auth: AuthService,
-    private storage: LocalStorageService
+    private auth: AuthService
   ) {}
 
   public currentUser$: Observable<any>;
@@ -25,8 +23,9 @@ export class AuthComponent {
   public formError: boolean = false;
 
   public onSignin(signinForm: IUserAuth): void {
+    const telecom = signinForm.telecom.trim();
     this.auth
-      .signIn(signinForm)
+      .signIn(telecom)
       .pipe(
         map((data) => this.checkStorage(data)),
         tap((data) => console.log(data)),

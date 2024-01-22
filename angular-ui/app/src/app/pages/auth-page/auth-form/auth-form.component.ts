@@ -42,12 +42,11 @@ export class AuthFormComponent implements OnChanges {
 
   ngOnChanges() {
     if (this.formError) {
-      // Если есть ошибка с бэкенда, обновим статус валидации для поля telecom
       const telecomControl = this.authForm.get('telecom');
 
       if (telecomControl !== null) {
         telecomControl.updateValueAndValidity();
-        this.cdr.detectChanges(); // Запрос обновления вида
+        this.cdr.detectChanges();
       }
     }
   }
