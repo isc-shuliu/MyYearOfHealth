@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, map, shareReplay, throwError } from 'rxjs';
 import { environmentAPI } from '../../../environment/env';
 import { IPatientData } from '../interfaces/carePlan.interface';
+import { ICustomObservationResult } from '../interfaces/onservation.interface.';
 
 @Injectable({ providedIn: 'root' })
 export class ObservationService {
@@ -32,6 +33,23 @@ export class ObservationService {
       .pipe(
         map((data) => {
           return data;
+        }),
+        shareReplay()
+      );
+  }
+
+  getUserCustomObservationData(
+    userId: string
+  ): Observable<ICustomObservationResult[]> {
+    return this.httpClient
+      .get<ICustomObservationResult[]>(
+        environmentAPI.apiUrl + 'observation/' + userId + '/result'
+      )
+      .pipe(
+        map((data) => data),
+        catchError((err) => {
+          console.log('Handling error locally and rethrowing it...', err);
+          return throwError(() => err);
         }),
         shareReplay()
       );
