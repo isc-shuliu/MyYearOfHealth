@@ -1,37 +1,35 @@
 {
-    "files.associations": {
-    
-        "Dockerfile*": "dockerfile",
-        "iris.script": "objectscript"
-      },
-    "objectscript.conn" :{
-      "ns": "USER",
-      "active": true,
-      "username": "_SYSTEM",
-      "password": "SYS",
-      "docker-compose": {
-        "service": "iris",
-        "internalPort": 52773
-      },
-      "links": {
-        "FHIR server test": "http://localhost:${port}/fhir/r4/metadata"
-      },
-      "server": "fhir"
+  "files.associations": {
+    "Dockerfile*": "dockerfile",
+    "iris.script": "objectscript"
+  },
+  "objectscript.conn": {
+    "ns": "USER",
+    "active": true,
+    "username": "_SYSTEM",
+    "password": "SYS",
+    "docker-compose": {
+      "service": "iris",
+      "internalPort": 52773
     },
-    "sqltools.connections": [
-      {
-        "askForPassword": false,
-        "connectionMethod": "Server and Port",
-        "driver": "InterSystems IRIS",
-        "name": "myyearofhealth",
-        "namespace": "FHIRSERVER",
-        "password": "SYS",
-        "port": 32783,
-        "previewLimit": 50,
-        "server": "localhost",
-        "showSystem": false,
-        "username": "_SYSTEM"
-      }
-    ]
-
+    "links": {
+      "FHIR server test": "http://localhost:${port}/fhir/r4/metadata"
+    },
+    "server": "fhir"
+  },
+  "sqltools.connections": [
+    {
+      "askForPassword": false,
+      "connectionMethod": "Server and Port",
+      "driver": "InterSystems IRIS",
+      "name": "myyearofhealth",
+      "namespace": "FHIRSERVER",
+      "password": "SYS",
+      "port": 32783,
+      "previewLimit": 50,
+      "server": "localhost",
+      "showSystem": false,
+      "username": "_SYSTEM"
+    }
+  ]
 }

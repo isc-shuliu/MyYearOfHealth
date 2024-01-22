@@ -55,7 +55,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'choice',
+    path: 'menu',
     loadComponent: () =>
       import('./pages/btns/btns/btns.component').then((c) => c.BtnsComponent),
     pathMatch: 'full',
