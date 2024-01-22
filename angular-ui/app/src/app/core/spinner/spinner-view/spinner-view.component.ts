@@ -10,5 +10,5 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrls: ['./spinner-view.component.scss']
 })
 export class SpinnerViewComponent {
-  // @Input() loading: boolean | null;
+  @Input() loading: boolean | null;
 }
