@@ -1,23 +1,19 @@
+.data-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .data-box-header {
     margin-bottom: 20px;
-
-    &__title {
-        font-size: 20px;
-        font-weight: bold;        
-    }
-
-    &__date {
-       color: var(--primary-green-font-color);        
-    }
 }
-.data-box-item {
-    padding: 10px;
-    border-radius: 10px;
-    background-color: var(--gray-color);  
 
-    &__title {
-        margin-bottom: 10px;
-    }
+.mat-card {
+    margin-bottom: 5px;
+}
+
+.mat-card:last-child {
+    margin-bottom: 10px;
 }
 
 .data-box-item-result {
@@ -27,11 +23,11 @@
 
 .normal-data {
     font-size: 20px;
-    color: var(--warn-color);
+    color: var(--primary-green-font-color);
 }
 
 .normal-data::after {
-  content: ('(norm)');
+  content: ('(mine)');
   font-size: 12px;
 }
 
@@ -41,6 +37,6 @@
 }
 
 .user-data::after {
-    content: ('(mine)');
+    content: ('(date)');
     font-size: 12px;
   }
