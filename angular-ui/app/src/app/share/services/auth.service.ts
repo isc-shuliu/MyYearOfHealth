@@ -31,9 +31,9 @@ export class AuthService {
     }
   }
 
-  signIn(userform: IUserAuth) {
+  signIn(telecom: string) {
     let queryParams = new HttpParams();
-    queryParams = queryParams.append('telecom', userform.telecom);
+    queryParams = queryParams.append('telecom', telecom);
     return this.httpClient
       .get<any>(environmentFHIR.apiUrl + 'Patient', { params: queryParams })
       .pipe(
