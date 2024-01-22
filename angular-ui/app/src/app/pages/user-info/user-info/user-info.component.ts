@@ -31,12 +31,10 @@ export class UserInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserId();
-    this.loadUserData();
     this.loadUserObservationAndCarePlanData();
   }
 
   public user$: Observable<number>;
-
   public userId: number;
   public patientData$: Observable<IPatientData>;
   public userData$: Observable<IUserData>;
@@ -56,9 +54,6 @@ export class UserInfoComponent implements OnInit {
 
   private getUserId() {
     this.userId = Number(this.storage.getUserID());
-  }
-
-  private loadUserData(): void {
     this.user$ = of(this.userId);
   }
 
@@ -66,9 +61,6 @@ export class UserInfoComponent implements OnInit {
     carePlan: string[];
     observationData: string[];
   }) {
-    console.log(data);
-    if (data.carePlan.length) {
-    }
     const carePlanBody = {
       userId: this.userId,
       careplans: [...data.carePlan.map((el) => Number(el))]
@@ -85,6 +77,6 @@ export class UserInfoComponent implements OnInit {
       .postObservationUserSetting(oservationBody)
       .subscribe();
 
-    this.router.navigate(['/choice']);
+    this.router.navigate(['/menu']);
   }
 }
