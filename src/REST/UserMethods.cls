@@ -16,11 +16,11 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 
 <Route Url="/observation" Method="POST" Call="SaveObservation"/>
 <Route Url="/observation/:userId" Method="GET" Call="GetObservation"/>
-<Route Url="/observation/:userId/activity" Method="GET" Call="GetObservationResult"/>
+<Route Url="/observation/:userId/result" Method="GET" Call="GetObservationResult"/>
 
 <Route Url="/care-plan" Method="POST" Call="SaveCarePlan"/>
 <Route Url="/care-plan/:userId" Method="GET" Call="GetCarePlan"/>
-<Route Url="/care-plan/:userId/activity" Method="GET" Call="GetCarePlanActivity"/>
+<Route Url="/care-plan/:userId/active" Method="GET" Call="GetCarePlanActive"/>
 
 <Route Url="/goal" Method="POST" Call="SaveGoal"/>
 <Route Url="/goal/:userId" Method="GET" Call="GetGoal"/>
@@ -178,7 +178,7 @@ ClassMethod GetObservationResult(userId As %String)
     return ..Response(response)
 }
 
-ClassMethod GetCarePlanActivity(userId As %String)
+ClassMethod GetCarePlanActive(userId As %String)
 {
     set sql = "select * from Model.UserCarePlan where UserId = ?"
     set tcStatement = ##class(%SQL.Statement).%New()
@@ -203,7 +203,7 @@ ClassMethod GetCarePlanActivity(userId As %String)
         set UserObservation = {}
         set UserObservation.code = tcResult.CategoryCodingCode
         set UserObservation.activity = tcResult.ActivityDetailCodeCodingDisplay
-        set UserObservation."care-plan" = tcResult.CategoryCodingDisplay
+        set UserObservation."carePlan" = tcResult.CategoryCodingDisplay
         set UserObservation.start = tcResult.PeriodStart
         set UserObservation.goal = tcResult.DescriptionText
         do response.%Push(UserObservation)

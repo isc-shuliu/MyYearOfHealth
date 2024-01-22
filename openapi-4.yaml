@@ -61,7 +61,30 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ObservationArray'          
+                  $ref: '#/components/schemas/ObservationArray'         
+  /api/observation/{userId}/result:
+    get:
+      tags:
+        - Observation
+      summary: Get users observations result
+      operationId: getObservationResult
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObservationResult'         
   /api/care-plan:
     post:
       tags:
@@ -99,6 +122,29 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CarePlanArray' 
+  /api/care-plan/{userId}/active:
+    get:
+      tags:
+        - Care plan
+      summary: Get users care plans activ
+      operationId: getCarePlansActive
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CarePlanActive' 
   /api/goal:
     post:
       tags:
@@ -220,6 +266,23 @@ components:
           type: array
           items:
             type: number
+    ObservationResult:
+      required:
+          - name
+          - code
+          - value
+          - date
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+        value:
+          type: string
+        date:
+          type: string
+          format: date
     ObservationArray:
       required:
           - userId
@@ -246,6 +309,26 @@ components:
           type: array
           items:
             type: number
+    CarePlanActive:
+      required:
+          - code
+          - activity
+          - carePlan
+          - start
+          - goal
+      type: object
+      properties:
+        code:
+          type: string
+        activity:
+          type: string
+        carePlan:
+          type: string
+        start:
+          type: string
+          format: date
+        goal:
+          type: string
     CarePlanArray:
       required:
           - userId
