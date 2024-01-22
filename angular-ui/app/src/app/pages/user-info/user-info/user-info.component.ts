@@ -9,6 +9,7 @@ import {
   ICarePlan,
   ICustomItem
 } from '../../../share/interfaces/carePlan.interface';
+import { ObservationService } from '../../../share/services/observation.service';
 
 @Component({
   selector: 'app-user-info',
@@ -20,20 +21,26 @@ export class UserInfoComponent implements OnInit {
   constructor(
     private router: Router,
     public storage: LocalStorageService,
-    public careService: CarePlanService
+    public careService: CarePlanService,
+    public observationService: ObservationService
   ) {}
 
   ngOnInit(): void {
     this.getUserId();
     this.loadUserData();
     this.carePlan();
+    // this.getObservationdata();
+    this.loadUserObservationAndCarePlanData();
   }
 
   public carePlanData$: Observable<any>;
+  public observtionData$: Observable<any>;
 
   public user$: Observable<any>;
 
   public userId: string;
+
+  public paientData$: Observable<any>;
 
   public setUserSettings(data: {
     carePlan: string[];
@@ -57,6 +64,14 @@ export class UserInfoComponent implements OnInit {
     this.user$ = of(this.storage.getUserData());
   }
 
+  /*!!!!!*/
+  private loadUserObservationAndCarePlanData() {
+    this.paientData$ = this.careService
+      .getUserObservationAndPlanCareInfo(this.userId)
+      .pipe((map) => map);
+    this.paientData$.subscribe((data) => console.log(data));
+  }
+
   private carePlan() {
     this.carePlanData$ = this.careService.getMainCarePlan(this.userId).pipe(
       map((data) => {
@@ -65,6 +80,17 @@ export class UserInfoComponent implements OnInit {
     );
     this.carePlanData$.subscribe((data) => console.log(data));
   }
+
+  // private getObservationdata() {
+  //   this.observtionData$ = this.observationService
+  //     .getUserObservationInfo(this.userId)
+  //     .pipe(
+  //       map((data) => {
+  //         return data;
+  //       })
+  //     );
+  //   this.observtionData$.subscribe((data) => console.log(data));
+  // }
 
   private changeElementsPlan(data: ICarePlan[]) {
     const customItems: ICustomItem[] = data.map((carePlan) => {

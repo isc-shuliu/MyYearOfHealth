@@ -4,12 +4,9 @@
             Plan description
         </div>
         <div class="main-container__plan green-box">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore dolorem eos nemo earum veniam
-            asperiores vitae dolorum corrupti hic culpa amet rerum perferendis incidunt, aut odit odio! Alias, vero
-            labore.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam cum nisi consequuntur repudiandae corporis at,
-            minima, nemo, quia commodi architecto accusantium voluptas! Maxime officia consequatur distinctio odio
-            facilis quia magni!
+            <div class="list" *ngFor="let item of carePlanItems">
+                <div class="item">{{item.carePlan}}</div>
+            </div>
         </div>
         <app-set-btn [btnTitle]="btnTitle" (click)="createOwnPlan.emit()" />
     </div>

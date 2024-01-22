@@ -7,7 +7,19 @@ import { ICarePlan, ICarePlanData } from '../interfaces/carePlan.interface';
 @Injectable({ providedIn: 'root' })
 export class CarePlanService {
   constructor(private httpClient: HttpClient) {}
-  //http://localhost:32783/fhir/r4/CarePlan?patient=1384&status=active
+
+  getUserObservationAndPlanCareInfo(userId: string) {
+    return this.httpClient
+      .get<any>(environmentAPI.apiUrl + 'user/' + userId)
+      .pipe(
+        map((data) => data),
+        catchError((err) => {
+          console.log('Handling error locally and rethrowing it...', err);
+          return throwError(() => err);
+        }),
+        shareReplay()
+      );
+  }
 
   getMainCarePlan(userId: string): Observable<ICarePlan[]> {
     let queryParams = new HttpParams();
@@ -28,6 +40,7 @@ export class CarePlanService {
         shareReplay()
       );
   }
+
   /*---save user personal items---*/
   sendUserCarePlanData(body: {
     careplans: string[];
@@ -43,6 +56,7 @@ export class CarePlanService {
       );
   }
 
+  /***data for care plan description page****/
   getDataAboutCarePlanItem(userId: string) {
     return this.httpClient
       .get<any>(environmentAPI.apiUrl + 'care-plan/' + userId)

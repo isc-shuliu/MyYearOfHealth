@@ -3,11 +3,13 @@ import { DescriptionViewComponent } from '../description-view/description-view.c
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../share/services/localStorage.service';
 import { CarePlanService } from '../../../share/services/care.service';
+import { Observable, of } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-description',
   standalone: true,
-  imports: [DescriptionViewComponent],
+  imports: [CommonModule, DescriptionViewComponent],
   templateUrl: './description.component.html'
 })
 export class DescriptionComponent implements OnInit {
@@ -19,6 +21,8 @@ export class DescriptionComponent implements OnInit {
 
   public userId: string;
 
+  public carePlanItems$: Observable<{ userId: number; carePlan: string }[]>;
+
   ngOnInit(): void {
     this.getUserId();
     this.loadCarePlan();
@@ -29,13 +33,20 @@ export class DescriptionComponent implements OnInit {
   }
 
   private loadCarePlan() {
-    const carePlanItems = this.storage.getUserCarePlans();
-    this.carePlanService.getDataAboutCarePlanItem(this.userId).subscribe();
-    carePlanItems.forEach((item) =>
-      this.carePlanService
-        .getFHIRDataAboutCarePlanItem(item, this.userId)
-        .subscribe()
-    );
+    // this.carePlanItems$ = this.carePlanService.getDataAboutCarePlanItem(
+    //   this.userId
+    // );
+
+    this.carePlanItems$ = of([
+      {
+        userId: Number(this.userId),
+        carePlan: 'mock-item'
+      },
+      {
+        userId: Number(this.userId),
+        carePlan: 'mock-item'
+      }
+    ]);
   }
 
   private getUserId() {

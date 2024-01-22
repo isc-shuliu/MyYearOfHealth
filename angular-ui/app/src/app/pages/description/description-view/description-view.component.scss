@@ -7,3 +7,17 @@
         margin-bottom: 30px;      
     }
 }
+
+.green-box {
+    min-height: 200px;
+}
+
+.item {
+    margin-bottom: 15px;
+}
+
+.item::before {
+  content: ('✔');
+  margin-left: 15px;
+  color: var(--primary-blue-color);
+}
