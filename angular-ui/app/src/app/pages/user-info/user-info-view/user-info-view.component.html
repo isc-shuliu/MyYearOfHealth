@@ -1,52 +1,47 @@
 <div class="page">
     <div class="main-container">
-        <div class="patient-box">
+        <div class="patient-box" *ngIf="userData">
             <div class="patient-box__title"><b>Patient info:</b> </div>
             <div class="patient-box__user-name">
-                <div>
-                    <span>Name: <b>{{user.prefix}}</b></span>
-                    <span><b>{{user.name}}</b></span>
+                <div class="patient-box__item" *ngIf="userData">
+                    <span>Name: <b>{{userData?.hame}}</b></span>
+                    <span><b>{{userData?.surname}}</b></span>
                 </div>
-                <div>Birth date: <span><b>{{user.birthDate}}</b></span></div>
-                <div>Phone: <span><b>{{user.telecom}}</b></span></div>
+                <div class="patient-box__item">Birth date: <span><b>{{userData?.birthDate}}</b></span></div>
+                <div class="patient-box__item">Phone: <span><b>{{userData?.telecom}}</b></span></div>
             </div>
         </div>
-        <div class="observation-data-box select-box">
-            <div class="observation-data-box__title select-box__title">Observation</div>
-            <div class="observation-data-box__content">
-                <!-- <mat-form-field> -->
-                <!-- <mat-label>Choose a parameter</mat-label> -->
-                <!-- <mat-select [formControl]="observationData" multiple>
-                        <mat-select-trigger>
-                            {{observationDataList?.[0] || ''}}
-                            @if ((observationDataList?.length || 0) > 1) {
-                            <span class="example-additional-selection">
-                                (+{{(observationDataList?.length || 0) - 1}} {{observationDataList?.length
-                                === 2 ? 'other' :
-                                'others'}})
-                            </span>
+        <div class="select-boxes" *ngIf="userData">
+            <div class="observation-data-box select-box">
+                <div class="observation-data-box__title select-box__title">Observation</div>
+                <div class="observation-data-box__content">
+                    <mat-form-field>
+                        <mat-label>Choose a parameter</mat-label>
+                        <mat-select [formControl]="observationDataControl" multiple>
+                            @for (item of observationData; track item) {
+                            <mat-option class="mat-option" [value]="item.code">{{item.observation}}</mat-option>
                             }
-                        </mat-select-trigger>
-                        @for (parametr of observationDataList; track parametr) {
-                        <mat-option [value]="parametr">{{parametr}}</mat-option>
-                        }
-                    </mat-select> -->
-                <!-- </mat-form-field> -->
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
             </div>
+            <div class="plan-box select-box">
+                <div class="plan-box__title select-box__title">Care Plan</div>
+                <div class="plan-box__content">
+                    <mat-form-field>
+                        <mat-label>Choose a plan</mat-label>
+                        <mat-select placeholder="Care plan" [formControl]="careDataControl" multiple>
+                            @for (item of planCareData; track item) {
+                            <mat-option class="mat-option-care-plan" [value]="item.code">{{item.careplan}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <button mat-raised-button (click)="clickSetUserSettings()" [disabled]="isButtonDisabled()"
+                color="primary">Set</button>
 
         </div>
-        <div class="plan-box select-box">
-            <div class="plan-box__title select-box__title">Care Plan</div>
-            <div class="plan-box__content">
-                <mat-form-field>
-                    <mat-label>Choose a plan</mat-label>
-                    <mat-select placeholder="Care plan" [formControl]="careDataControl" multiple>
-                        <mat-option *ngFor="let itemPlan of carePlanData"
-                            [value]="itemPlan.id">{{itemPlan.item}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </div>
-        <app-set-btn [btnTitle]="btnTitle" (click)="clickSetUserSettings()" />
     </div>
 </div>

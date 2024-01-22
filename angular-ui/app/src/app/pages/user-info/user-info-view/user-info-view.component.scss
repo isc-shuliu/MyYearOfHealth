@@ -3,8 +3,9 @@
   flex-direction: column;
   justify-content: space-around;
   width: 300px;
-  padding: 25px;
-  margin-bottom: 30px;
+  min-height: 100px;
+  padding: 10px;
+  margin-bottom: 20px;
   background-color: var(--primary-green-color);
   border-radius: 10px;
 
@@ -13,7 +14,11 @@
   }
 
   &__title {
-    margin-bottom: 10px;    
+    margin-bottom: 15px;    
+  }
+
+  &__item {
+    margin-bottom: 10px;
   }
 }
 
@@ -33,11 +38,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     
     &__title {
         margin-bottom: 20px;
         font-size: 20px;
         font-weight: 800;   
     }
+}
+
+.select-boxes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mat-option {
+  margin-bottom: 7px;
+  color: var(--primary-blue-color);
+}
+
+
+.mat-option-care-plan {
+  margin-bottom: 7px;
+  color: var(--primary-green-font-color);
+
 }

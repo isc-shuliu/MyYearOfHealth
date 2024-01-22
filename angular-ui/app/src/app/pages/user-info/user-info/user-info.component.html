@@ -1,4 +1,2 @@
-<ng-container *ngIf="(carePlanData$ | async) as carePlanData">
-    <app-user-info-view [carePlanData]="carePlanData" (setUserSettings)="setUserSettings($event)"
-        [user]="user$ | async" />
-</ng-container>
+<app-user-info-view [userData]="userData$ | async" [observationData]="observationData$ | async"
+    [planCareData]="planCareData$ | async" (setUserSettings)="postUserSettingsAboutPlan($event)" />

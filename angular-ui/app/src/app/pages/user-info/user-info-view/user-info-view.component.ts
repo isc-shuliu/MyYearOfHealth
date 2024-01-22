@@ -1,36 +1,49 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SetBtnComponent } from '../../../components/set-btn/set-btn.component';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
+import {
+  IUserCarePlan,
+  IUserData,
+  IUserObservationData
+} from '../../../share/interfaces/carePlan.interface';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-user-info-view',
   standalone: true,
   imports: [
-    SetBtnComponent,
     MatFormFieldModule,
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    MatButtonModule
   ],
   templateUrl: './user-info-view.component.html',
   styleUrl: './user-info-view.component.scss'
 })
-export class UserInfoViewComponent implements OnInit {
-  ngOnInit(): void {
-    console.log(this.carePlanData);
-  }
-
-  public btnTitle = 'Set';
-
-  @Input() user: any | null;
-
-  @Input() carePlanData: any;
+export class UserInfoViewComponent {
+  @Input() userData: IUserData | null;
+  @Input() observationData: IUserObservationData[] | null;
+  @Input() planCareData: IUserCarePlan[] | null;
 
   @Output() setUserSettings = new EventEmitter<any>();
+
+  public observationDataControl = new FormControl('');
+  public careDataControl = new FormControl('');
+
+  public isDisabledBtn = true;
+
+  public isButtonDisabled(): boolean {
+    return (
+      !this.careDataControl.value ||
+      this.careDataControl.value.length === 0 ||
+      !this.observationDataControl.value ||
+      this.observationDataControl.value.length === 0
+    );
+  }
 
   public clickSetUserSettings() {
     const settings = {
@@ -40,7 +53,4 @@ export class UserInfoViewComponent implements OnInit {
 
     this.setUserSettings.emit(settings);
   }
-
-  observationDataControl = new FormControl('');
-  careDataControl = new FormControl('');
 }

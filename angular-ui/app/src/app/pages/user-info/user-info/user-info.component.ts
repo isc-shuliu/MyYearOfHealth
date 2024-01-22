@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { UserInfoViewComponent } from '../user-info-view/user-info-view.component';
-import { Router } from '@angular/router';
-import { Observable, map, of, retry, tap } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { LocalStorageService } from '../../../share/services/localStorage.service';
 import { CarePlanService } from '../../../share/services/care.service';
-import {
-  ICarePlan,
-  ICustomItem
-} from '../../../share/interfaces/carePlan.interface';
 import { ObservationService } from '../../../share/services/observation.service';
+import {
+  IPatientData,
+  IUserCarePlan,
+  IUserData,
+  IUserObservationData
+} from '../../../share/interfaces/carePlan.interface';
+import { LoadingService } from '../../../share/services/loading.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-info',
@@ -19,88 +22,69 @@ import { ObservationService } from '../../../share/services/observation.service'
 })
 export class UserInfoComponent implements OnInit {
   constructor(
-    private router: Router,
     public storage: LocalStorageService,
     public careService: CarePlanService,
-    public observationService: ObservationService
+    public observationService: ObservationService,
+    public loadingService: LoadingService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.getUserId();
     this.loadUserData();
-    this.carePlan();
-    // this.getObservationdata();
     this.loadUserObservationAndCarePlanData();
   }
 
-  public carePlanData$: Observable<any>;
-  public observtionData$: Observable<any>;
+  public user$: Observable<number>;
 
-  public user$: Observable<any>;
+  public userId: number;
+  public patientData$: Observable<IPatientData>;
+  public userData$: Observable<IUserData>;
+  public observationData$: Observable<IUserObservationData[]>;
+  public planCareData$: Observable<IUserCarePlan[]>;
 
-  public userId: string;
+  private loadUserObservationAndCarePlanData() {
+    const patientData$ =
+      this.observationService.getUserObservationAndPlanCareInfo(this.userId);
+    const loadData$ =
+      this.loadingService.showSpinnerUntilCompleted(patientData$);
 
-  public paientData$: Observable<any>;
-
-  public setUserSettings(data: {
-    carePlan: string[];
-    observationData: string[];
-  }) {
-    const body = {
-      userId: Number(this.storage.getUserID()),
-      careplans: data.carePlan
-    };
-    this.careService.sendUserCarePlanData(body).subscribe();
-
-    this.storage.saveUserCarePlanItems(data.carePlan);
-    this.router.navigate(['/choice']);
+    this.userData$ = loadData$.pipe(map((data) => data.user));
+    this.observationData$ = loadData$.pipe(map((data) => data.observations));
+    this.planCareData$ = loadData$.pipe(map((data) => data.carePlans));
   }
 
   private getUserId() {
-    this.userId = this.storage.getUserID();
+    this.userId = Number(this.storage.getUserID());
   }
 
   private loadUserData(): void {
-    this.user$ = of(this.storage.getUserData());
+    this.user$ = of(this.userId);
   }
 
-  /*!!!!!*/
-  private loadUserObservationAndCarePlanData() {
-    this.paientData$ = this.careService
-      .getUserObservationAndPlanCareInfo(this.userId)
-      .pipe((map) => map);
-    this.paientData$.subscribe((data) => console.log(data));
-  }
+  public postUserSettingsAboutPlan(data: {
+    carePlan: string[];
+    observationData: string[];
+  }) {
+    console.log(data);
+    if (data.carePlan.length) {
+    }
+    const carePlanBody = {
+      userId: this.userId,
+      careplans: [...data.carePlan.map((el) => Number(el))]
+    };
 
-  private carePlan() {
-    this.carePlanData$ = this.careService.getMainCarePlan(this.userId).pipe(
-      map((data) => {
-        return this.changeElementsPlan(data);
-      })
-    );
-    this.carePlanData$.subscribe((data) => console.log(data));
-  }
+    const oservationBody = {
+      userId: this.userId,
+      observations: data.observationData
+    };
 
-  // private getObservationdata() {
-  //   this.observtionData$ = this.observationService
-  //     .getUserObservationInfo(this.userId)
-  //     .pipe(
-  //       map((data) => {
-  //         return data;
-  //       })
-  //     );
-  //   this.observtionData$.subscribe((data) => console.log(data));
-  // }
+    this.careService.sendUserCarePlanData(carePlanBody).subscribe();
 
-  private changeElementsPlan(data: ICarePlan[]) {
-    const customItems: ICustomItem[] = data.map((carePlan) => {
-      const customItem: ICustomItem = {
-        id: +carePlan.resource.id,
-        item: carePlan.resource.category[0].text
-      };
+    this.observationService
+      .postObservationUserSetting(oservationBody)
+      .subscribe();
 
-      return customItem;
-    });
-    return customItems;
+    this.router.navigate(['/choice']);
   }
 }
