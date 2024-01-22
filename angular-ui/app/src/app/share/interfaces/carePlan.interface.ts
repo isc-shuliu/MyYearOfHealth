@@ -1,39 +1,24 @@
-export interface ICarePlanData {
-  entry: ICarePlan[];
+export interface IPatientData {
+  carePlans: IUserCarePlan[];
+  observations: IUserObservationData[];
+  user: IUserData;
 }
 
-export interface ICarePlan {
-  resource: {
-    activity: IActivity[];
-    category: {
-      coding: { code: string; display: string; system: string }[];
-      text: string;
-    }[];
-    id: string;
-    period: {
-      start: string;
-    };
-  };
-}
-
-interface IActivity {
-  detail: IDetailsPlanItem[];
-}
-
-export interface IDetailsPlanItem {
-  code: ICodeCarePlan;
-  location: {
-    display: string;
-  };
+export interface IUserData {
+  birthDate: string;
+  gender: string;
+  hame: string;
   status: string;
+  surname: string;
+  telecom: string;
 }
 
-export interface ICustomItem {
-  id: number;
-  item: string;
+export interface IUserObservationData {
+  code: string;
+  observation: string;
 }
 
-interface ICodeCarePlan {
-  coding: { code: string; display: string; system: string }[];
-  text: string;
+export interface IUserCarePlan {
+  careplan: string;
+  code: string;
 }
