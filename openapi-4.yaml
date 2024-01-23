@@ -343,11 +343,16 @@ components:
           type: string
     Goals:
       required:
+        - id
         - userId
         - name
         - isActive
       type: object
       properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
         userId:
           type: integer
           format: int64

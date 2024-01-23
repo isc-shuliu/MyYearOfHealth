@@ -245,6 +245,7 @@ ClassMethod GetGoal(userId As %String)
    
 	while tcResult.%Next() {
         set Goal = {}
+        set Goal.id = tcResult.ID
         set Goal.userId = tcResult.UserId
         set Goal.name = tcResult.Name
         set Goal.isActive = tcResult.IsActive
