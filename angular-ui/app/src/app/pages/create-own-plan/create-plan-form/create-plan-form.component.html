@@ -1,15 +1,8 @@
-<form class="form-container" [formGroup]="userPlanPoints" (ngSubmit)="submitUserPlan()">
-  <mat-checkbox *ngFor="let item of listPersonalHabits; let i = index" class="checkbox" color="primary"
-    [formControlName]="item">
-    {{ item }}
+<form class="form-container" [formGroup]="userPlanPoints" (ngSubmit)="addUserPlan()" *ngIf="listPersonalHabits">
+  <mat-checkbox *ngFor="let item of uniqueNamesGoals; let i = index" class="checkbox" color="primary"
+    [formControlName]="item.id">
+    {{ item.name }}
   </mat-checkbox>
-
-  <div *ngFor="let text of customListHabbits; let i = index">
-    <mat-checkbox class="checkbox" color="primary" [checked]="true">
-      {{ text }}
-    </mat-checkbox>
-  </div>
-
   <div class="text-box">
     <mat-form-field>
       <input matInput [(ngModel)]="currentCustomSettings" [ngModelOptions]="{standalone: true}" name="customSettings" />

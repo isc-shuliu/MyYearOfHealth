@@ -1,18 +1,20 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SetBtnComponent } from '../../../components/set-btn/set-btn.component';
 import { CreatePlanFormComponent } from '../create-plan-form/create-plan-form.component';
+import { CommonModule } from '@angular/common';
+import { ICustomGoal } from '../../../share/interfaces/goals.interfaces';
 
 @Component({
   selector: 'app-create-plan-view',
   standalone: true,
-  imports: [SetBtnComponent, CreatePlanFormComponent],
+  imports: [SetBtnComponent, CreatePlanFormComponent, CommonModule],
   templateUrl: './create-plan-view.component.html',
   styleUrl: './create-plan-view.component.scss'
 })
 export class CreatePlanViewComponent {
-  @Input() listPersonalHabits: any[] | null;
+  @Input() listPersonalHabits: ICustomGoal[] | null;
 
-  @Output() setOwnPlanPoints = new EventEmitter<any>();
+  @Output() submitUserPlan = new EventEmitter<any>();
 
   @Output() addUserCustomHabit = new EventEmitter<any>();
 }
