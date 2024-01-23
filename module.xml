@@ -18,7 +18,7 @@
       <CSPApplication 
         Url="/api"
         DispatchClass="REST.UserMethods"
-        MatchRoles=":{$dbrole}"
+        MatchRoles=":%All"
         PasswordAuthEnabled="0"
         UnauthenticatedEnabled="1"
         Recurse="1"
