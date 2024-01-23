@@ -163,7 +163,7 @@ ClassMethod GetObservationResult(userId As %String)
     SET ns="FHIRSERVER"
     ZNSPACE ns
     set response = []
-    set sql = "select * from HarbourFHIR.Observation where SubjectReference = ? and CodeCodingCode In("_ObservationCode_") group by CodeCodingCode order by Issued DESC"
+    set sql = "select * from HarbourFHIR.Observation where SubjectReference = ? and CodeCodingCode In("_ObservationCode_") and ValueQuantityValue is not null group by CodeCodingCode order by Issued DESC"
     set tcStatement = ##class(%SQL.Statement).%New()
     set tcStatus = tcStatement.%Prepare(sql)
     set tcResult = tcStatement.%Execute("Patient/"_userId)
@@ -258,6 +258,11 @@ ClassMethod GetGoal(userId As %String)
 ClassMethod SaveGoal()
 {
     set json = {}.%FromJSON(%request.Content)
+    &sql(select ID into :goalId from Model.Goal where Name = :json.name and UserId = :json.userId)
+    if (goalId '= "") {
+        set description = "This Goal is exist!"
+        return ..Response(description)
+    }
     set Goal = ##class(Model.Goal).%New()
     set Goal.UserId = json.userId
     set Goal.Name = json.name
