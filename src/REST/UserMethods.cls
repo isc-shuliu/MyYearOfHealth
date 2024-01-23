@@ -163,7 +163,7 @@ ClassMethod GetObservationResult(userId As %String)
     SET ns="FHIRSERVER"
     ZNSPACE ns
     set response = []
-    set sql = "select * from HarbourFHIR.Observation where SubjectReference = ? and ValueCodeableConceptText is not null and CodeCodingCode In("_ObservationCode_") group by CodeCodingCode order by Issued DESC"
+    set sql = "select * from HarbourFHIR.Observation where SubjectReference = ? and CodeCodingCode In("_ObservationCode_") group by CodeCodingCode order by Issued DESC"
     set tcStatement = ##class(%SQL.Statement).%New()
     set tcStatus = tcStatement.%Prepare(sql)
     set tcResult = tcStatement.%Execute("Patient/"_userId)
@@ -171,7 +171,7 @@ ClassMethod GetObservationResult(userId As %String)
         set UserObservation = {}
         set UserObservation.name = tcResult.CodeText
         set UserObservation.code = tcResult.CodeCodingCode
-        set UserObservation.value = tcResult.ValueCodeableConceptText
+        set UserObservation.value = tcResult.ValueQuantityValue_" "_tcResult.ValueQuantityUnit
         set UserObservation.date = tcResult.Issued
         do response.%Push(UserObservation)
     }
