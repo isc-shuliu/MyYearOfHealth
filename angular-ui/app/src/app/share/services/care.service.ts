@@ -1,7 +1,8 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, shareReplay, throwError } from 'rxjs';
-import { environmentAPI, environmentFHIR } from '../../../environment/env';
+import { environmentAPI } from '../../../environment/env';
+import { ICustomCarePlanItem } from '../interfaces/carePlan.interface';
 
 @Injectable({ providedIn: 'root' })
 export class CarePlanService {
@@ -23,36 +24,20 @@ export class CarePlanService {
   }
 
   /***data for care plan description page****/
-  // getDataAboutCarePlanItem(userId: string) {
-  //   return this.httpClient
-  //     .get<any>(environmentAPI.apiUrl + 'care-plan/' + userId)
-  //     .pipe(
-  //       map((data) => data),
-  //       catchError((err) => {
-  //         console.log('Handling error locally and rethrowing it...', err);
-  //         return throwError(() => err);
-  //       }),
-  //       shareReplay()
-  //     );
-  // }
-
-  // getFHIRDataAboutCarePlanItem(item: string, userId: string) {
-  //   let queryParams = new HttpParams();
-  //   queryParams = queryParams.appendAll({
-  //     patient: userId,
-  //     code: item
-  //   });
-  //   return this.httpClient
-  //     .get<any>(environmentFHIR.apiUrl + 'CarePlan', {
-  //       params: queryParams
-  //     })
-  //     .pipe(
-  //       map((data) => data),
-  //       catchError((err) => {
-  //         console.log('Handling error locally and rethrowing it...', err);
-  //         return throwError(() => err);
-  //       }),
-  //       shareReplay()
-  //     );
-  // }
+  getDataAboutCustomCarePlanItem(
+    userId: string
+  ): Observable<ICustomCarePlanItem[]> {
+    return this.httpClient
+      .get<ICustomCarePlanItem[]>(
+        environmentAPI.apiUrl + 'care-plan/' + userId + '/active'
+      )
+      .pipe(
+        map((data) => data),
+        catchError((err) => {
+          console.log('Handling error locally and rethrowing it...', err);
+          return throwError(() => err);
+        }),
+        shareReplay()
+      );
+  }
 }

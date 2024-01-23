@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, map, shareReplay, throwError } from 'rxjs';
 import { environmentAPI } from '../../../environment/env';
 import { IPatientData } from '../interfaces/carePlan.interface';
-import { ICustomObservationResult } from '../interfaces/onservation.interface.';
+import { ICustomObservationResult } from '../interfaces/observation.interface.';
 
 @Injectable({ providedIn: 'root' })
 export class ObservationService {

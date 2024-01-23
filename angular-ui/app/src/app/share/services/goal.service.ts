@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, shareReplay, throwError } from 'rxjs';
+import { Observable, catchError, map, shareReplay, throwError } from 'rxjs';
 import { LocalStorageService } from './localStorage.service';
 import {
+  IBodyToCreateCustomGoal,
   ICustomGoal,
   IDailyGoal,
   IGoalsPeriod
@@ -18,7 +19,7 @@ export class GoalsService {
 
   queryParams = new HttpParams();
 
-  addCustomGoal(body: ICustomGoal) {
+  addCustomGoal(body: IBodyToCreateCustomGoal) {
     return this.httpClient.post<any>(environmentAPI.apiUrl + 'goal', body).pipe(
       map((data) => {
         return data;
@@ -31,9 +32,9 @@ export class GoalsService {
     );
   }
 
-  getListGoals(userId: string) {
+  getListGoals(userId: string): Observable<ICustomGoal[]> {
     return this.httpClient
-      .get<any>(environmentAPI.apiUrl + 'goal/' + userId)
+      .get<any[]>(environmentAPI.apiUrl + 'goal/' + userId)
       .pipe(
         map((data) => data),
         catchError((err) => {
@@ -44,6 +45,20 @@ export class GoalsService {
       );
   }
 
+  addListDailyGoalsForUser(body: ICustomGoal[]) {
+    return this.httpClient
+      .patch<any>(environmentAPI.apiUrl + 'goal', body)
+      .pipe(
+        map((data) => {
+          return data;
+        }),
+        catchError((err) => {
+          console.log('Handling error locally and rethrowing it...', err);
+          return throwError(() => err);
+        }),
+        shareReplay()
+      );
+  }
   createDailyGoals(body: IDailyGoal) {
     return this.httpClient.post<any>(environmentAPI.apiUrl + 'goal', body).pipe(
       map((data) => {
