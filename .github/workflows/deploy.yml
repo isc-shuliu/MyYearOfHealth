@@ -1,0 +1,37 @@
+name: Deploy from master branch to server
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  docker_publish:
+    name: Docker Publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and publish a Docker image for ${{ github.repository }}
+        uses: macbre/push-to-ghcr@main
+        with:
+          image_name: ${{ github.repository }}
+          github_token: ${{ github.token }}
+      - name: Build and publish a Docker image for ${{ github.repository }}-ui
+        uses: macbre/push-to-ghcr@main
+        with:
+          image_name: ${{ github.repository }}-ui
+          github_token: ${{ github.token }}
+          dockerfile: ./angular-gui/app/Dockerfile
+          context: ./angular-gui/app
+      - name: Pull and Up docker image on DEV
+        uses: appleboy/ssh-action@main
+        with:
+          host: harbour.cloud.banksia.global
+          username: ec2-user
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            docker login ghcr.io -u USERNAME -p ${{ secrets.GITHUB_TOKEN }};
+            docker-compose pull;
+            docker-compose up -d;
+            docker system prune -f
+          name: ci
