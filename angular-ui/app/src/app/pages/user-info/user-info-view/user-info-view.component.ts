@@ -27,6 +27,11 @@ import { WrongDataComponent } from '../../../components/wrong-data/wrong-data.co
   styleUrl: './user-info-view.component.scss'
 })
 export class UserInfoViewComponent {
+  public alertMessage = 'It is not possible to access user data';
+  public wrongMessage =
+    'Unfortunately, there is no information available regarding this user  ';
+  public icon = 'sync_problem';
+
   @Input() userData: IUserData | null;
   @Input() observationData: IUserObservationData[] | null;
   @Input() planCareData: IUserCarePlan[] | null;
@@ -39,12 +44,21 @@ export class UserInfoViewComponent {
   public isDisabledBtn = true;
 
   public isButtonDisabled(): boolean {
-    return (
-      !this.careDataControl.value ||
-      this.careDataControl.value.length === 0 ||
-      !this.observationDataControl.value ||
-      this.observationDataControl.value.length === 0
-    );
+    if (this.planCareData?.length !== 0 && this.observationData?.length !== 0) {
+      return (
+        !this.careDataControl.value ||
+        this.careDataControl.value.length === 0 ||
+        !this.observationDataControl.value ||
+        this.observationDataControl.value.length === 0
+      );
+    }
+    if (this.planCareData?.length == 0) {
+      return (
+        !this.observationDataControl.value ||
+        this.observationDataControl.value.length === 0
+      );
+    }
+    return true;
   }
 
   public clickSetUserSettings() {

@@ -44,7 +44,6 @@ export class ResultsComponent implements OnInit {
       this.observationService.getUserCustomObservationData(this.userId);
     const loadData$ =
       this.loadingService.showSpinnerUntilCompleted(userObservationData$);
-
     this.userCustomObservationData$ = loadData$.pipe(map((data) => data));
   }
 

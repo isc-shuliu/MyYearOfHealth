@@ -1,6 +1,6 @@
 <div class="page">
     <div class="main-container">
-        @if (carePlanItems) {
+        @if (carePlanItems && carePlanItems.length !==0) {
         <div class="data-box">
             <div class="data-box-header primary-h2-font">
                 Plan description:
@@ -17,15 +17,13 @@
                         </div>
                     </mat-card-content>
                 </mat-card>
-                } @empty {
-                <span>You haven't any items for your plan...</span>
                 }
             </div>
             <app-set-btn [btnTitle]="btnTitle" (click)="createOwnPlan.emit()" />
         </div>
         }
-        @if(carePlanItems?.length == 0) {
-        <app-wrong-data />
+        @if(carePlanItems?.length == 0 || !carePlanItems ) {
+        <app-wrong-data [wrongMessage]="wrongMessage" [alertMessage]="alertMessage" [icon]="icon" />
         }
     </div>
 </div>

@@ -27,6 +27,7 @@
                 </div>
 
             </div>
+            @if(planCareData?.length !== 0){
             <div class="plan-box select-box">
                 <div class="plan-box__title select-box__title">Care Plan</div>
                 <div class="plan-box__content">
@@ -40,13 +41,15 @@
                     </mat-form-field>
                 </div>
             </div>
+            }
             <button mat-raised-button (click)="clickSetUserSettings()" [disabled]="isButtonDisabled()"
                 color="primary">Set</button>
 
         </div>
         }
-        @if(observationData?.length == 0 && planCareData?.length == 0 ) {
-        <app-wrong-data />
+        @if(!userData || observationData?.length == 0 && planCareData?.length == 0 ) {
+        <app-wrong-data [wrongMessage]="wrongMessage" [alertMessage]="alertMessage" [icon]="icon" />
+
         }
     </div>
 </div>

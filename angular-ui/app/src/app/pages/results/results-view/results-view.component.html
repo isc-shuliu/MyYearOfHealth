@@ -1,6 +1,6 @@
 <div class="page">
     <div class="main-container">
-        @if (userCustomObservationData) {
+        @if (userCustomObservationData && userCustomObservationData.length !== 0) {
         <div class="data-box">
             <div class="data-box-header primary-h2-font">
                 Your observation information:
@@ -21,9 +21,8 @@
             <app-set-btn [btnTitle]="btnTitle" (click)="goToMenu.emit()" />
         </div>
         }
-        @if(userCustomObservationData?.length == 0) {
-        <app-wrong-data />
+        @if(userCustomObservationData?.length == 0|| !userCustomObservationData ) {
+        <app-wrong-data [wrongMessage]="wrongMessage" [alertMessage]="alertMessage" [icon]="icon" />
         }
-
     </div>
 </div>

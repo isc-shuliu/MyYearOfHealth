@@ -15,6 +15,13 @@ import { WrongDataComponent } from '../../../components/wrong-data/wrong-data.co
 export class DescriptionViewComponent {
   public btnTitle = 'Make it real';
 
+  public wrongMessage =
+    'Currently, there is no information available about this user Care Plan';
+
+  public icon: string = 'self_improvement';
+
+  public alertMessage: string = 'A Care Plan is not present';
+
   @Input() carePlanItems: ICustomCarePlanItem[] | null;
 
   @Output() createOwnPlan = new EventEmitter<any>();

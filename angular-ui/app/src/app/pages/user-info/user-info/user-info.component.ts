@@ -61,21 +61,23 @@ export class UserInfoComponent implements OnInit {
     carePlan: string[];
     observationData: string[];
   }) {
-    const carePlanBody = {
-      userId: this.userId,
-      careplans: [...data.carePlan.map((el) => Number(el))]
-    };
+    if (data.carePlan) {
+      const carePlanBody = {
+        userId: this.userId,
+        careplans: [...data.carePlan.map((el) => Number(el))]
+      };
+      this.careService.sendUserCarePlanData(carePlanBody).subscribe();
+    }
+    if (data.observationData) {
+      const oservationBody = {
+        userId: this.userId,
+        observations: data.observationData
+      };
 
-    const oservationBody = {
-      userId: this.userId,
-      observations: data.observationData
-    };
-
-    this.careService.sendUserCarePlanData(carePlanBody).subscribe();
-
-    this.observationService
-      .postObservationUserSetting(oservationBody)
-      .subscribe();
+      this.observationService
+        .postObservationUserSetting(oservationBody)
+        .subscribe();
+    }
 
     this.router.navigate(['/menu']);
   }

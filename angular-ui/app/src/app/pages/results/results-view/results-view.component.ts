@@ -16,6 +16,12 @@ export class ResultsViewComponent {
   @Input() userCustomObservationData: ICustomObservationResult[] | null;
 
   public btnTitle = 'Ok.Go Ahead';
+  public wrongMessage =
+    'Currently, there is no information available about this user Observation Data';
+
+  public icon: string = 'work_alert';
+
+  public alertMessage: string = 'An Observation Data is not present';
 
   @Output() goToMenu = new EventEmitter<any>();
 }
