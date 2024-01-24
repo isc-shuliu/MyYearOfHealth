@@ -1,13 +1,26 @@
 <div class="page">
     <div class="main-container">
-        <div class="main-container__title primary-h2-font">
-            Plan description
-        </div>
-        <div class="main-container__plan green-box">
-            <div class="list" *ngFor="let item of carePlanItems">
-                <div class="item">{{item.carePlan}}</div>
+        <div class="data-box" *ngIf="carePlanItems">
+            <div class="data-box-header primary-h2-font">
+                Plan description:
             </div>
+            <div class="data-box-list">
+                @for (item of carePlanItems; track item.code) {
+                <mat-card class="mat-card">
+                    <mat-card-content>
+                        <div class="item-name">{{item.carePlan}}</div>
+                        <div class="data-box-item-result">
+                            <div class="item item-goal"><b>goal: </b>{{item.goal}}</div>
+                            <div class="item" item><b>activity: </b> {{item.activity}}</div>
+                            <div class="item"><b>start: </b> {{item.start | date:'mediumDate'}}</div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                } @empty {
+                <span>You haven't any items for your plan...</span>
+                }
+            </div>
+            <app-set-btn [btnTitle]="btnTitle" (click)="createOwnPlan.emit()" />
         </div>
-        <app-set-btn [btnTitle]="btnTitle" (click)="createOwnPlan.emit()" />
     </div>
 </div>

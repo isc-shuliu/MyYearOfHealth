@@ -120,8 +120,8 @@ export class CalendarViewComponent implements OnInit, OnChanges {
   }
 
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
-    const cellMonth = cellDate.getMonth(); // Получаем месяц для переданной даты
-    const currentMonth = this.today.getMonth(); // Получаем месяц для текущей даты
+    const cellMonth = cellDate.getMonth();
+    const currentMonth = this.today.getMonth();
     const dayOfMonth = this.getDayOfMonth(cellDate);
 
     if (this.selectedMonth === currentMonth) {

@@ -10,8 +10,8 @@
                     <mat-card-content>
                         <div class="item-name">{{item.name}}</div>
                         <div class="data-box-item-result">
-                            <div class="normal-data">{{item.value}}</div>
-                            <div class="user-data">{{item.date}}</div>
+                            <div class="user-value">{{item.value}}</div>
+                            <div class="user-data">{{item.date | date:'mediumDate' }}</div>
                         </div>
                     </mat-card-content>
                 </mat-card>

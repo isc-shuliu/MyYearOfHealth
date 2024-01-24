@@ -3,8 +3,10 @@ import { DescriptionViewComponent } from '../description-view/description-view.c
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../share/services/localStorage.service';
 import { CarePlanService } from '../../../share/services/care.service';
-import { Observable, of } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { LoadingService } from '../../../share/services/loading.service';
+import { ICustomCarePlanItem } from '../../../share/interfaces/carePlan.interface';
 
 @Component({
   selector: 'app-description',
@@ -16,12 +18,13 @@ export class DescriptionComponent implements OnInit {
   constructor(
     private router: Router,
     private storage: LocalStorageService,
-    private carePlanService: CarePlanService
+    private carePlanService: CarePlanService,
+    public loadingService: LoadingService
   ) {}
 
   public userId: string;
 
-  public carePlanItems$: Observable<{ userId: number; carePlan: string }[]>;
+  public carePlanItems$: Observable<ICustomCarePlanItem[]>;
 
   ngOnInit(): void {
     this.getUserId();
@@ -33,20 +36,13 @@ export class DescriptionComponent implements OnInit {
   }
 
   private loadCarePlan() {
-    // this.carePlanItems$ = this.carePlanService.getDataAboutCarePlanItem(
-    //   this.userId
-    // );
+    const customCarePlan$ = this.carePlanService.getDataAboutCustomCarePlanItem(
+      this.userId
+    );
+    const loadData$ =
+      this.loadingService.showSpinnerUntilCompleted(customCarePlan$);
 
-    this.carePlanItems$ = of([
-      {
-        userId: Number(this.userId),
-        carePlan: 'mock-item'
-      },
-      {
-        userId: Number(this.userId),
-        carePlan: 'mock-item'
-      }
-    ]);
+    this.carePlanItems$ = loadData$.pipe(map((data) => data));
   }
 
   private getUserId() {

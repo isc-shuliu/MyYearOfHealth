@@ -1,10 +1,10 @@
 <div class="page">
     <div class="main-container">
-        <div class="patient-box" *ngIf="userData">
+        <div class="patient-box green-box" *ngIf="userData">
             <div class="patient-box__title"><b>Patient info:</b> </div>
             <div class="patient-box__user-name">
                 <div class="patient-box__item" *ngIf="userData">
-                    <span>Name: <b>{{userData?.hame}}</b></span>
+                    <span>Name: <b>{{userData?.hame}} </b></span>
                     <span><b>{{userData?.surname}}</b></span>
                 </div>
                 <div class="patient-box__item">Birth date: <span><b>{{userData?.birthDate}}</b></span></div>
@@ -16,7 +16,7 @@
                 <div class="observation-data-box__title select-box__title">Observation</div>
                 <div class="observation-data-box__content">
                     <mat-form-field>
-                        <mat-label>Choose a parameter</mat-label>
+                        <mat-label>Choose a parameter to track</mat-label>
                         <mat-select [formControl]="observationDataControl" multiple>
                             @for (item of observationData; track item) {
                             <mat-option class="mat-option" [value]="item.code">{{item.observation}}</mat-option>
@@ -30,7 +30,7 @@
                 <div class="plan-box__title select-box__title">Care Plan</div>
                 <div class="plan-box__content">
                     <mat-form-field>
-                        <mat-label>Choose a plan</mat-label>
+                        <mat-label>Choose a plan to follow</mat-label>
                         <mat-select placeholder="Care plan" [formControl]="careDataControl" multiple>
                             @for (item of planCareData; track item) {
                             <mat-option class="mat-option-care-plan" [value]="item.code">{{item.careplan}}</mat-option>

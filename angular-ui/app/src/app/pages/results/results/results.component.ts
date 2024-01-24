@@ -6,7 +6,7 @@ import { LoadingService } from '../../../share/services/loading.service';
 import { LocalStorageService } from '../../../share/services/localStorage.service';
 import { ObservationService } from '../../../share/services/observation.service';
 import { Observable, map, of } from 'rxjs';
-import { ICustomObservationResult } from '../../../share/interfaces/onservation.interface.';
+import { ICustomObservationResult } from '../../../share/interfaces/observation.interface.';
 import { CommonModule } from '@angular/common';
 
 @Component({

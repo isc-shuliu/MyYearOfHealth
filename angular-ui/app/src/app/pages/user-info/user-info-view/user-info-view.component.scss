@@ -6,8 +6,6 @@
   min-height: 100px;
   padding: 10px;
   margin-bottom: 20px;
-  background-color: var(--primary-green-color);
-  border-radius: 10px;
 
   &__user {
     font-weight: bold;
@@ -20,6 +18,10 @@
   &__item {
     margin-bottom: 10px;
   }
+}
+
+.mat-mdc-form-field {
+  min-width: 300px;
 }
 
 .observation-data-box {  
