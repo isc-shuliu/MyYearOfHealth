@@ -10,6 +10,7 @@
 
 .mat-card {
     margin-bottom: 5px;
+    min-width: 300px;
 }
 
 .mat-card:last-child {
@@ -21,22 +22,23 @@
     justify-content: space-between;
 }
 
-.normal-data {
+.item-name {
+    margin-bottom: 7px;
     font-size: 20px;
+    color: var(--primary-blue-color);
+    font-weight: 500;  
+}
+
+.item-name::after {
+    content: ('');
+    border-bottom: 1px solid var(--primary-blue-color);
+}
+
+.user-value {
+    font-size: 18px;
     color: var(--primary-green-font-color);
 }
-
-.normal-data::after {
-  content: ('(mine)');
-  font-size: 12px;
-}
-
 
 .user-data {
     font-size: 20px;
 }
-
-.user-data::after {
-    content: ('(date)');
-    font-size: 12px;
-  }

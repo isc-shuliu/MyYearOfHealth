@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ICustomObservationResult } from '../../../share/interfaces/onservation.interface.';
+import { ICustomObservationResult } from '../../../share/interfaces/observation.interface.';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { SetBtnComponent } from '../../../components/set-btn/set-btn.component';

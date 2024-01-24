@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,11 +11,8 @@ import { Router } from '@angular/router';
   templateUrl: './header-menu-view.component.html',
   styleUrl: './header-menu-view.component.scss'
 })
-export class HeaderMenuViewComponent implements OnInit {
+export class HeaderMenuViewComponent {
   constructor(private router: Router) {}
-  ngOnInit(): void {
-    console.log(this.isUserLogin);
-  }
 
   @Input() isUserLogin: boolean | null;
 
@@ -28,7 +25,7 @@ export class HeaderMenuViewComponent implements OnInit {
   }
 
   public menuPage() {
-    this.router.navigate(['/choice']);
+    this.router.navigate(['/menu']);
   }
 
   public logIn() {

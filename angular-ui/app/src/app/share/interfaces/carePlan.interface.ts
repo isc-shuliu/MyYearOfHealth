@@ -22,3 +22,11 @@ export interface IUserCarePlan {
   careplan: string;
   code: string;
 }
+
+export interface ICustomCarePlanItem {
+  code: string;
+  activity: string;
+  carePlan: string;
+  start: string;
+  goal: string;
+}
