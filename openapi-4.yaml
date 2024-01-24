@@ -43,29 +43,6 @@ paths:
     get:
       tags:
         - Observation
-      summary: Get users observations
-      operationId: getObservations
-      parameters:
-        - name: userId
-          in: path
-          description: ID of user
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ObservationArray'         
-  /api/observation/{userId}/result:
-    get:
-      tags:
-        - Observation
       summary: Get users observations result
       operationId: getObservationResult
       parameters:
@@ -100,29 +77,6 @@ paths:
         '200':
           description: successful operation
   /api/care-plan/{userId}:
-    get:
-      tags:
-        - Care plan
-      summary: Get users care plans
-      operationId: getCarePlans
-      parameters:
-        - name: userId
-          in: path
-          description: ID of user
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CarePlanArray' 
-  /api/care-plan/{userId}/active:
     get:
       tags:
         - Care plan
@@ -283,18 +237,6 @@ components:
         date:
           type: string
           format: date
-    ObservationArray:
-      required:
-          - userId
-          - observation
-      type: object
-      properties:
-        userId:
-          type: integer
-          format: int64
-          example: 10
-        observations:
-          type: string
     CarePlans:
       required:
         - userId
@@ -328,18 +270,6 @@ components:
           type: string
           format: date
         goal:
-          type: string
-    CarePlanArray:
-      required:
-          - userId
-          - carePlan
-      type: object
-      properties:
-        userId:
-          type: integer
-          format: int64
-          example: 10
-        carePlan:
           type: string
     Goals:
       required:
