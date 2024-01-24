@@ -70,7 +70,8 @@ ClassMethod SaveObservation()
         do Observation.%Save()
     }
     set response = {}
-
+    set response.userId = Observation.UserId
+    set response.observation = Observation.Observation
     return ..Response(response)
 }
 
@@ -85,6 +86,9 @@ ClassMethod SaveCarePlan()
         do CarePlan.%Save()
     }
     set response = {}
+    set response.userId = CarePlan.UserId
+    set response.carePlan = CarePlan.CarePlan
+
 
     return ..Response(response)
 }
@@ -268,7 +272,12 @@ ClassMethod SaveGoal()
     set Goal.Name = json.name
     set Goal.IsActive = json.isActive
     do Goal.%Save()
-    return ..Response({})
+
+    set response = {}
+    set response.userId = Goal.UserId
+    set response.name = Goal.Name
+    set response.isActive = Goal.IsActive
+    return ..Response(response)
 }
 
 ClassMethod EditGoal()
@@ -281,7 +290,10 @@ ClassMethod EditGoal()
         set Goal.IsActive = value.isActive
         do Goal.%Save()
     }
-    return ..Response()
+    set response = {}
+    set response.name = Goal.Name
+    set response.isActive = Goal.IsActive
+    return ..Response(response)
 }
 
 // daily progress
@@ -299,7 +311,12 @@ ClassMethod SaveDailyGoal()
         do DateGoal.%Save()
     }
 
-    return ..Response({})
+    set response = {}
+    set response.userId = DateGoal.UserId
+    set response.date = DateGoal.DateTime
+    set response.goal = DateGoal.Goal
+
+    return ..Response(response)
 }
 
 ClassMethod GetDailyGoal(userId As %String)
