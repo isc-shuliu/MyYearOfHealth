@@ -10,17 +10,14 @@ Parameter UseSession As BOOLEAN = 1;
 XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 {
 <Routes>
-<Route Url="/_ping" Method="GET" Call="Ping"/>
 
 <Route Url="/user/:userId" Method="GET" Call="GetUserInfo"/>
 
 <Route Url="/observation" Method="POST" Call="SaveObservation"/>
-<Route Url="/observation/:userId" Method="GET" Call="GetObservation"/>
-<Route Url="/observation/:userId/result" Method="GET" Call="GetObservationResult"/>
+<Route Url="/observation/:userId" Method="GET" Call="GetObservationResult"/>
 
 <Route Url="/care-plan" Method="POST" Call="SaveCarePlan"/>
-<Route Url="/care-plan/:userId" Method="GET" Call="GetCarePlan"/>
-<Route Url="/care-plan/:userId/active" Method="GET" Call="GetCarePlanActive"/>
+<Route Url="/care-plan/:userId" Method="GET" Call="GetCarePlanActive"/>
 
 <Route Url="/goal" Method="POST" Call="SaveGoal"/>
 <Route Url="/goal/:userId" Method="GET" Call="GetGoal"/>
