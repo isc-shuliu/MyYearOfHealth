@@ -1,0 +1,25 @@
+.wrong-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 140px 0 0 0 ;
+  padding: 40px;
+  border-radius: 10px;
+  background-color: var(--light-blue-color);
+  line-height: 30px;
+}
+  
+.wrong-data-error {
+  margin-bottom: 10px;
+  color: (var(--primary-blue-color));
+  font-size: 26px;
+  font-weight: 800;
+  text-align: center;
+}
+  
+.wrong-data-description {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+}
+  
