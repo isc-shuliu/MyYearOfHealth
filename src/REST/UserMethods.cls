@@ -247,11 +247,7 @@ ClassMethod EditGoal()
         set Goal.IsActive = value.isActive
         do Goal.%Save()
     }
-
-    set response = {}
-    set response.name = Goal.Name
-    set response.isActive = Goal.IsActive
-    return ..Response(response)
+    return ..Response({})
 }
 
 // daily progress
@@ -272,9 +268,9 @@ ClassMethod SaveDailyGoal()
             set DateGoal.Goal = Goal
             do DateGoal.%Save()
             do response.goal.%Push(Goal.Name)
-        }
-        set response.userId = DateGoal.UserId
-        set response.date = DateGoal.DateTime
+            set response.userId = DateGoal.UserId
+            set response.date = DateGoal.DateTime
+        } 
     }
    
     return ..Response(response)
