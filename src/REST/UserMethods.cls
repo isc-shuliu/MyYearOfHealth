@@ -51,14 +51,6 @@ ClassMethod Response(pResponse = "", pSC = 1) As %Status
  return $$$OK
 }
 
-ClassMethod Ping() As %Status
-{
-    set pong = {
-    "message": "pong"
-  }
-  return ..Response(pong)
-}
-
 ClassMethod SaveObservation()
 {
     set json = {}.%FromJSON(%request.Content)
@@ -69,6 +61,7 @@ ClassMethod SaveObservation()
         set Observation.Observation = value
         do Observation.%Save()
     }
+    
     set response = {}
     set response.userId = Observation.UserId
     set response.observation = Observation.Observation
@@ -85,11 +78,10 @@ ClassMethod SaveCarePlan()
         set CarePlan.CarePlan = value
         do CarePlan.%Save()
     }
+
     set response = {}
     set response.userId = CarePlan.UserId
     set response.carePlan = CarePlan.CarePlan
-
-
     return ..Response(response)
 }
 
@@ -129,7 +121,6 @@ ClassMethod GetUserInfo(userId As %String) As %Status
     set User.telecom = telecom
     set User.birthDate = birthDate
     set response.user = User
-    
     return ..Response(response)
 }
 
@@ -146,7 +137,6 @@ ClassMethod GetCarePlan(userId As %String)
         set UserCarePlan.carePlan = tcResult.CarePlan
         do response.%Push(UserCarePlan)
     }
-
     return ..Response(response)
 }
 
@@ -238,7 +228,7 @@ ClassMethod GetObservation(userId As %String)
 ClassMethod GetGoal(userId As %String)
 {
     set response = []
-    set isActive = %request.Get("isActive")
+    set isActive = $get(%request.Data("isActive",1))
     set sql = "select * from Model.Goal where UserId = ?"
     if (isActive '= "") {
         set sql = sql_" and IsActive = 1"
@@ -255,7 +245,6 @@ ClassMethod GetGoal(userId As %String)
         set Goal.isActive = tcResult.IsActive
         do response.%Push(Goal)
     }
-
     return ..Response(response)
 }
 
@@ -290,6 +279,7 @@ ClassMethod EditGoal()
         set Goal.IsActive = value.isActive
         do Goal.%Save()
     }
+
     set response = {}
     set response.name = Goal.Name
     set response.isActive = Goal.IsActive
@@ -314,16 +304,15 @@ ClassMethod SaveDailyGoal()
     set response = {}
     set response.userId = DateGoal.UserId
     set response.date = DateGoal.DateTime
-    set response.goal = DateGoal.Goal
-
+    set response.goal = DateGoal.Goal.Name
     return ..Response(response)
 }
 
 ClassMethod GetDailyGoal(userId As %String)
 {
     set response = []
-    set dateFrom = %request.Get("dateFrom")
-    set dateTo = %request.Get("dateTo")
+    set dateFrom = $get(%request.Data("dateFrom",1))
+    set dateTo = $get(%request.Data("dateTo",1))
     set sql = "SELECT DAY(DateTime) AS DayOfMonth, COUNT(*) AS CompletedGoals, (SELECT COUNT(DISTINCT ID) FROM Model.Goal WHERE UserId = ? AND IsActive = 1) AS TotalActiveGoals FROM Model.DateGoal WHERE UserId = ? AND DateTime BETWEEN ? AND ? GROUP BY DAY(DateTime) ORDER BY DAY(DateTime)"
     set tcStatement = ##class(%SQL.Statement).%New()
     set tcStatus = tcStatement.%Prepare(sql)
@@ -335,7 +324,6 @@ ClassMethod GetDailyGoal(userId As %String)
         set DayOfMonth.totalActiveGoals = tcResult.TotalActiveGoals
         do response.%Push(DayOfMonth)
     }
-
     return ..Response(response)
 }
 
