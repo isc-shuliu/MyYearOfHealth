@@ -4,11 +4,11 @@
             <div class="patient-box__title"><b>Patient info:</b> </div>
             <div class="patient-box__user-name">
                 <div class="patient-box__item" *ngIf="userData">
-                    <span>Name: <b>{{userData?.hame}} </b></span>
-                    <span><b>{{userData?.surname}}</b></span>
+                    <span>Name: <b>{{userData.name}} </b></span>
+                    <span><b>{{userData.surname}}</b></span>
                 </div>
-                <div class="patient-box__item">Birth date: <span><b>{{userData?.birthDate}}</b></span></div>
-                <div class="patient-box__item">Phone: <span><b>{{userData?.telecom}}</b></span></div>
+                <div class="patient-box__item">Birth date: <span><b>{{userData.birthDate}}</b></span></div>
+                <div class="patient-box__item">Phone: <span><b>{{userData.telecom}}</b></span></div>
             </div>
         </div>
         <div class="select-boxes" *ngIf="userData">

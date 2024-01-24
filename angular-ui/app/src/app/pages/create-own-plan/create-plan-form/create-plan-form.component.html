@@ -6,7 +6,7 @@
   <div class="text-box">
     <mat-form-field>
       <input matInput [(ngModel)]="currentCustomSettings" [ngModelOptions]="{standalone: true}" name="customSettings" />
-      <mat-hint>{{ currentCustomSettings?.length }}/240 symbols</mat-hint>
+      <mat-hint>{{ currentCustomSettings.length }}/240 symbols</mat-hint>
       <mat-error *ngIf="currentCustomSettings.length > 240">
         If possible, please enter more short habit
       </mat-error>

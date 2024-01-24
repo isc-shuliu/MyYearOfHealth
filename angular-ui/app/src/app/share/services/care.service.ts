@@ -28,9 +28,7 @@ export class CarePlanService {
     userId: string
   ): Observable<ICustomCarePlanItem[]> {
     return this.httpClient
-      .get<ICustomCarePlanItem[]>(
-        environmentAPI.apiUrl + 'care-plan/' + userId + '/active'
-      )
+      .get<ICustomCarePlanItem[]>(environmentAPI.apiUrl + 'care-plan/' + userId)
       .pipe(
         map((data) => data),
         catchError((err) => {
