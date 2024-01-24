@@ -9,6 +9,7 @@ import {
   IUserObservationData
 } from '../../../share/interfaces/carePlan.interface';
 import { MatButtonModule } from '@angular/material/button';
+import { WrongDataComponent } from '../../../components/wrong-data/wrong-data.component';
 
 @Component({
   selector: 'app-user-info-view',
@@ -19,7 +20,8 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    MatButtonModule
+    MatButtonModule,
+    WrongDataComponent
   ],
   templateUrl: './user-info-view.component.html',
   styleUrl: './user-info-view.component.scss'

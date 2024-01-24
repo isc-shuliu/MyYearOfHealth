@@ -1,6 +1,7 @@
 <div class="page">
     <div class="main-container">
-        <div class="data-box" *ngIf="carePlanItems">
+        @if (carePlanItems) {
+        <div class="data-box">
             <div class="data-box-header primary-h2-font">
                 Plan description:
             </div>
@@ -22,5 +23,9 @@
             </div>
             <app-set-btn [btnTitle]="btnTitle" (click)="createOwnPlan.emit()" />
         </div>
+        }
+        @else {
+        <app-wrong-data />
+        }
     </div>
 </div>

@@ -1,6 +1,7 @@
 <div class="page">
     <div class="main-container">
-        <div class="data-box" *ngIf="userCustomObservationData">
+        @if (userCustomObservationData) {
+        <div class="data-box">
             <div class="data-box-header primary-h2-font">
                 Your observation information:
             </div>
@@ -15,11 +16,14 @@
                         </div>
                     </mat-card-content>
                 </mat-card>
-                } @empty {
-                <span>Empty...smth went wrong</span>
                 }
             </div>
             <app-set-btn [btnTitle]="btnTitle" (click)="goToMenu.emit()" />
         </div>
+        }
+        @else {
+        <app-wrong-data />
+        }
+
     </div>
 </div>

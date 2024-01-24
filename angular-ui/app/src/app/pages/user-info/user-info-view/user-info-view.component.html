@@ -1,9 +1,10 @@
 <div class="page">
     <div class="main-container">
-        <div class="patient-box green-box" *ngIf="userData">
+        @if (userData) {
+        <div class="patient-box green-box">
             <div class="patient-box__title"><b>Patient info:</b> </div>
             <div class="patient-box__user-name">
-                <div class="patient-box__item" *ngIf="userData">
+                <div class="patient-box__item">
                     <span>Name: <b>{{userData.name}} </b></span>
                     <span><b>{{userData.surname}}</b></span>
                 </div>
@@ -11,7 +12,7 @@
                 <div class="patient-box__item">Phone: <span><b>{{userData.telecom}}</b></span></div>
             </div>
         </div>
-        <div class="select-boxes" *ngIf="userData">
+        <div class="select-boxes">
             <div class="observation-data-box select-box">
                 <div class="observation-data-box__title select-box__title">Observation</div>
                 <div class="observation-data-box__content">
@@ -43,5 +44,9 @@
                 color="primary">Set</button>
 
         </div>
+        }
+        @else {
+        <app-wrong-data />
+        }
     </div>
 </div>

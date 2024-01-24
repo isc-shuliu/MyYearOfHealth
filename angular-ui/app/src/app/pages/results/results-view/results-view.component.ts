@@ -3,43 +3,16 @@ import { ICustomObservationResult } from '../../../share/interfaces/observation.
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { SetBtnComponent } from '../../../components/set-btn/set-btn.component';
+import { WrongDataComponent } from '../../../components/wrong-data/wrong-data.component';
 
 @Component({
   selector: 'app-results-view',
   standalone: true,
-  imports: [CommonModule, MatCardModule, SetBtnComponent],
+  imports: [CommonModule, MatCardModule, SetBtnComponent, WrongDataComponent],
   templateUrl: './results-view.component.html',
   styleUrl: './results-view.component.scss'
 })
-export class ResultsViewComponent implements OnInit {
-  ngOnInit(): void {
-    this.userCustomObservationData = [
-      {
-        name: 'Body Height',
-        code: 'string',
-        value: 'value',
-        date: '2024-01-22'
-      },
-      {
-        name: 'Blood pressure',
-        code: 'string',
-        value: 'value',
-        date: '2024-01-22'
-      },
-      {
-        name: 'Body Height',
-        code: 'string',
-        value: 'value',
-        date: '2024-01-22'
-      },
-      {
-        name: 'Blood pressure',
-        code: 'string',
-        value: 'value',
-        date: '2024-01-22'
-      }
-    ];
-  }
+export class ResultsViewComponent {
   @Input() userCustomObservationData: ICustomObservationResult[] | null;
 
   public btnTitle = 'Ok.Go Ahead';
