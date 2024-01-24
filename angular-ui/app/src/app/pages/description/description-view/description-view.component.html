@@ -24,7 +24,7 @@
             <app-set-btn [btnTitle]="btnTitle" (click)="createOwnPlan.emit()" />
         </div>
         }
-        @else {
+        @if(carePlanItems?.length == 0) {
         <app-wrong-data />
         }
     </div>

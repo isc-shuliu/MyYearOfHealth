@@ -21,7 +21,7 @@
             <app-set-btn [btnTitle]="btnTitle" (click)="goToMenu.emit()" />
         </div>
         }
-        @else {
+        @if(userCustomObservationData?.length == 0) {
         <app-wrong-data />
         }
 

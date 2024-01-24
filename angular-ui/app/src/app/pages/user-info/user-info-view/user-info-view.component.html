@@ -45,7 +45,7 @@
 
         </div>
         }
-        @else {
+        @if(observationData?.length == 0 && planCareData?.length == 0 ) {
         <app-wrong-data />
         }
     </div>
