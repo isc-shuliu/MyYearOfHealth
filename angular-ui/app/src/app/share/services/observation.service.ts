@@ -43,7 +43,7 @@ export class ObservationService {
   ): Observable<ICustomObservationResult[]> {
     return this.httpClient
       .get<ICustomObservationResult[]>(
-        environmentAPI.apiUrl + 'observation/' + userId + '/result'
+        environmentAPI.apiUrl + 'observation/' + userId
       )
       .pipe(
         map((data) => data),
