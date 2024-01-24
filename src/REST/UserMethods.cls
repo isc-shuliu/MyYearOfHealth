@@ -57,16 +57,14 @@ ClassMethod SaveObservation()
     set iterator = json.observations.%GetIterator()
     set response = {}
     set response.observation = []
+    &sql(delete from Model.UserObservation where UserId = :json.userId)
     while iterator.%GetNext(.key,.value) {
-        &sql(select * from Model.UserObservation where UserId = :json.userId and Observation = :value)
-        if SQLCODE = 100 {
-            set Observation = ##class(Model.UserObservation).%New()
-            set Observation.UserId = json.userId
-            set Observation.Observation = value
-            do Observation.%Save()
-            set response.userId = Observation.UserId
-            do response.observation.%Push(value)
-        }
+        set Observation = ##class(Model.UserObservation).%New()
+        set Observation.UserId = json.userId
+        set Observation.Observation = value
+        do Observation.%Save()
+        set response.userId = Observation.UserId
+        do response.observation.%Push(value)
     }
 
     return ..Response(response)
@@ -78,16 +76,14 @@ ClassMethod SaveCarePlan()
     set iterator = json.careplans.%GetIterator()
     set response = {}
     set response.carePlan = []
+    &sql(delete from Model.UserCarePlan where UserId = :json.userId)
     while iterator.%GetNext(.key,.value) {
-        &sql(select * from Model.UserCarePlan where UserId = :json.userId and CarePlan = :value)
-        if SQLCODE = 100 {
-            set CarePlan = ##class(Model.UserCarePlan).%New()
-            set CarePlan.UserId = json.userId
-            set CarePlan.CarePlan = value
-            do CarePlan.%Save()
-            set response.userId = CarePlan.UserId
-            do response.carePlan.%Push(value)
-        }
+        set CarePlan = ##class(Model.UserCarePlan).%New()
+        set CarePlan.UserId = json.userId
+        set CarePlan.CarePlan = value
+        do CarePlan.%Save()
+        set response.userId = CarePlan.UserId
+        do response.carePlan.%Push(value)
     }
 
     return ..Response(response)
