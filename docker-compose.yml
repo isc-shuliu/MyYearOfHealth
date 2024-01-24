@@ -1,5 +1,13 @@
 version: '3.6'
 services:
+  frontend:
+    build:
+      context: ./angular-ui/app
+      dockerfile: Dockerfile
+    volumes:
+      - .:/web
+    ports:
+      - "4200:4200"
   iris:
     build: 
       context: .
