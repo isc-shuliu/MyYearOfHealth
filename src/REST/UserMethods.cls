@@ -55,16 +55,20 @@ ClassMethod SaveObservation()
 {
     set json = {}.%FromJSON(%request.Content)
     set iterator = json.observations.%GetIterator()
-    while iterator.%GetNext(.key,.value) {
-        set Observation = ##class(Model.UserObservation).%New()
-        set Observation.UserId = json.userId
-        set Observation.Observation = value
-        do Observation.%Save()
-    }
-    
     set response = {}
-    set response.userId = Observation.UserId
-    set response.observation = Observation.Observation
+    set response.observation = []
+    while iterator.%GetNext(.key,.value) {
+        &sql(select * from Model.UserObservation where UserId = :json.userId and Observation = :value)
+        if SQLCODE = 100 {
+            set Observation = ##class(Model.UserObservation).%New()
+            set Observation.UserId = json.userId
+            set Observation.Observation = value
+            do Observation.%Save()
+            set response.userId = Observation.UserId
+            do response.observation.%Push(value)
+        }
+    }
+
     return ..Response(response)
 }
 
@@ -72,16 +76,20 @@ ClassMethod SaveCarePlan()
 {
     set json = {}.%FromJSON(%request.Content)
     set iterator = json.careplans.%GetIterator()
+    set response = {}
+    set response.carePlan = []
     while iterator.%GetNext(.key,.value) {
-        set CarePlan = ##class(Model.UserCarePlan).%New()
-        set CarePlan.UserId = json.userId
-        set CarePlan.CarePlan = value
-        do CarePlan.%Save()
+        &sql(select * from Model.UserCarePlan where UserId = :json.userId and CarePlan = :value)
+        if SQLCODE = 100 {
+            set CarePlan = ##class(Model.UserCarePlan).%New()
+            set CarePlan.UserId = json.userId
+            set CarePlan.CarePlan = value
+            do CarePlan.%Save()
+            set response.userId = CarePlan.UserId
+            do response.carePlan.%Push(value)
+        }
     }
 
-    set response = {}
-    set response.userId = CarePlan.UserId
-    set response.carePlan = CarePlan.CarePlan
     return ..Response(response)
 }
 
@@ -254,6 +262,7 @@ ClassMethod SaveGoal()
     &sql(select ID into :goalId from Model.Goal where Name = :json.name and UserId = :json.userId)
     if (goalId '= "") {
         set description = "This Goal is exist!"
+        set %response.Status = ..#HTTP409CONFLICT
         return ..Response(description)
     }
     set Goal = ##class(Model.Goal).%New()
@@ -292,19 +301,23 @@ ClassMethod SaveDailyGoal()
 {
     set json = {}.%FromJSON(%request.Content)
     set iterator = json.goals.%GetIterator()
+    set response = {}
+    set response.goal = []
     while iterator.%GetNext(.key,.value) {
         set Goal = ##class(Model.Goal).%OpenId(value)
-        set DateGoal = ##class(Model.DateGoal).%New()
-        set DateGoal.UserId = json.userId
-        set DateGoal.DateTime = json.date
-        set DateGoal.Goal = Goal
-        do DateGoal.%Save()
+        &sql(select * from Model.DateGoal where UserId = :json.userId and TO_CHAR(DateTime, 'yyyy-MM-dd') = :json.date and Goal = :value)
+        if SQLCODE = 100 {
+            set DateGoal = ##class(Model.DateGoal).%New()
+            set DateGoal.UserId = json.userId
+            set DateGoal.DateTime = json.date
+            set DateGoal.Goal = Goal
+            do DateGoal.%Save()
+            do response.goal.%Push(Goal.Name)
+        }
+        set response.userId = DateGoal.UserId
+        set response.date = DateGoal.DateTime
     }
-
-    set response = {}
-    set response.userId = DateGoal.UserId
-    set response.date = DateGoal.DateTime
-    set response.goal = DateGoal.Goal.Name
+   
     return ..Response(response)
 }
 
