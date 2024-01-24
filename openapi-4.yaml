@@ -7,7 +7,7 @@ paths:
     get:
       tags:
         - User
-      summary: Get data from FHIR
+      summary: Get user data with all observations and care plans from FHIR
       operationId: getFihrData
       parameters:
         - name: userId
@@ -28,7 +28,7 @@ paths:
     post:
       tags:
         - Observation
-      summary: Save observations
+      summary: Save observations for tracking
       operationId: addObservations
       requestBody:
         content:
@@ -43,7 +43,7 @@ paths:
     get:
       tags:
         - Observation
-      summary: Get users observations result
+      summary: Get user's observations result
       operationId: getObservationResult
       parameters:
         - name: userId
@@ -66,7 +66,7 @@ paths:
     post:
       tags:
         - Care plan
-      summary: Save care plan
+      summary: Save care plans for tracking
       operationId: addCarePlan
       requestBody:
         content:
@@ -80,7 +80,7 @@ paths:
     get:
       tags:
         - Care plan
-      summary: Get users care plans activ
+      summary: Get user's care plans
       operationId: getCarePlansActive
       parameters:
         - name: userId
@@ -116,7 +116,7 @@ paths:
     patch:
       tags:
         - Goal
-      summary: Update goal
+      summary: Update list of goals
       operationId: updateGoal
       requestBody:
         content:
@@ -159,7 +159,7 @@ paths:
     post:
       tags:
         - Daily goal
-      summary: Add goal info
+      summary: Save daily progress
       operationId: addGoalInfo
       requestBody:
         content:
@@ -173,7 +173,7 @@ paths:
     get:
       tags:
         - Daily goal
-      summary: Get goal info for period
+      summary: Get daily progress for month
       operationId: getGoalInfoForPeriod
       parameters:
         - name: userId

@@ -14,10 +14,10 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 <Route Url="/user/:userId" Method="GET" Call="GetUserInfo"/>
 
 <Route Url="/observation" Method="POST" Call="SaveObservation"/>
-<Route Url="/observation/:userId" Method="GET" Call="GetObservationResult"/>
+<Route Url="/observation/:userId" Method="GET" Call="GetObservations"/>
 
 <Route Url="/care-plan" Method="POST" Call="SaveCarePlan"/>
-<Route Url="/care-plan/:userId" Method="GET" Call="GetCarePlanActive"/>
+<Route Url="/care-plan/:userId" Method="GET" Call="GetCarePlans"/>
 
 <Route Url="/goal" Method="POST" Call="SaveGoal"/>
 <Route Url="/goal/:userId" Method="GET" Call="GetGoal"/>
@@ -125,23 +125,7 @@ ClassMethod GetUserInfo(userId As %String) As %Status
     return ..Response(response)
 }
 
-ClassMethod GetCarePlan(userId As %String)
-{
-    set response = []
-    set sql = "select * from Model.UserCarePlan where UserId = ?"
-    set tcStatement = ##class(%SQL.Statement).%New()
-    set tcStatus = tcStatement.%Prepare(sql)
-    set tcResult = tcStatement.%Execute(userId)
-    while tcResult.%Next() {
-        set UserCarePlan = {}
-        set UserCarePlan.userId = tcResult.UserId
-        set UserCarePlan.carePlan = tcResult.CarePlan
-        do response.%Push(UserCarePlan)
-    }
-    return ..Response(response)
-}
-
-ClassMethod GetObservationResult(userId As %String)
+ClassMethod GetObservations(userId As %String)
 {
     set sql = "select * from Model.UserObservation where UserId = ?"
     set tcStatement = ##class(%SQL.Statement).%New()
@@ -173,7 +157,7 @@ ClassMethod GetObservationResult(userId As %String)
     return ..Response(response)
 }
 
-ClassMethod GetCarePlanActive(userId As %String)
+ClassMethod GetCarePlans(userId As %String)
 {
     set sql = "select * from Model.UserCarePlan where UserId = ?"
     set tcStatement = ##class(%SQL.Statement).%New()
@@ -201,24 +185,6 @@ ClassMethod GetCarePlanActive(userId As %String)
         set UserObservation.carePlan = tcResult.CategoryCodingDisplay
         set UserObservation.start = tcResult.PeriodStart
         set UserObservation.goal = tcResult.DescriptionText
-        do response.%Push(UserObservation)
-    }
-    return ..Response(response)
-}
-
-ClassMethod GetObservation(userId As %String)
-{
-    SET ns="FHIRSERVER"
-    ZNSPACE ns
-    set response = []
-    set sql = "select * from HarbourFHIR.Observation where SubjectReference = ? group by CodeCodingCode"
-    set tcStatement = ##class(%SQL.Statement).%New()
-    set tcStatus = tcStatement.%Prepare(sql)
-    set tcResult = tcStatement.%Execute("Patient/"_userId)
-	while tcResult.%Next() {
-        set UserObservation = {}
-        set UserObservation.code = tcResult.CodeCodingCode
-        set UserObservation.observation = tcResult.CodeText
         do response.%Push(UserObservation)
     }
     return ..Response(response)
