@@ -7,7 +7,7 @@ export interface IPatientData {
 export interface IUserData {
   birthDate: string;
   gender: string;
-  hame: string;
+  name: string;
   status: string;
   surname: string;
   telecom: string;
