@@ -110,7 +110,7 @@ ClassMethod GetUserInfo(userId As %String) As %Status
         do response.observations.%Push(UserObservation)
     }
     set response.carePlans = []
-    set sql = "select * from HarbourFHIR.CarePlan where SubjectReference = ? group by CategoryCodingDisplay"
+    set sql = "select * from HarbourFHIR.CarePlan where SubjectReference = ? and Status = 'active' group by CategoryCodingDisplay"
     set tcStatement = ##class(%SQL.Statement).%New()
     set tcStatus = tcStatement.%Prepare(sql)
     set tcResult = tcStatement.%Execute("Patient/"_userId)
@@ -205,7 +205,7 @@ ClassMethod GetCarePlanActive(userId As %String)
         set UserObservation = {}
         set UserObservation.code = tcResult.CategoryCodingCode
         set UserObservation.activity = tcResult.ActivityDetailCodeCodingDisplay
-        set UserObservation."carePlan" = tcResult.CategoryCodingDisplay
+        set UserObservation.carePlan = tcResult.CategoryCodingDisplay
         set UserObservation.start = tcResult.PeriodStart
         set UserObservation.goal = tcResult.DescriptionText
         do response.%Push(UserObservation)
