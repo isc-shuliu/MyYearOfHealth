@@ -71,11 +71,10 @@
       </div>
     </div>
     @if(!isUserLogin) {
-    <div class="registre-box">
-      <button mat-raised-button color="primary" (click)=" logIn()">
-        Boost your health.
-      </button>
-    </div>
+    <button class="registre-box" mat-stroked-button color=" primary" (click)=" logIn()">
+      Boost your health
+      <mat-icon color="primary">self_improvement</mat-icon>
+    </button>
     }
   </div>
 </div>
