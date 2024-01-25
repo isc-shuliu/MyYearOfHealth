@@ -2,7 +2,6 @@ FROM node:18-alpine as build-step
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm i
 RUN npm ci
 COPY . .
 RUN npm run build
