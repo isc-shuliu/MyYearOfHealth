@@ -11,19 +11,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build and publish a Docker image for ${{ github.repository }}
-        uses: macbre/push-to-ghcr@main
+        uses: macbre/push-to-ghcr@master
         with:
           image_name: ${{ github.repository }}
           github_token: ${{ github.token }}
       - name: Build and publish a Docker image for ${{ github.repository }}-ui
-        uses: macbre/push-to-ghcr@main
+        uses: macbre/push-to-ghcr@master
         with:
           image_name: ${{ github.repository }}-ui
           github_token: ${{ github.token }}
           dockerfile: ./angular-gui/app/Dockerfile
           context: ./angular-gui/app
       - name: Pull and Up docker image on DEV
-        uses: mn/ssh-action@main
+        uses: appleboy/ssh-action@master
         with:
           host: harbour.cloud.banksia.global
           username: ec2-user
