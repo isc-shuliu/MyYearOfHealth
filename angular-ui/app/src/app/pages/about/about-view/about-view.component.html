@@ -33,9 +33,12 @@
         <div class="info-item">
           Execute the following commands in the terminal to start the project:
         </div>
-        <div class="info-item-code">git clone https://github.com/banksiaglobal/MyYearOfHealth
+        <div class="info-item-code-string" (click)="clickGitClone()"><span class="info-item-code">git clone
+            https://github.com/banksiaglobal/MyYearOfHealth</span>
         </div>
-        <div class="info-item-code">docker compose up -d --build
+        <div class="info-item-code-string" (click)="clickDockerCommand()"><span class="info-item-code">docker compose up
+            -d
+            --build</span>
         </div>
         <div class="info-item">The application <span class="bold-item">backend</span> is available at <a
             class="info-item-link bold-item" href="http://localhost:32783/" target="_blank">http://localhost:32783/</a>
@@ -44,10 +47,21 @@
             class="info-item-link bold-item" href="http://localhost:4200/" target="_blank">http://localhost:4200/</a>
         </div>
       </div>
-      <div class="info-item-code">It uses <a class="info-item-link" href="http://localhost:32783/"
+      <div class="info-item">It uses <a class="info-item-link" href="http://localhost:32783/"
           target="_blank">swagger-ui</a> module to provide documentation and test environment for API.
       </div>
       <div class="subtitle">FHIR SQL BUILDER </div>
+      <div class="info-item">
+        The FHIR SQL Builder scrutinizes the InterSystems IRIS for Health FHIR store to compile an overview,
+        detailing the resource types, components, and their values, as well as tallying the number of each resource
+        type. You get to choose which FHIR resources and elements to include in your tailored SQL projection and
+        determine their arrangement.
+        <div class="info-item bold-item"> For more convenient and efficient conversion of FHIR server data to SQL server
+          in IRIS,
+          the fhir
+          sql builder
+          tool was used. It allows you to work with FHIR server data without having to learn new query syntax.</div>
+      </div>
       <div class="title  primary-h3-font">Video:</div>
       <div class="info-item"> <a class="info-item-link bold-item" href="https://github.com/banksiaglobal/MyYearOfHealth"
           target="_blank">link</a>
