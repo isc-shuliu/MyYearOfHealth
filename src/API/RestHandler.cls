@@ -1,4 +1,4 @@
-Class REST.UserMethods Extends %CSP.REST [ System = 3 ]
+Class API.RestHandler Extends %CSP.REST [ System = 3 ]
 {
 
 Parameter HandleCorsRequest As Integer = 1;

@@ -17,7 +17,7 @@
       <FileCopy Name="data/fhir/" Target="${mgrdir}dataFhir/"/>
       <CSPApplication 
         Url="/api"
-        DispatchClass="REST.UserMethods"
+        DispatchClass="API.RestHandler"
         MatchRoles=":%All"
         PasswordAuthEnabled="0"
         UnauthenticatedEnabled="1"
