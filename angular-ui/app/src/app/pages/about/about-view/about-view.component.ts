@@ -1,21 +1,24 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-about-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule],
   templateUrl: './about-view.component.html',
   styleUrls: ['./about-view.component.scss']
 })
 export class AboutViewComponent implements OnInit {
-  // public isUser: boolean;
+  constructor(private router: Router) {}
+  public isUser: boolean;
   ngOnInit(): void {
-    // this.isUser = !!localStorage.getItem('user');
+    this.isUser = !!localStorage.getItem('user');
   }
-  // @Input() isUserLogout: boolean | null;
+  @Input() isUserLogin: boolean | null;
 
-  // @Input() isUserLogin: boolean | null;
-
-  @Output() goToLoginPage = new EventEmitter<any>();
+  public logIn() {
+    this.router.navigate(['/autn']);
+  }
 }

@@ -1,1 +1,1 @@
-<app-about-view (goToLoginPage)="goToLoginPage($event)"></app-about-view>
+<app-about-view [isUserLogin]="isUserLogin$ | async"></app-about-view>

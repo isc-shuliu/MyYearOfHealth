@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AboutViewComponent } from '../about-view/about-view.component';
 import { Router } from '@angular/router';
-// import { AuthService } from 'src/app/share/services/auth.service';
-// import { Router } from '@angular/router';
-// import { Observable, map, of } from 'rxjs';
-// import { LocalStorageService } from 'src/app/share/services/localStorage.service';
+import { Observable, of, map } from 'rxjs';
+import { AuthService } from '../../../share/services/auth.service';
 
 @Component({
   selector: 'app-about',
@@ -17,31 +15,21 @@ import { Router } from '@angular/router';
 export class AboutComponent implements OnInit {
   public userId: string;
 
-  // public isUserLogin$: Observable<boolean> = of(false);
+  public isUserLogin$: Observable<boolean> = of(false);
 
-  // public isUserLogout$: Observable<boolean>;
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.ckeckIsLogin();
   }
 
   private ckeckIsLogin() {
-    this.auth.isLoggedIn$
+    this.authService.isLoggedIn$
       .pipe(
         map((res) => {
           this.isUserLogin$ = of(res);
         })
       )
       .subscribe();
-  }
-
-  public goToLoginPage(event: Event): void {
-    console.log(event);
-    this.router.navigate(['/auth']);
-  }
-
-  private getUserId() {
-    this.userId = this.storage.getUserID();
   }
 }

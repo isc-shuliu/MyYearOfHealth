@@ -2,73 +2,80 @@
   <div class="main-container">
     <div class="page">
       <div class="content">
-        <h3>About:</h3>
-        <h5>
-          Example of using InterSystems IRIS for Health, Health Connect, FHIR server to build
-          an applicaion to help improve your health
-        </h5>
-
-        <p>
+        <div class="title  primary-h3-font">About:</div>
+        <div class="info-item">
           Welcome to Health Harbour, an all-in-one health companion! Our dedicated team has crafted an application that
           seamlessly combines the functionalities of a medical assistant with the power of habit tracking, designed to
           empower users on their journey to better health.
-        </p>
-        <h5>InterSystems IRIS Cloud SQL</h5>
-        <p>
-          To do this, set up a deployment in the IRIS Cloud SQL portal and write
-          the connection parameters into docker-compose file in the environment
-          section.
-        </p>
-        <h5>Filling with data</h5>
-        <p>
-          The "sleeps" table of our database is populated with the generated
-          data. To do this, run the following commands in the docker
-          terminal:<br />
-        </p>
-
-        <p>/opt/venv/bin/activate - activate virtual environment</p>
-        <p>cd src</p>
-        <p>python.\sleepTrack\db_init.py - create tables</p>
-        <p>python.\sleepTrack\generator.py - generate data</p>
-        <h5>IntegratedML</h5>
-        <p>
-          The following sql queries are required to implement machine learning
-          algorithms:
-        </p>
-        <p>Create model sleep predicting (quality) from SQLUser.Sleeps</p>
-        <p>Train model sleeps</p>
-        <p>
-          Here we create a machine learning model based on the Sleeps database
-          table. For prediction, we specify the field "quality" ("quality of
-          sleep", the user's sensation after sleep). As a result of training, we
-          get prediction and probability_quality fields, which we use later, for
-          example, in such a sql query:
-        </p>
-        <p>
-          SELECT PREDICT(sleeps use sleeps) as prediction, quality,
-          PROBABILITY(sleeps use sleeps for '3') as probability_quality, * FROM
-          SQLUser.Sleeps where user_id = 1 and id = 1 <br />
-          where the prediction field contains a prediction of the quality of
-          sleep, the probability_quality field contains the probability that the
-          dream will be "qualitative" based on its entered characteristics.
-        </p>
-
-        <div>
-          <h5>Developers of project:</h5>
-          <p>/team of Banksia Global/</p>
-          <p>Backend: Maria Gladkova</p>
-          <p>Backend: Maria Nesterenko</p>
-          <p>Frontend: Katsiaryna Shaustruk</p>
         </div>
-        <h5>
-          Documentation:
-          <a href="https://github.com/banksiaglobal/MyYearOfHealth" target="_blank">github</a>
-        </h5>
+        <div class="subtitle">Medical Assistant Features:</div>
+        <div class="info-item">
+          - Vital Signs Monitoring: Easily log and monitor essential health metrics such as blood pressure, providing
+          users with valuable insights, ensuring them stay organized and never miss a follow-up.
+          <br>
+          - Personalized Care Plans: Collaborate with a personal doctor to create customized wellness plans tailored to
+          the patient's unique needs.
+        </div>
+        <div class="subtitle">Medical Assistant Features:</div>
+        <div class="info-item">
+          - Daily Habit Tracking: Stay on course with health improvement goals by tracking and cultivating positive
+          habits.
+        </div>
+        <div class="info-item">
+          At Health Harbour, we believe that managing health should be comprehensive, intuitive, and empowering.
+        </div>
+        <div class="info-item">
+          Download Health Harbor now and take charge of your well-being!
+        </div>
+
+        <div class="title  primary-h3-font">Features and technical description</div>
+        <div class="subtitle">How to run </div>
+        <div class="info-item">
+          Execute the following commands in the terminal to start the project:
+        </div>
+        <div class="info-item-code">git clone https://github.com/banksiaglobal/MyYearOfHealth
+        </div>
+        <div class="info-item-code">docker compose up -d --build
+        </div>
+        <div class="info-item">The application <span class="bold-item">backend</span> is available at <a
+            class="info-item-link bold-item" href="http://localhost:32783/" target="_blank">http://localhost:32783/</a>
+        </div>
+        <div class="info-item">The application <span class="bold-item">frontend</span> is available at <a
+            class="info-item-link bold-item" href="http://localhost:4200/" target="_blank">http://localhost:4200/</a>
+        </div>
       </div>
-      <div class="registre-box">
-        <button mat-raised-button color="primary" (click)="goToLoginPage.emit($event)">
-          Boost your health.
-        </button>
+      <div class="info-item-code">It uses <a class="info-item-link" href="http://localhost:32783/"
+          target="_blank">swagger-ui</a> module to provide documentation and test environment for API.
+      </div>
+      <div class="subtitle">FHIR SQL BUILDER </div>
+      <div class="title  primary-h3-font">Video:</div>
+      <div class="info-item"> <a class="info-item-link bold-item" href="https://github.com/banksiaglobal/MyYearOfHealth"
+          target="_blank">link</a>
+      </div>
+      <div class="title  primary-h3-font">Team:</div>
+      <div class="info-item">
+        <div class="subtitle">Developers of project: </div>
+        <div class="info-item">/* team of <span class="bold-item">Banksia Global */</span> </div>
+        <div>Backend: <a href="https://community.intersystems.com/user/maria-gladkova" target="_blank"><span
+              class="bold-item">Maria Gladkova</span></a> </div>
+        <div>Backend: <a href="https://community.intersystems.com/user/maria-nesterenko" target="_blank"><span
+              class="bold-item">Maria Nesterenko</span></a> </div>
+        <div>Frontend: <a href="https://community.intersystems.com/user/katsiaryna-shaustruk" target="_blank"><span
+              class="bold-item">Katsiaryna Shaustruk</span></a> </div>
+        <div>QA / design:<a href="https://community.intersystems.com/user/alena-krasinskiene" target="_blank"><span
+              class="bold-item"> Alena Krasinskiene</span></a> </div>
+      </div>
+      <div class="title  primary-h3-font">Documentation:</div>
+      <div class="info-item"> <a class="info-item-link bold-item" href="https://github.com/banksiaglobal/MyYearOfHealth"
+          target="_blank">link</a>
       </div>
     </div>
+    @if(!isUserLogin) {
+    <div class="registre-box">
+      <button mat-raised-button color="primary" (click)=" logIn()">
+        Boost your health.
+      </button>
+    </div>
+    }
   </div>
+</div>

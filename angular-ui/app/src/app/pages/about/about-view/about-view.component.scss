@@ -11,7 +11,40 @@
   color: var(--base-dark-color);
 }
 
-.registre-box {
+.title {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.info-item {
+  text-align: justify;
+  margin-bottom: 10px;
+}
+
+.info-item-code {
+  margin-bottom: 10px;
+}
+
+.info-item-link {
+ border-bottom: 2px solid var(--light-blue-color);
+}
+
+.bold-item {
+  color: var(--primary-blue-color);
+  font-weight: 500;
+}
+
+.subtitle {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: var(--primary-green-font-color);
+  font-weight: 500;
+}
+
+.registre-box { 
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
   padding: 30px;
   background-color: var(--base-dark-color);
   box-shadow: (
@@ -35,7 +68,6 @@
 
   button {
     min-width: 155px;
-    background-color: var(--accent-color);
     font-weight: 600;
   }
 }
@@ -50,9 +82,4 @@ h3 {
 a {
   text-decoration: none;
   color: var(--base-dark-color);
-}
-
-h5,
-p {
-  text-align: justify;
 }
