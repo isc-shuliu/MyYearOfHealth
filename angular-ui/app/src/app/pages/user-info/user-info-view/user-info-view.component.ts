@@ -45,12 +45,7 @@ export class UserInfoViewComponent {
 
   public isButtonDisabled(): boolean {
     if (this.planCareData?.length !== 0 && this.observationData?.length !== 0) {
-      return (
-        !this.careDataControl.value ||
-        this.careDataControl.value.length === 0 ||
-        !this.observationDataControl.value ||
-        this.observationDataControl.value.length === 0
-      );
+      return !this.careDataControl.value && !this.observationDataControl.value;
     }
     if (this.planCareData?.length == 0) {
       return (
@@ -66,7 +61,6 @@ export class UserInfoViewComponent {
       carePlan: this.careDataControl.value,
       observationData: this.observationDataControl.value
     };
-
     this.setUserSettings.emit(settings);
   }
 }

@@ -47,7 +47,7 @@
 
         </div>
         }
-        @if(!userData || observationData?.length == 0 && planCareData?.length == 0 ) {
+        @if( observationData?.length == 0 && planCareData?.length == 0 ) {
         <app-wrong-data [wrongMessage]="wrongMessage" [alertMessage]="alertMessage" [icon]="icon" />
 
         }
