@@ -23,7 +23,7 @@ jobs:
           dockerfile: ./angular-gui/app/Dockerfile
           context: ./angular-gui/app
       - name: Pull and Up docker image on DEV
-        uses: appleboy/ssh-action@main
+        uses: mn/ssh-action@main
         with:
           host: harbour.cloud.banksia.global
           username: ec2-user
