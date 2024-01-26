@@ -15,4 +15,9 @@
 .text-box {
     display: flex;
     align-items: center;
+    margin-top: 15px;
+}
+
+.mat-mdc-checkbox {
+  overflow-wrap: anywhere !important;
 }
