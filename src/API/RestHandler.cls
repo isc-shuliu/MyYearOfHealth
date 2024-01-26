@@ -309,7 +309,7 @@ ClassMethod SaveDailyGoal()
         while iterator.%GetNext(.key,.value) {
             set Goal = ##class(Model.Goal).%OpenId(value)
             &sql(select ID from Model.DateGoal where UserId = :json.userId and TO_CHAR(DateTime, 'yyyy-MM-dd') = :json.date and Goal = :value)
-            if SQLCODE = 100 {
+            if (SQLCODE = 100) && (Goal.UserId = json.userId) {
                 set DateGoal = ##class(Model.DateGoal).%New()
                 set DateGoal.UserId = json.userId
                 set DateGoal.DateTime = json.date
@@ -324,7 +324,7 @@ ClassMethod SaveDailyGoal()
     catch(ex) {
         set responseSC = ex.AsStatus()
     }
-    return ..Response({}, responseSC)
+    return ..Response(response, responseSC)
 }
 
 ClassMethod GetDailyGoal(userId As %String)
@@ -344,12 +344,12 @@ ClassMethod GetDailyGoal(userId As %String)
             set DayOfMonth.completedGoals = tcResult.CompletedGoals
             set DayOfMonth.totalActiveGoals = tcResult.TotalActiveGoals
             do response.%Push(DayOfMonth)
-        }
-    }
+        }  
+    } 
     catch(ex) {
         set responseSC = ex.AsStatus()
     }
-    return ..Response({}, responseSC)
+    return ..Response(response, responseSC)
 }
 
 }
