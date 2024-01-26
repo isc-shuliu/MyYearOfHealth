@@ -19,6 +19,11 @@
         align-items: flex-start;
     }
 
+    &-details__example {
+        margin: 10p 0 10px 0x;
+        color: var(--light-blue-color);
+    }
+
     &-details__title {
         margin-bottom: 10px;
         font-size: 20px;
