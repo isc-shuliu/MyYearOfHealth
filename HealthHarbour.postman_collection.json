@@ -7,32 +7,12 @@
 	},
 	"item": [
 		{
-			"name": "New Request",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:32783/api/observation",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "32783",
-					"path": [
-						"api",
-						"observation"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get user data with all observations and care plans",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:32783/api/user/1",
+					"raw": "http://localhost:32783/api/user/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -41,7 +21,7 @@
 					"path": [
 						"api",
 						"user",
-						"1"
+						"3"
 					]
 				}
 			},
@@ -54,7 +34,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"userId\": 1,\n    \"observations\": [\n        \"29463-7\",\n        \"39156-5\",\n        \"2339-0\"\n    ]\n}",
+					"raw": "{\n    \"userId\": 3,\n    \"observations\": [\n        \"29463-7\",\n        \"39156-5\",\n        \"786-4\"\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -82,7 +62,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:32783/api/observation/1",
+					"raw": "http://localhost:32783/api/observation/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -91,7 +71,7 @@
 					"path": [
 						"api",
 						"observation",
-						"1"
+						"3"
 					]
 				}
 			},
@@ -104,7 +84,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"userId\": 1,\n    \"careplans\": [\n        \"698360004\"\n    ]\n}",
+					"raw": "{\n    \"userId\": 3,\n    \"careplans\": [\n        \"443402002\",\n        \"698360004\"\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -132,7 +112,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:32783/api/care-plan/1",
+					"raw": "http://localhost:32783/api/care-plan/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -141,7 +121,7 @@
 					"path": [
 						"api",
 						"care-plan",
-						"1"
+						"3"
 					]
 				}
 			},
@@ -154,36 +134,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"userId\": 1,\n  \"name\": \"drink water2\",\n  \"isActive\": true\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:32783/api/goal",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "32783",
-					"path": [
-						"api",
-						"goal"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update list of goals",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "[\n  {\n    \"isActive\": true,\n    \"name\": \"drink water\",\n    \"goalId\": 4\n  },\n  {\n    \"isActive\": true,\n    \"name\": \"sport\",\n    \"goalId\": 1\n  },\n  {\n    \"isActive\": true,\n    \"name\": \"exercise\",\n    \"goalId\": 3\n  }\n]",
+					"raw": "{\n  \"userId\": 3,\n  \"name\": \"meditation\",\n  \"isActive\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -211,7 +162,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:32783/api/goal/1",
+					"raw": "http://localhost:32783/api/goal/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -220,7 +171,36 @@
 					"path": [
 						"api",
 						"goal",
-						"1"
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change goal",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"isActive\": true,\n    \"name\": \"5000 steps\",\n    \"goalId\": 1\n  }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:32783/api/goal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32783",
+					"path": [
+						"api",
+						"goal"
 					]
 				}
 			},
@@ -233,7 +213,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"userId\": 1,\n  \"goals\": [\n    1,2,3\n  ],\n  \"date\": \"2024-01-26\"\n}",
+					"raw": "{\n  \"userId\": 3,\n  \"goals\": [\n    1\n  ],\n  \"date\": \"2024-01-26\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -261,7 +241,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:32783/api/daily-goal/1?dateFrom=2024-01-01&dateTo=2024-01-31",
+					"raw": "http://localhost:32783/api/daily-goal/3?dateFrom=2024-01-01&dateTo=2024-01-31",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -270,7 +250,7 @@
 					"path": [
 						"api",
 						"daily-goal",
-						"1"
+						"3"
 					],
 					"query": [
 						{

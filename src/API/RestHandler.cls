@@ -324,7 +324,7 @@ ClassMethod SaveDailyGoal()
     catch(ex) {
         set responseSC = ex.AsStatus()
     }
-    return ..Response({}, responseSC)
+    return ..Response(response, responseSC)
 }
 
 ClassMethod GetDailyGoal(userId As %String)
@@ -344,12 +344,12 @@ ClassMethod GetDailyGoal(userId As %String)
             set DayOfMonth.completedGoals = tcResult.CompletedGoals
             set DayOfMonth.totalActiveGoals = tcResult.TotalActiveGoals
             do response.%Push(DayOfMonth)
-        }
-    }
+        }  
+    } 
     catch(ex) {
         set responseSC = ex.AsStatus()
     }
-    return ..Response({}, responseSC)
+    return ..Response(response, responseSC)
 }
 
 }
