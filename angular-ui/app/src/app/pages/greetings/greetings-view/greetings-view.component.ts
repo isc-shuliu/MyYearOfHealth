@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { SetBtnComponent } from '../../../components/set-btn/set-btn.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-greetings-view',
   standalone: true,
-  imports: [SetBtnComponent],
+  imports: [MatButtonModule],
   templateUrl: './greetings-view.component.html',
   styleUrl: './greetings-view.component.scss'
 })

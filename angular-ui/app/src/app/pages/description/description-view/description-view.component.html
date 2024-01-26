@@ -1,29 +1,35 @@
 <div class="page">
     <div class="main-container">
-        @if (carePlanItems && carePlanItems.length !==0) {
-        <div class="data-box">
-            <div class="data-box-header primary-h2-font">
-                Plan description:
+        <div class="content">
+            @if (carePlanItems && carePlanItems.length !==0) {
+            <div class="data-box">
+                <div class="data-box-header primary-h2-font">
+                    Plan description:
+                </div>
+                <div class="data-box-list">
+                    @for (item of carePlanItems; track item.code) {
+                    <mat-card class="mat-card">
+                        <mat-card-content>
+                            <div class="item-name">{{item.carePlan}}</div>
+                            <div class="data-box-item-result">
+                                <div class="item item-goal"><b>goal: </b>{{item.goal}}</div>
+                                <div class="item" item><b>activity: </b> {{item.activity}}</div>
+                                <div class="item"><b>start: </b> {{item.start | date:'mediumDate'}}</div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                    }
+                </div>
+
             </div>
-            <div class="data-box-list">
-                @for (item of carePlanItems; track item.code) {
-                <mat-card class="mat-card">
-                    <mat-card-content>
-                        <div class="item-name">{{item.carePlan}}</div>
-                        <div class="data-box-item-result">
-                            <div class="item item-goal"><b>goal: </b>{{item.goal}}</div>
-                            <div class="item" item><b>activity: </b> {{item.activity}}</div>
-                            <div class="item"><b>start: </b> {{item.start | date:'mediumDate'}}</div>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-                }
-            </div>
-            <app-set-btn [btnTitle]="btnTitle" (click)="createOwnPlan.emit()" />
+            <button class="set-btn" mat-raised-button color="primary" (click)="createOwnPlan.emit()">
+                <span>{{ btnTitle }}</span>
+            </button>
+            }
+            @if(carePlanItems?.length == 0 ) {
+            <app-wrong-data [wrongMessage]="wrongMessage" [alertMessage]="alertMessage" [icon]="icon" />
+            }
         </div>
-        }
-        @if(carePlanItems?.length == 0 || !carePlanItems ) {
-        <app-wrong-data [wrongMessage]="wrongMessage" [alertMessage]="alertMessage" [icon]="icon" />
-        }
+
     </div>
 </div>

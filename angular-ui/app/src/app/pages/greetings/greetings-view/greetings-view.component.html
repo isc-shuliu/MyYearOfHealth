@@ -1,26 +1,32 @@
 <div class="page">
     <div class="main-container">
-        <div class="main-container__title primary-h2-font">
-            Welcome to <br>
-            Health Harbour</div>
-        <div class="main-container__greeting green-box">
-            <div class="main-container__greeting-item">
-                Every choice you make, every habit you cultivate, is a step
-                towards a healthier, happier you.
+        <div class="content">
+            <div class="main-container__title primary-h2-font">
+                Welcome to <br>
+                Health Harbour</div>
+            <div class="main-container__greeting green-box">
+                <div class="main-container__greeting-item">
+                    Every choice you make, every habit you cultivate, is a step
+                    towards a healthier, happier you.
+                </div>
+                <div class="main-container__greeting-item">
+                    Health Harbour is not just an app; it's your ally, your guide in
+                    this pursuit of well-being. It's a
+                    reminder that your health is an investment, not an expense.
+                </div>
+                <div class="main-container__greeting-item">
+                    Step into the Health Harbour, your personal sanctuary for
+                    holistic well-being. Here, we understand that
+                    health is not just a destination; it's a lifelong voyage.</div>
+                <div class="main-container__greeting-item"> With features allowing you to upload and manage your
+                    essential
+                    medical information, and craft a
+                    personalized health care plan, Health Harbour is your dedicated partner in your health journey.
+                </div>
             </div>
-            <div class="main-container__greeting-item">
-                Health Harbour is not just an app; it's your ally, your guide in
-                this pursuit of well-being. It's a
-                reminder that your health is an investment, not an expense.
-            </div>
-            <div class="main-container__greeting-item">
-                Step into the Health Harbour, your personal sanctuary for
-                holistic well-being. Here, we understand that
-                health is not just a destination; it's a lifelong voyage.</div>
-            <div class="main-container__greeting-item"> With features allowing you to upload and manage your essential
-                medical information, and craft a
-                personalized health care plan, Health Harbour is your dedicated partner in your health journey.</div>
+            <button class="set-btn" mat-raised-button color="primary" (click)="setGoals.emit()">
+                <span>{{ btnTitle }}</span>
+            </button>
         </div>
-        <app-set-btn [btnTitle]="btnTitle" (click)="setGoals.emit()" />
     </div>
 </div>

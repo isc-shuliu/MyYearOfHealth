@@ -1,7 +1,8 @@
 <div class="page">
     <div class="main-container">
-        @if (userCustomObservationData && userCustomObservationData.length !== 0) {
-        <div class="data-box">
+        <div class="content">
+            @if (userCustomObservationData && userCustomObservationData.length !== 0) {
+
             <div class="data-box-header primary-h2-font">
                 Your observation information:
             </div>
@@ -18,11 +19,15 @@
                 </mat-card>
                 }
             </div>
-            <app-set-btn [btnTitle]="btnTitle" (click)="goToMenu.emit()" />
+            <button class="set-btn" mat-raised-button color="primary" (click)="goToMenu.emit()">
+                <span>{{ btnTitle }}</span>
+            </button>
+
+            }
+            @if(userCustomObservationData?.length == 0 ) {
+            <app-wrong-data [wrongMessage]="wrongMessage" [alertMessage]="alertMessage" [icon]="icon" />
+            }
         </div>
-        }
-        @if(userCustomObservationData?.length == 0 ) {
-        <app-wrong-data [wrongMessage]="wrongMessage" [alertMessage]="alertMessage" [icon]="icon" />
-        }
+
     </div>
 </div>

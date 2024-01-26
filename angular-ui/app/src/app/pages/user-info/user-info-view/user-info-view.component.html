@@ -1,55 +1,58 @@
 <div class="page">
     <div class="main-container">
-        @if (userData) {
-        <div class="patient-box green-box">
-            <div class="patient-box__title"><b>Patient info:</b> </div>
-            <div class="patient-box__user-name">
-                <div class="patient-box__item">
-                    <span>Name: <b>{{userData.name}} </b></span>
-                    <span><b>{{userData.surname}}</b></span>
+        <div class="content">
+            @if (userData) {
+            <div class="patient-box green-box">
+                <div class="patient-box__title"><b>Patient info:</b> </div>
+                <div class="patient-box__user-name">
+                    <div class="patient-box__item">
+                        <span>Name: <b>{{userData.name}} </b></span>
+                        <span><b>{{userData.surname}}</b></span>
+                    </div>
+                    <div class="patient-box__item">Birth date: <span><b>{{userData.birthDate}}</b></span></div>
+                    <div class="patient-box__item">Phone: <span><b>{{userData.telecom}}</b></span></div>
                 </div>
-                <div class="patient-box__item">Birth date: <span><b>{{userData.birthDate}}</b></span></div>
-                <div class="patient-box__item">Phone: <span><b>{{userData.telecom}}</b></span></div>
             </div>
-        </div>
-        <div class="select-boxes">
-            <div class="observation-data-box select-box">
-                <div class="observation-data-box__title select-box__title">Observation</div>
-                <div class="observation-data-box__content">
-                    <mat-form-field>
-                        <mat-label>Choose a parameter to track</mat-label>
-                        <mat-select [formControl]="observationDataControl" multiple>
-                            @for (item of observationData; track item) {
-                            <mat-option class="mat-option" [value]="item.code">{{item.observation}}</mat-option>
-                            }
-                        </mat-select>
-                    </mat-form-field>
-                </div>
+            <div class="select-boxes">
+                <div class="observation-data-box select-box">
+                    <div class="observation-data-box__title select-box__title">Observation</div>
+                    <div class="observation-data-box__content">
+                        <mat-form-field>
+                            <mat-label>Choose a parameter to track</mat-label>
+                            <mat-select [formControl]="observationDataControl" multiple>
+                                @for (item of observationData; track item) {
+                                <mat-option class="mat-option" [value]="item.code">{{item.observation}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
 
-            </div>
-            @if(planCareData?.length !== 0){
-            <div class="plan-box select-box">
-                <div class="plan-box__title select-box__title">Care Plan</div>
-                <div class="plan-box__content">
-                    <mat-form-field>
-                        <mat-label>Choose a plan to follow</mat-label>
-                        <mat-select placeholder="Care plan" [formControl]="careDataControl" multiple>
-                            @for (item of planCareData; track item) {
-                            <mat-option class="mat-option-care-plan" [value]="item.code">{{item.careplan}}</mat-option>
-                            }
-                        </mat-select>
-                    </mat-form-field>
                 </div>
+                @if(planCareData?.length !== 0){
+                <div class="plan-box select-box">
+                    <div class="plan-box__title select-box__title">Care Plan</div>
+                    <div class="plan-box__content">
+                        <mat-form-field>
+                            <mat-label>Choose a plan to follow</mat-label>
+                            <mat-select placeholder="Care plan" [formControl]="careDataControl" multiple>
+                                @for (item of planCareData; track item) {
+                                <mat-option class="mat-option-care-plan"
+                                    [value]="item.code">{{item.careplan}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                }
             </div>
-            }
-            <button mat-raised-button (click)="clickSetUserSettings()" [disabled]="isButtonDisabled()"
+            <button class="set-btn" mat-raised-button (click)="clickSetUserSettings()" [disabled]="isButtonDisabled()"
                 color="primary">Set</button>
 
+            }
+            @if( observationData?.length == 0 && planCareData?.length == 0 ) {
+            <app-wrong-data [wrongMessage]="wrongMessage" [alertMessage]="alertMessage" [icon]="icon" />
+            }
         </div>
-        }
-        @if( observationData?.length == 0 && planCareData?.length == 0 ) {
-        <app-wrong-data [wrongMessage]="wrongMessage" [alertMessage]="alertMessage" [icon]="icon" />
 
-        }
     </div>
 </div>
