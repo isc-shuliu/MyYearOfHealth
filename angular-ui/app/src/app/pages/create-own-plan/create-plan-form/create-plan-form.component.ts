@@ -4,7 +4,8 @@ import {
   FormControl,
   FormGroup,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  Validators
 } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,6 +17,7 @@ import {
   IBodyToCreateListGoals,
   ICustomGoal
 } from '../../../share/interfaces/goals.interfaces';
+import { textValidator } from '../../../share/validators/text.validator';
 
 @Component({
   selector: 'app-create-plan-form',
@@ -38,7 +40,12 @@ export class CreatePlanFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {}
 
-  public currentCustomSettings: string = '';
+  public currentCustomSettingsControl = new FormControl('', [
+    Validators.required,
+    Validators.minLength(4),
+    Validators.maxLength(40),
+    textValidator()
+  ]);
 
   userPlanPoints: FormGroup;
   uniqueNamesGoals: ICustomGoal[];
@@ -88,14 +95,18 @@ export class CreatePlanFormComponent implements OnInit {
   }
 
   public addCheckbox() {
-    const newCheckboxControl = new FormControl(true);
-    this.userPlanPoints.addControl(
-      this.currentCustomSettings,
-      newCheckboxControl
-    );
-    this.addUserCustomHabit.emit(this.currentCustomSettings);
-    this.currentCustomSettings = '';
-    this.initializeForm();
+    if (this.currentCustomSettingsControl.value) {
+      const newCheckboxControl = new FormControl(true);
+      this.userPlanPoints.addControl(
+        this.currentCustomSettingsControl.value.trim(),
+        newCheckboxControl
+      );
+      this.addUserCustomHabit.emit(
+        this.currentCustomSettingsControl.value?.trim()
+      );
+      this.currentCustomSettingsControl.setValue('');
+      this.initializeForm();
+    }
   }
 
   public isCheckedFields(): boolean {
