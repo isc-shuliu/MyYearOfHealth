@@ -1,4 +1,4 @@
-<form class="form-container" [formGroup]="userPlanPoints" (ngSubmit)="addUserPlan()" *ngIf="listPersonalHabits">
+<form class="form-container content" [formGroup]="userPlanPoints" (ngSubmit)="addUserPlan()" *ngIf="listPersonalHabits">
   <mat-checkbox *ngFor="let item of uniqueNamesGoals; let i = index" class="checkbox" color="primary"
     [formControlName]="item.id">
     {{ item.name }}
@@ -19,6 +19,5 @@
       <mat-icon>add_circle</mat-icon>
     </button>
   </div>
-  <button class="form-container-btn set-btn" mat-stroked-button color="primary" type="submit"
-    [disabled]="!isCheckedFields()">Set</button>
+  <button class="set-btn" mat-raised-button color="primary" type="submit" [disabled]="!isCheckedFields()">Set</button>
 </form>
