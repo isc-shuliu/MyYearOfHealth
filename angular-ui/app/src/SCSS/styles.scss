@@ -1,9 +1,6 @@
 @import url('./commonstyles.scss');
 @import url('./_variables.scss');
 @import url('./theme.scss');
-@import url('./fonts.scss');
-
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap');
 
 html,
 body {
@@ -13,7 +10,7 @@ body {
 
 body {
   margin: 0 auto;
-  font-family: "Inder", sans-serif;
+  font-family: 'Rubik', sans-serif !important;
   max-width: 800px;  
 }
 
