@@ -56,6 +56,7 @@ export class CreatePlanComponent implements OnInit {
   }
 
   public submitUserPlan(body: any) {
+    console.log(body);
     this.goalService.submitListDailyGoalsForUser(body).subscribe();
     this.router.navigate(['/tracker-calendar']);
   }

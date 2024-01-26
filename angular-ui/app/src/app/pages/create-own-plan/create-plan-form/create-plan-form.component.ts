@@ -48,7 +48,6 @@ export class CreatePlanFormComponent implements OnInit {
   ]);
 
   userPlanPoints: FormGroup;
-  uniqueNamesGoals: ICustomGoal[];
 
   ngOnInit(): void {
     this.initializeForm();
@@ -56,32 +55,10 @@ export class CreatePlanFormComponent implements OnInit {
 
   private initializeForm(): void {
     const initialFormControls: Record<string, FormControl> = {};
-    const uniqueNames = this.getUniqueNames();
-    this.uniqueNamesGoals = [...uniqueNames];
-    this.uniqueNamesGoals.forEach((goal) => {
-      initialFormControls[goal.id] = this.fb.control(false);
+    this.listPersonalHabits?.forEach((goal) => {
+      initialFormControls[goal.id] = this.fb.control(true);
     });
-
     this.userPlanPoints = this.fb.group(initialFormControls);
-    this.userPlanPoints = this.fb.group(initialFormControls);
-  }
-
-  private getUniqueNames(): any[] {
-    const uniqueNamesMap = new Map<string, any>();
-
-    this.listPersonalHabits?.forEach((item) => {
-      const trimmedName = item.name.trim();
-
-      if (trimmedName !== '') {
-        uniqueNamesMap.set(trimmedName, {
-          name: trimmedName,
-          id: item.id
-        });
-      }
-    });
-
-    const uniqueNames: any[] = Array.from(uniqueNamesMap.values());
-    return uniqueNames;
   }
 
   public btnTitle = 'Set';
@@ -91,16 +68,13 @@ export class CreatePlanFormComponent implements OnInit {
   @Output() addUserCustomHabit = new EventEmitter<any>();
 
   public addUserPlan(): void {
-    this.submitUserPlan.emit(this.mutateUserDataToArrayBody());
+    if (this.listPersonalHabits?.length) {
+      this.submitUserPlan.emit(this.mutateUserDataToArrayBody());
+    }
   }
 
   public addCheckbox() {
     if (this.currentCustomSettingsControl.value) {
-      const newCheckboxControl = new FormControl(true);
-      this.userPlanPoints.addControl(
-        this.currentCustomSettingsControl.value.trim(),
-        newCheckboxControl
-      );
       this.addUserCustomHabit.emit(
         this.currentCustomSettingsControl.value?.trim()
       );
@@ -116,13 +90,15 @@ export class CreatePlanFormComponent implements OnInit {
   }
 
   private mutateUserDataToArrayBody(): IBodyToCreateListGoals[] {
-    const newArray = this.uniqueNamesGoals
-      .filter((item) => this.userPlanPoints.value[item.id])
-      .map((item) => ({
-        isActive: true,
-        name: item.name,
-        goalId: item.id
-      }));
-    return newArray;
+    if (this.listPersonalHabits?.length) {
+      const newArray = this.listPersonalHabits
+        .filter((item) => this.userPlanPoints.value[item.id])
+        .map((item) => ({
+          isActive: true,
+          name: item.name,
+          goalId: item.id
+        }));
+      return newArray;
+    } else return [];
   }
 }
