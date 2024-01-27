@@ -21,5 +21,6 @@
       <mat-icon>add_circle</mat-icon>
     </button>
   </div>
-  <button class="set-btn" mat-raised-button color="primary" type="submit">Set</button>
+  <button class="set-btn" mat-raised-button color="primary" type="submit"
+    [disabled]="!areAnyCheckboxesChecked()">Set</button>
 </form>

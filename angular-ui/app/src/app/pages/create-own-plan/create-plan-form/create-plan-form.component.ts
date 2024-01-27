@@ -83,22 +83,21 @@ export class CreatePlanFormComponent implements OnInit {
     }
   }
 
-  public isCheckedFields(): boolean {
-    return Object.values(this.userPlanPoints.value).some(
-      (value: unknown) => value === true
-    );
-  }
-
   private mutateUserDataToArrayBody(): IBodyToCreateListGoals[] {
     if (this.listPersonalHabits?.length) {
-      const newArray = this.listPersonalHabits
-        .filter((item) => this.userPlanPoints.value[item.id])
-        .map((item) => ({
-          isActive: true,
-          name: item.name,
-          goalId: item.id
-        }));
+      const newArray = this.listPersonalHabits.map((item) => ({
+        isActive: this.userPlanPoints.value[item.id],
+        name: item.name,
+        goalId: item.id
+      }));
       return newArray;
     } else return [];
+  }
+
+  areAnyCheckboxesChecked(): boolean {
+    return (
+      this.userPlanPoints.value &&
+      Object.values(this.userPlanPoints.value).some((value) => value)
+    );
   }
 }
