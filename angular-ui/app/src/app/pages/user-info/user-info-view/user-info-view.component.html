@@ -1,7 +1,7 @@
 <div class="page">
     <div class="main-container">
         <div class="content">
-            @if (userData) {
+            @if (userData && planCareData?.length !==0 || userData && observationData?.length) {
             <div class="patient-box green-box">
                 <div class="patient-box__title"><b>Patient info:</b> </div>
                 <div class="patient-box__user-name">

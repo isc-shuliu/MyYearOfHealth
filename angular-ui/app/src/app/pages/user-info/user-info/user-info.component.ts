@@ -48,6 +48,7 @@ export class UserInfoComponent implements OnInit {
       this.loadingService.showSpinnerUntilCompleted(patientData$);
 
     this.userData$ = loadData$.pipe(map((data) => data.user));
+
     this.observationData$ = loadData$.pipe(map((data) => data.observations));
     this.planCareData$ = loadData$.pipe(map((data) => data.carePlans));
   }
