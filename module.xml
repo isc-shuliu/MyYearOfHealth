@@ -8,13 +8,13 @@
       <Keywords>FHIR</Keywords>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
+      <FileCopy Name="data/fhir/" Target="${mgrdir}dataFhir/"/>
       <Invokes>
         <Invoke Class="fhir.Setup" Method="SetupFHIRServer" Phase="Activate" When="After" ></Invoke>
       </Invokes>
       <Resource Name="fhir.PKG"/>
       <Resource Name="API.PKG"/>
       <Resource Name="Model.PKG"/>
-      <FileCopy Name="data/fhir/" Target="${mgrdir}dataFhir/"/>
       <CSPApplication 
         Url="/api"
         DispatchClass="API.RestHandler"

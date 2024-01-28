@@ -5,7 +5,12 @@ ClassMethod SetupFHIRServer(ns) As %Status
 {
     set ns=$g(ns,$namespace)
     set ns="FHIRSERVER"
+    
     zn "HSLIB"
+
+    Do ##class(HS.HC.FHIRSQL.Utils.Setup).CreateWebApps("HSSYS",1)
+    Do ##class(HS.HC.FHIRSQL.Utils.Setup).DefineDocDBs("HSSYS")
+
     set namespace=ns
     Set appKey = "/fhir/r4"
     Set strategyClass = "HS.FHIRServer.Storage.Json.InteractionsStrategy"
