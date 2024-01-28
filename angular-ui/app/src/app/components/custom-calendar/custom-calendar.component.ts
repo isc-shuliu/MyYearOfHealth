@@ -27,7 +27,7 @@ export class CustomCalendarComponent {
   @Input() goalsListForPeriod: IGoalsForPeriod[] | null;
   firstDayOfMonth: any;
   calendarDays: any[] = [];
-  weekdays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  weekdays: string[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   selected: any;
   isSelected: boolean = false;
   ngOnInit(): void {
@@ -49,24 +49,45 @@ export class CustomCalendarComponent {
     const isCurrentMonthYear =
       this.year === currentYear && this.month === currentMonth;
     const daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
-    this.firstDayOfMonth = new Date(this.year, this.month, 1).getDay();
+    const firstDayOfMonthDate = new Date(this.year, this.month, 1);
+    this.firstDayOfMonth = firstDayOfMonthDate.getDay(); // Получаем первый день недели
     this.calendarDays = [];
 
-    for (let i = 0; i < this.firstDayOfMonth; i++) {
+    // Переназначаем порядок дней недели так, чтобы они начинались с понедельника
+    const weekdaysStartingMonday = [
+      'Mon',
+      'Tue',
+      'Wed',
+      'Thu',
+      'Fri',
+      'Sat',
+      'Sun'
+    ];
+
+    // Определяем первый день недели и корректируем порядок дней недели
+    const orderedWeekdays = [
+      ...weekdaysStartingMonday.slice(1),
+      weekdaysStartingMonday[0]
+    ];
+
+    // Добавляем пустые ячейки для дней предыдущего месяца
+    for (let i = 0; i < this.firstDayOfMonth - 1; i++) {
       this.calendarDays.push({
         date: null,
         dayOfMonth: null,
-        dayOfWeek: '',
+        dayOfWeek: orderedWeekdays[i],
         isActive: false,
         isHalfActive: false,
         isCurrent: false,
-        isSelected: false // Добавляем новое свойство для выбранной даты
+        isSelected: false
       });
     }
 
+    // Добавляем дни текущего месяца
     for (let i = 1; i <= daysInMonth; i++) {
       const date = new Date(this.year, this.month, i);
-      const dayOfWeek = this.weekdays[date.getDay()];
+      const dayOfWeekIndex = (this.firstDayOfMonth + i - 2) % 7;
+      const dayOfWeek = orderedWeekdays[dayOfWeekIndex];
       const days: any = {
         date: date,
         dayOfMonth: i,
