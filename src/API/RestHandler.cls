@@ -10,7 +10,7 @@ Parameter UseSession As BOOLEAN = 1;
 XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 {
 <Routes>
-
+<Route Url="/user" Method="POST" Call="GetUserId"/>
 <Route Url="/user/:userId" Method="GET" Call="GetUserInfo"/>
 
 <Route Url="/observation" Method="POST" Call="SaveObservation"/>
@@ -46,6 +46,23 @@ ClassMethod Response(pResponse = "", pSC = 1) As %Status
        write pResponse 
     }
  return $$$OK
+}
+
+ClassMethod GetUserId(phone As %String) As %Status
+{
+    try{
+        set responseSC = $$$OK
+        set json = {}.%FromJSON(%request.Content)
+        new $NAMESPACE
+        set $NAMESPACE = "FHIRSERVER"
+        set response = {}
+        &sql(select ID into :userId from HarbourFHIR.Patient where Telecom = :json.phone)
+        set response.userId = userId
+    }
+    catch(ex) {
+        set responseSC = ex.AsStatus()
+    }
+    return ..Response(response, responseSC)
 }
 
 ClassMethod SaveObservation()

@@ -3,6 +3,25 @@ info:
   title: HealthHarbour API
   version: 1.0.0
 paths:
+  /api/user:
+    post:
+      tags:
+        - User
+      summary: Get user identificator by phone number
+      operationId: getUserId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPhone'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserId' 
   /api/user/{userId}:
     get:
       tags:
@@ -206,6 +225,21 @@ paths:
                   $ref: '#/components/schemas/DailyGoalPeriod' 
 components:
   schemas:
+    UserPhone:
+      required:
+        - phone
+      properties:
+        phone:
+          type: string
+          example: '555-248-3706'
+    UserId:
+      required:
+        - userId
+      properties:
+        userId:
+          type: integer
+          format: int64
+          example: 10
     Observations:
       required:
         - userId
