@@ -7,6 +7,7 @@
 
 .content {
   margin-bottom: 20px;
+  align-items: flex-start;
   color: var(--base-dark-color);
 }
 
@@ -15,8 +16,13 @@
   text-align: left;
 }
 
-.info-item {
+.info-item-long {
   text-align: justify;
+  margin-bottom: 10px;
+}
+
+.info-item {
+  align-self: flex-start;
   margin-bottom: 10px;
 }
 
