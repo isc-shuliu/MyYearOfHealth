@@ -7,7 +7,6 @@
 
 .content {
   margin-bottom: 20px;
-
   color: var(--base-dark-color);
 }
 
@@ -28,7 +27,8 @@
 }
 
 .info-item-code-string {
-  text-align: left;
+  align-self: flex-start;
+  overflow-wrap: anywhere;
   margin-bottom: 10px;
 }
 
