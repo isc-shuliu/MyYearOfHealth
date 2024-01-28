@@ -7,6 +7,35 @@
 	},
 	"item": [
 		{
+			"name": "Get user id by phone number",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"phone\": \"555-652-7843\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:32783/api/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32783",
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get user data with all observations and care plans",
 			"request": {
 				"method": "GET",
@@ -178,13 +207,13 @@
 			"response": []
 		},
 		{
-			"name": "Change goal",
+			"name": "Change the goal",
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n  {\n    \"isActive\": true,\n    \"name\": \"5000 steps\",\n    \"goalId\": 1\n  }\n]",
+					"raw": "[\n  {\n    \"isActive\": true,\n    \"name\": \"10000 steps\",\n    \"goalId\": 1\n  }\n]",
 					"options": {
 						"raw": {
 							"language": "json"
