@@ -23,6 +23,9 @@
             "style": "camelCase"
           }
         ],
+        "@angular-eslint/template/click-events-have-key-events": [
+          "error"
+        ],
         "@angular-eslint/component-selector": [
           "error",
           {
@@ -39,10 +42,13 @@
       ],
       "extends": [
         "plugin:@angular-eslint/template/recommended",
-        "plugin:@angular-eslint/template/accessibility"
+        "plugin:@angular-eslint/template/accessibility",
       ],
       "rules": {
         "@angular-eslint/no-output-on-prefix": [
+          "error"
+        ],
+        "@angular-eslint/template/interactive-supports-focus": [
           "error"
         ]
       }

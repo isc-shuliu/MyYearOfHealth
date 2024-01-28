@@ -1,15 +1,9 @@
-.data-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .data-box-header {
     margin-bottom: 20px;
 }
 
 .mat-card {
-    margin-bottom: 5px;
+    margin-bottom: 20px;
     min-width: 300px;
 }
 
@@ -20,6 +14,10 @@
 .data-box-item-result {
     display: flex;
     justify-content: space-between;
+}
+
+.data-box-list {
+    margin-bottom: 20px;
 }
 
 .item-name {

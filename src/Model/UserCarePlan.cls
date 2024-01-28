@@ -1,9 +1,11 @@
 Class Model.UserCarePlan Extends %Persistent
 {
 
-Property UserId As %String;
+Property UserId As %String(MAXLEN = 15) [ Required ];
 
-Property CarePlan As %String;
+Index UserIdIndex On UserId;
+
+Property CarePlan As %String(MAXLEN = 100) [ Required ];
 
 Storage Default
 {

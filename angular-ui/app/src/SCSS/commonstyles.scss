@@ -15,6 +15,14 @@
   align-items: center;
   flex-direction: column;
   padding: 0 30px 0 30px;
+  height: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
 }
 
 .green-box {
@@ -28,10 +36,6 @@
 
 .btn-primary {
   color: var(--gold-color);
-}
-
-.set-btn {
-  min-width: 170px;
 }
 
 .page {
@@ -62,5 +66,16 @@
   font-weight: bold;
   line-height: 40px;
   text-align: center;
+}
+
+.set-btn {
+  margin-top: auto;
+  width: 170px;
+  margin-bottom: 30px;
+  align-self: center;
+  color: #333695;
+  border-color: #333695 !important;
+  border: 2px solid !important;
+  font-size: 20px;
 }
 

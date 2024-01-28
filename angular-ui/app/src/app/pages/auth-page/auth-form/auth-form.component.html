@@ -9,7 +9,8 @@
         </ng-container>
         <mat-error *ngIf="authForm.controls['telecom']?.touched || authForm.controls['telecom'].invalid"></mat-error>
     </mat-form-field>
-    <button mat-stroked-button color="primary" cdkFocusInitial type="submit" [disabled]="authForm.invalid">
+    <button mat-stroked-button class="set-btn" color="primary" cdkFocusInitial type="submit"
+        [disabled]="authForm.invalid">
         Log In
     </button>
 </form>

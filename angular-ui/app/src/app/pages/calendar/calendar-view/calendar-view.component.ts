@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -27,9 +28,15 @@ import {
   ReactiveFormsModule
 } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { IGoalsForPeriod } from '../../../share/interfaces/goals.interfaces';
+import {
+  ICustomGoal,
+  IGoalsForPeriod
+} from '../../../share/interfaces/goals.interfaces';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
+import { GoalsService } from '../../../share/services/goal.service';
+import { Observable, finalize, tap } from 'rxjs';
+import { CustomCalendarComponent } from '../../../components/custom-calendar/custom-calendar.component';
 
 @Component({
   selector: 'app-calendar-view',
@@ -47,107 +54,104 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatIconModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    CustomCalendarComponent
   ],
   templateUrl: './calendar-view.component.html',
-  styleUrl: './calendar-view.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './calendar-view.component.scss'
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CalendarViewComponent implements OnInit, OnChanges {
   constructor(private fb: FormBuilder) {}
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
-      console.log(changes);
-      this.goalsListForPeriod = changes['goalsListForPeriod'].currentValue;
-      console.log(this.goalsListForPeriod);
+    if (changes['listPersonalHabits']) {
+      this.listPersonalHabits = changes['listPersonalHabits'].currentValue;
+      const initialFormControls: Record<string, FormControl> = {};
+      this.listPersonalHabits?.forEach((item) => {
+        initialFormControls[item.id] = new FormControl(false);
+      });
+
+      this.userPlanPoints = this.fb.group(initialFormControls);
     }
+    if (changes['goalsListForPeriod']) {
+      this.goalsListForPeriod = changes['goalsListForPeriod'].currentValue;
+    }
+    this.trackSelectedDay();
   }
 
   @Input() goalsListForPeriod: IGoalsForPeriod[] | null;
 
-  @Input() listPersonalHabits: string[] | null;
+  @Input() listPersonalHabits: ICustomGoal[] | null;
 
-  @Input() today: Date;
-
+  @Input() selectedDay: Date | null;
+  @Input() firstDayOfMonth: string;
+  @Input() lastDayOfMonth: string;
+  goalsList$: Observable<IGoalsForPeriod[]>;
   @Output() checkDayActivities = new EventEmitter<any>();
+  @Output() dayClick = new EventEmitter<any>();
 
-  @Output() changePeriodToObserve = new EventEmitter<any>();
+  selectedMonth: number | undefined;
 
-  selectedDay: Date | null;
-  selectedMonth: number;
-
-  firstDayOfMonth: Date | null;
-  lastDayOfMonth: Date | null;
+  isDisabledBtnSubmit = true;
 
   userPlanPoints: FormGroup;
 
-  isFormFilledForThisDay: boolean = false;
+  isShowGoalsForThisDay: boolean = true;
+
+  dataHalfactiveDays: number[] = [];
+  dataActiveDays: number[] = [];
 
   ngOnInit(): void {
-    this.selectedDay = this.today;
-    this.selectedMonth = this.selectedDay.getMonth();
-    this.onDateSelected(this.today);
-    this.checkCurrentDayForForm();
-
-    const initialFormControls: Record<string, FormControl> = {};
-    this.listPersonalHabits?.forEach((checkbox) => {
-      initialFormControls[checkbox] = new FormControl(false);
-    });
-
-    this.userPlanPoints = this.fb.group(initialFormControls);
+    this.selectedMonth = this.selectedDay?.getMonth();
+    this.trackSelectedDay();
   }
 
-  public submitDailyActivities() {}
-
-  checkCurrentDayForForm() {}
-
-  onDateSelected(date: any): void {
-    this.today = new Date();
-    this.selectedDay = date;
-    const dayOfMonth = this.getDayOfMonth(date);
-    this.firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-    this.lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-    if (
-      this.goalsListForPeriod?.find(
-        (el) => el.dayOfMonth == dayOfMonth && el.completedGoals != 0
-      )
-    ) {
-      this.isFormFilledForThisDay = true;
-    } else this.isFormFilledForThisDay = false;
-    console.log(this.selectedDay);
-    this.changePeriodToObserve.emit(this.selectedDay);
+  public submitDailyActivities() {
+    const trueIds = Object.entries(this.userPlanPoints.value)
+      .filter(([key, value]) => value === true)
+      .map(([key, value]) => Number(key));
+    this.checkDayActivities.emit({ day: this.selectedDay, arrayId: trueIds });
+    this.trackSelectedDay();
   }
 
-  dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
-    const cellMonth = cellDate.getMonth();
-    const currentMonth = this.today.getMonth();
-    const dayOfMonth = this.getDayOfMonth(cellDate);
-
-    if (this.selectedMonth === currentMonth) {
-      const dayData = this.goalsListForPeriod?.find(
-        (item) => item.dayOfMonth === dayOfMonth
-      );
-
-      if (dayData) {
-        if (dayData.completedGoals === dayData.totalActiveGoals) {
-          return 'active-day';
-        }
-        if (
-          dayData.completedGoals !== 0 &&
-          dayData.completedGoals < dayData.totalActiveGoals
-        ) {
-          return 'half-active-day';
-        }
-      }
-    }
-
-    return '';
-  };
+  startDate: Date = new Date(new Date().getFullYear(), 0, 1);
+  maxDate: Date = new Date();
 
   getDayOfMonth(date: any): number {
     const dateObject = new Date(date);
     const dayOfMonth = dateObject.getDate();
     return dayOfMonth;
+  }
+
+  private trackSelectedDay() {
+    const index = this.goalsListForPeriod?.findIndex(
+      (item) => item.dayOfMonth === this.selectedDay?.getDate()
+    );
+
+    if (
+      index &&
+      index != -1 &&
+      this.goalsListForPeriod &&
+      this.goalsListForPeriod[`${index}`].completedGoals !== 0
+    ) {
+      this.isShowGoalsForThisDay = false;
+    } else if (
+      index == 0 &&
+      this.goalsListForPeriod &&
+      this.goalsListForPeriod[`${index}`].completedGoals !== 0
+    ) {
+      this.isShowGoalsForThisDay = false;
+    } else {
+      this.isShowGoalsForThisDay = true;
+    }
+  }
+
+  anyCheckboxChecked(): boolean {
+    for (const controlName in this.userPlanPoints?.controls) {
+      if (this.userPlanPoints?.get(controlName)?.value) {
+        return true;
+      }
+    }
+    return false;
   }
 }

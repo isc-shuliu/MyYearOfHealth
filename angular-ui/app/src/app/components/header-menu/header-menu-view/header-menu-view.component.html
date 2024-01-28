@@ -1,13 +1,13 @@
 <button color="primary" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
     @if (isUserLogin) {
-    <mat-icon>face</mat-icon>
+    <mat-icon color="primary">face</mat-icon>
     }
     @else {
-    <mat-icon>menu</mat-icon>
+    <mat-icon color="primary">menu</mat-icon>
     }
 
 </button>
-<mat-menu #menu="matMenu" color="primary">
+<mat-menu #menu="matMenu" color="accent">
     <div class="header-menu">
         <a mat-button color="primary" (click)="goToAboutPage()">
             <mat-icon>home</mat-icon>

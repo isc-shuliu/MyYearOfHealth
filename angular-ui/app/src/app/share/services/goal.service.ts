@@ -19,19 +19,6 @@ export class GoalsService {
 
   queryParams = new HttpParams();
 
-  addCustomGoal(body: IBodyToCreateCustomGoal) {
-    return this.httpClient.post<any>(environmentAPI.apiUrl + 'goal', body).pipe(
-      map((data) => {
-        return data;
-      }),
-      catchError((err) => {
-        console.log('Handling error locally and rethrowing it...', err);
-        return throwError(() => err);
-      }),
-      shareReplay()
-    );
-  }
-
   getListGoals(userId: string): Observable<ICustomGoal[]> {
     return this.httpClient
       .get<any[]>(environmentAPI.apiUrl + 'goal/' + userId)
@@ -45,7 +32,20 @@ export class GoalsService {
       );
   }
 
-  addListDailyGoalsForUser(body: ICustomGoal[]) {
+  addCustomGoal(body: IBodyToCreateCustomGoal) {
+    return this.httpClient.post<any>(environmentAPI.apiUrl + 'goal', body).pipe(
+      map((data) => {
+        return data;
+      }),
+      catchError((err) => {
+        console.log('Handling error locally and rethrowing it...', err);
+        return throwError(() => err);
+      }),
+      shareReplay()
+    );
+  }
+
+  submitListDailyGoalsForUser(body: ICustomGoal[]) {
     return this.httpClient
       .patch<any>(environmentAPI.apiUrl + 'goal', body)
       .pipe(
@@ -59,27 +59,31 @@ export class GoalsService {
         shareReplay()
       );
   }
-  createDailyGoals(body: IDailyGoal) {
-    return this.httpClient.post<any>(environmentAPI.apiUrl + 'goal', body).pipe(
-      map((data) => {
-        return data;
-      }),
-      catchError((err) => {
-        console.log('Handling error locally and rethrowing it...', err);
-        return throwError(() => err);
-      }),
-      shareReplay()
-    );
+  fillDailyGoals(body: IDailyGoal) {
+    return this.httpClient
+      .post<any>(environmentAPI.apiUrl + 'daily-goal', body)
+      .pipe(
+        map((data) => {
+          return data;
+        }),
+        catchError((err) => {
+          console.log('Handling error locally and rethrowing it...', err);
+          return throwError(() => err);
+        }),
+        shareReplay()
+      );
   }
 
-  getDailyGoalForPeriod(body: IGoalsPeriod) {
-    this.queryParams = this.queryParams.appendAll({
+  trackYourHabitsForPeriod(body: IGoalsPeriod) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.appendAll({
       dateFrom: body.dateFrom,
       dateTo: body.dateTo
     });
+    console.log('123');
     return this.httpClient
       .get<any>(environmentAPI.apiUrl + 'daily-goal/' + body.userId, {
-        params: this.queryParams
+        params: queryParams
       })
       .pipe(
         map((data) => data),

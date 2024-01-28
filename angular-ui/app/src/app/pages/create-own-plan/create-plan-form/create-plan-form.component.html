@@ -1,20 +1,26 @@
-<form class="form-container" [formGroup]="userPlanPoints" (ngSubmit)="addUserPlan()" *ngIf="listPersonalHabits">
-  <mat-checkbox *ngFor="let item of uniqueNamesGoals; let i = index" class="checkbox" color="primary"
-    [formControlName]="item.id">
-    {{ item.name }}
-  </mat-checkbox>
+<form class="form-container content" [formGroup]="userPlanPoints" (ngSubmit)="addUserPlan()" *ngIf="listPersonalHabits">
+  <div *ngFor="let item of listPersonalHabits; let i = index">
+    <mat-checkbox class="checkbox" [formControlName]="item.id" color="primary" [checked]="true">
+      {{ item.name }}
+    </mat-checkbox>
+  </div>
+
   <div class="text-box">
     <mat-form-field>
-      <input matInput [(ngModel)]="currentCustomSettings" [ngModelOptions]="{standalone: true}" name="customSettings" />
-      <mat-hint>{{ currentCustomSettings.length }}/240 symbols</mat-hint>
-      <mat-error *ngIf="currentCustomSettings.length > 240">
-        If possible, please enter more short habit
+      <input matInput [formControl]="currentCustomSettingsControl" minlength="4" maxlength="40" name="customSettings"
+        matInput />
+      <mat-hint>{{ currentCustomSettingsControl.value?.length }}/40
+        symbols</mat-hint>
+      <mat-error
+        *ngIf="currentCustomSettingsControl.errors?.['latinCharactersOnly'] || currentCustomSettingsControl.errors?.['minlength']">
+        Please enter a habit using only Latin characters (4-40)
       </mat-error>
     </mat-form-field>
-    <button mat-icon-button color="primary" (click)="addCheckbox()" type="button">
+    <button mat-icon-button color="primary" (click)="addCheckbox()" [disabled]="currentCustomSettingsControl.invalid"
+      type="button">
       <mat-icon>add_circle</mat-icon>
     </button>
   </div>
-  <button class="form-container-btn set-btn" mat-stroked-button color="primary" type="submit"
-    [disabled]="!isCheckedFields()">Set</button>
+  <button class="set-btn" mat-stroked-button color="primary" type="submit"
+    [disabled]="!areAnyCheckboxesChecked()">Set</button>
 </form>

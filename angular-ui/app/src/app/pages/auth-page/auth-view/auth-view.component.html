@@ -1,9 +1,9 @@
 <div class="page">
-    <div class="top-box">
-        <div class="big-logo"></div>
-        <div class="main-title primary-h2-font">Health Harbour</div>
-    </div>
-    <div class="main-container">
+    <div class="content">
+        <div class="top-box">
+            <div class="big-logo"></div>
+            <div class="main-title primary-h2-font">Health Harbour</div>
+        </div>
         <app-card class="account-box__card" [titleForm]="titleForm">
             <app-auth-form (onSignin)="onSignin.emit($event)" [formError]="formError"></app-auth-form>
         </app-card>

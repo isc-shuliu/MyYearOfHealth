@@ -1,9 +1,13 @@
 Class Model.DateGoal Extends %Persistent
 {
 
-Property UserId As %String;
+Property UserId As %String(MAXLEN = 15) [ Required ];
 
-Property DateTime As %DateTime;
+Index UserIdIndex On UserId;
+
+Property DateTime As %DateTime [ Required ];
+
+Index DateTimeIndex On DateTime;
 
 Relationship Goal As Model.Goal [ Cardinality = one, Inverse = Goal ];
 

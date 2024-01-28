@@ -1,3 +1,4 @@
 <app-calendar-view [goalsListForPeriod]="goalsListForPeriod$ | async" [listPersonalHabits]="listPersonalHabits$ | async"
     (checkDayActivities)="checkDayActivities($event)" (changePeriodToObserve)="changePeriodToObserve($event)"
-    [today]="today" />
+    [selectedDay]="selectedDay" [firstDayOfMonth]="firstDayOfMonth" [lastDayOfMonth]='lastDayOfMonth'
+    (dayClick)="dayClick($event)" />

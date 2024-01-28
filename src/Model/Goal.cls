@@ -1,11 +1,13 @@
 Class Model.Goal Extends %Persistent
 {
 
-Property UserId As %String;
+Property UserId As %String(MAXLEN = 15) [ Required ];
 
-Property Name As %String;
+Index UserIdIndex On UserId;
 
-Property IsActive As %Boolean;
+Property Name As %String(MAXLEN = 70) [ Required ];
+
+Property IsActive As %Boolean [ Required ];
 
 Relationship Goal As Model.DateGoal [ Cardinality = many, Inverse = Goal ];
 

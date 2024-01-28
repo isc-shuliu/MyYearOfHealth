@@ -10,13 +10,19 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        height: 100%;
     }
 
     &-details {
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: flex-start;
+        height: 100%;
+    }
+
+    &-details__example {
+        margin: 0 auto;
+        color: var(--light-blue-color);
     }
 
     &-details__title {
@@ -37,4 +43,5 @@
     display: flex;
     justify-content: center;
     width: 100%;
+    height: 100%;
 }

@@ -116,7 +116,7 @@ paths:
     patch:
       tags:
         - Goal
-      summary: Update list of goals
+      summary: Change the goal
       operationId: updateGoal
       requestBody:
         content:
