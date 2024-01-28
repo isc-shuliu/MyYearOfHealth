@@ -15,15 +15,18 @@
 
                 { <ng-container>
                     <form class="form-container" [formGroup]="userPlanPoints" (ngSubmit)="submitDailyActivities()">
+                        <div></div>
+                        <div>
+                            <div class="checkbox-container" *ngFor="let item of listPersonalHabits">
 
-                        <div class="checkbox-container" *ngFor="let item of listPersonalHabits">
-
-                            @if(item.isActive){
-                            <mat-checkbox let i=index class="checkbox" color="primary" [formControlName]="item.id">
-                                {{ item.name }}
-                            </mat-checkbox>
-                            }
+                                @if(item.isActive){
+                                <mat-checkbox let i=index class="checkbox" color="primary" [formControlName]="item.id">
+                                    {{ item.name }}
+                                </mat-checkbox>
+                                }
+                            </div>
                         </div>
+
                     </form>
                 </ng-container>
                 }
