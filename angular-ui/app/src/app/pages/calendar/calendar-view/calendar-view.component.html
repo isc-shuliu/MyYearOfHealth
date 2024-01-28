@@ -11,6 +11,13 @@
                 <p class="main-container__data">{{selectedDay | date:'mediumDate'}}</p>
                 <app-custom-calendar (dayClick)="dayClick.emit($event)"
                     [goalsListForPeriod]="goalsListForPeriod"></app-custom-calendar>
+                @if (listPersonalHabits?.length == 0 || !listPersonalHabits) {
+                <ng-container>
+                    <div class="message-noted-habits">You don't have any recorded activity habits</div>
+                </ng-container>
+
+                }
+
                 @if(isShowGoalsForThisDay )
 
                 { <ng-container>

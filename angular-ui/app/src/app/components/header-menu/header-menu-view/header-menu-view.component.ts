@@ -48,11 +48,11 @@ export class HeaderMenuViewComponent {
     this.logout.emit();
   }
 
-  public trackerHabbits() {
+  public trackerHabits() {
     this.router.navigate(['/tracker-calendar']);
   }
 
-  public changeYourHabbits() {
+  public changeYourHabits() {
     this.router.navigate(['/create-own-plan']);
   }
 }

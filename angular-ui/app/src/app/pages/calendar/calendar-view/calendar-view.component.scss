@@ -52,12 +52,15 @@ button.half-active-day {
   border-radius: 10px;
 }
 
-.message-noted-goals {
+.message-noted-goals,
+.message-noted-habits {
   margin: 30px 0 10px 0;
   text-align: center;
   color: var(--primary-green-font-color);
   font-size: 16px;
 }
+
+
 
 .message-noted-goals::before {
   content: ('\2713');

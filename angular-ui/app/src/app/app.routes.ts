@@ -99,7 +99,7 @@ export const routes: Routes = [
         (c) => c.CalendarComponent
       ),
     pathMatch: 'full',
-    title: 'Track Your Habbits',
+    title: 'Track Your Habits',
     canActivate: [AuthGuard]
   },
   {

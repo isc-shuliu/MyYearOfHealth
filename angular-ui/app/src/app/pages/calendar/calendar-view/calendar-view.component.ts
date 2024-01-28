@@ -1,7 +1,4 @@
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -11,10 +8,6 @@ import {
   SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
-import {
-  MatCalendarCellClassFunction,
-  MatDatepickerModule
-} from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
@@ -33,9 +26,7 @@ import {
   IGoalsForPeriod
 } from '../../../share/interfaces/goals.interfaces';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core';
-import { GoalsService } from '../../../share/services/goal.service';
-import { Observable, finalize, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CustomCalendarComponent } from '../../../components/custom-calendar/custom-calendar.component';
 
 @Component({
@@ -43,7 +34,6 @@ import { CustomCalendarComponent } from '../../../components/custom-calendar/cus
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   imports: [
-    MatDatepickerModule,
     MatCardModule,
     CommonModule,
     MatInputModule,
@@ -53,7 +43,6 @@ import { CustomCalendarComponent } from '../../../components/custom-calendar/cus
     FormsModule,
     MatIconModule,
     MatFormFieldModule,
-    MatNativeDateModule,
     MatFormFieldModule,
     CustomCalendarComponent
   ],
@@ -75,6 +64,7 @@ export class CalendarViewComponent implements OnInit, OnChanges {
     }
     if (changes['goalsListForPeriod']) {
       this.goalsListForPeriod = changes['goalsListForPeriod'].currentValue;
+      console.log(this.goalsListForPeriod);
     }
     this.trackSelectedDay();
   }
@@ -86,7 +76,6 @@ export class CalendarViewComponent implements OnInit, OnChanges {
   @Input() selectedDay: Date | null;
   @Input() firstDayOfMonth: string;
   @Input() lastDayOfMonth: string;
-  goalsList$: Observable<IGoalsForPeriod[]>;
   @Output() checkDayActivities = new EventEmitter<any>();
   @Output() dayClick = new EventEmitter<any>();
 
