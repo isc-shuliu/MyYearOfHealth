@@ -109,8 +109,7 @@ export const routes: Routes = [
         (c) => c.AboutViewComponent
       ),
     pathMatch: 'full',
-    title: 'About',
-    canActivate: [AuthGuard]
+    title: 'About'
   },
   {
     path: '**',
