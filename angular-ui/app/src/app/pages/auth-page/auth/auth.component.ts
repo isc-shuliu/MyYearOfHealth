@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { tap, catchError, throwError, Observable, map } from 'rxjs';
-import { IUserAuth } from '../../../share/interfaces/auth.interface';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../share/services/auth.service';
 import { AuthViewComponent } from '../auth-view/auth-view.component';
@@ -22,13 +21,12 @@ export class AuthComponent {
 
   public formError: boolean = false;
 
-  public onSignin(signinForm: IUserAuth): void {
-    const telecom = signinForm.telecom.trim();
+  public onSignin(signinForm: { phone: string }): void {
+    const phone = signinForm.phone;
     this.auth
-      .signIn(telecom)
+      .signIn(phone)
       .pipe(
         map((data) => this.checkStorage(data)),
-        tap((data) => console.log(data)),
         catchError((error: any) => {
           return throwError(() => error);
         })
@@ -38,7 +36,6 @@ export class AuthComponent {
   }
 
   private checkStorage(response: any) {
-    const user = this.auth.user.value;
-    if (!user) this.formError = true;
+    if (!response) this.formError = true;
   }
 }

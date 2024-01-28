@@ -1,13 +1,13 @@
 <form class="user-form" [class.error]="formError" [formGroup]="authForm" (ngSubmit)="submitForm()">
     <mat-form-field appearance="outline">
         <mat-label>Contact Number</mat-label>
-        <input matInput autocomplete="off" [ngClass]="{'invalid': formError}" formControlName="telecom" #policy />
+        <input matInput autocomplete="off" [ngClass]="{'invalid': formError}" formControlName="phone" #policy />
         <ng-container *ngIf="formError">
             <mat-error>
                 Enter your correct contact number
             </mat-error>
         </ng-container>
-        <mat-error *ngIf="authForm.controls['telecom']?.touched || authForm.controls['telecom'].invalid"></mat-error>
+        <mat-error *ngIf="authForm.controls['phone']?.touched || authForm.controls['phone'].invalid"></mat-error>
     </mat-form-field>
     <button mat-stroked-button class="set-btn" color="primary" cdkFocusInitial type="submit"
         [disabled]="authForm.invalid">

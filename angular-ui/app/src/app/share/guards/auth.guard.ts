@@ -31,7 +31,6 @@ export class AuthGuard {
     if (user) {
       return true;
     } else {
-      console.log('no user');
       this.localStorage.clean();
       this.router.navigate(['/auth']);
     }

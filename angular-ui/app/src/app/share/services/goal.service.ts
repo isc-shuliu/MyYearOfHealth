@@ -80,7 +80,6 @@ export class GoalsService {
       dateFrom: body.dateFrom,
       dateTo: body.dateTo
     });
-    console.log('123');
     return this.httpClient
       .get<any>(environmentAPI.apiUrl + 'daily-goal/' + body.userId, {
         params: queryParams

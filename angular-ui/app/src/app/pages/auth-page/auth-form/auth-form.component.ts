@@ -42,7 +42,7 @@ export class AuthFormComponent implements OnChanges {
 
   ngOnChanges() {
     if (this.formError) {
-      const telecomControl = this.authForm.get('telecom');
+      const telecomControl = this.authForm.get('phone');
 
       if (telecomControl !== null) {
         telecomControl.updateValueAndValidity();
@@ -54,7 +54,7 @@ export class AuthFormComponent implements OnChanges {
   public hide = true;
 
   authForm = this.fb.group({
-    telecom: ['', Validators.required]
+    phone: ['', Validators.required]
   });
 
   public submitForm(): void {

@@ -1,10 +1,9 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, of, shareReplay, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, shareReplay, tap } from 'rxjs';
 import { LocalStorageService } from './localStorage.service';
 import { Router } from '@angular/router';
-import { environmentFHIR } from '../../../environment/env';
-import { IUserAuth } from '../interfaces/auth.interface';
+import { environmentAPI } from '../../../environment/env.prod';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -31,25 +30,24 @@ export class AuthService {
     }
   }
 
-  signIn(telecom: string) {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append('telecom', telecom);
+  signIn(phone: string) {
+    const body = { phone: phone };
     return this.httpClient
-      .get<any>(environmentFHIR.apiUrl + 'Patient', { params: queryParams })
+      .post<{ userId: string }>(environmentAPI.apiUrl + 'user', body)
       .pipe(
-        tap((data) => this.getCurrentUser(data.entry[0].resource)),
+        tap((data) => this.getCurrentUser(data.userId)),
         shareReplay()
       );
   }
 
-  getCurrentUser(userResponse: any) {
-    if (userResponse.total == 0) {
+  getCurrentUser(userId: string) {
+    if (userId == '') {
       this.storage.clean();
       this.user.next('');
       this.router.navigate(['/auth']);
     } else {
-      this.storage.saveUserData(userResponse);
-      this.user.next(userResponse.id);
+      this.storage.saveUserID(userId);
+      this.user.next(userId);
       this.goToApp();
     }
   }
