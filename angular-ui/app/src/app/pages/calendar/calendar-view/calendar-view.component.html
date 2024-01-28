@@ -29,7 +29,7 @@
                 }
             </div>
             @if(isShowGoalsForThisDay ) {
-            <button class="checkbox-container__btn set-btn" mat-raised-button color="accent" type="submit"
+            <button class="checkbox-container__btn set-btn" mat-stroked-button color="primary" type="submit"
                 [disabled]="!anyCheckboxChecked()" (click)="submitDailyActivities()">
                 <mat-icon>add_task</mat-icon>
                 <span>Check</span>
