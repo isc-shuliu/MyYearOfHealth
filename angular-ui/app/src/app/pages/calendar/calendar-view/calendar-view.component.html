@@ -1,35 +1,44 @@
 <div class="page">
     <div class="main-container">
-        <div class="main-container__title primary-h2-font">
-            My today’s goal
-        </div>
-        <div class="main-container__habits-list ">
-            <p class="primary-h3-font">Selected date:</p>
-            <p class="main-container__period">{{firstDayOfMonth | date:'mediumDate'}}-{{lastDayOfMonth |
-                date:'mediumDate'}}</p>
-            <p class="main-container__data">{{selectedDay | date:'mediumDate'}}</p>
-            <mat-card class="demo-inline-calendar-card">
-                <mat-calendar [(selected)]="selectedDay" [dateClass]="dateClass"
-                    (selectedChange)="onDateSelected($event)"></mat-calendar>
-            </mat-card>
+        <div class="content">
+            <div class="main-container__title primary-h2-font">
+                My today’s goal
+            </div>
+            <div class="main-container__habits-list ">
+                <p class="primary-h3-font">Selected date:</p>
+                <p class="main-container__period">{{firstDayOfMonth | date:'mediumDate'}}-{{lastDayOfMonth |
+                    date:'mediumDate'}}</p>
+                <p class="main-container__data">{{selectedDay | date:'mediumDate'}}</p>
+                <app-custom-calendar (dayClick)="dayClick.emit($event)"
+                    [goalsListForPeriod]="goalsListForPeriod"></app-custom-calendar>
+                @if(isShowGoalsForThisDay )
 
+                { <ng-container>
+                    <form class="form-container" [formGroup]="userPlanPoints" (ngSubmit)="submitDailyActivities()">
 
-            <!-- @if (!isFormFilledForThisDay) { -->
-            <form class="form-container" [formGroup]="userPlanPoints" (ngSubmit)="submitDailyActivities()">
+                        <div class="checkbox-container" *ngFor="let item of listPersonalHabits">
 
-                <div class="checkbox-container">
-                    <mat-checkbox *ngFor="let item of listPersonalHabits; let i = index" class="checkbox"
-                        color="primary" [formControlName]="item">
-                        {{ item }}
-                    </mat-checkbox>
-                </div>
+                            @if(item.isActive){
+                            <mat-checkbox let i=index class="checkbox" color="primary" [formControlName]="item.id">
+                                {{ item.name }}
+                            </mat-checkbox>
+                            }
+                        </div>
+                    </form>
+                </ng-container>
+                }
+            </div>
+            @if(isShowGoalsForThisDay ) {
+            <button class="checkbox-container__btn set-btn" mat-raised-button color="accent" type="submit"
+                [disabled]="!anyCheckboxChecked()" (click)="submitDailyActivities()">
+                <mat-icon>add_task</mat-icon>
+                <span>Check</span>
+            </button>
+            }
+            @else {
+            <div class="message-noted-goals">Your goals achieved</div>
+            }
 
-                <button class="checkbox-container__btn" mat-raised-button color="primary" type="submit">
-                    <mat-icon>add_task</mat-icon>
-                    <span>Check</span>
-                </button>
-            </form>
-            <!-- } -->
         </div>
 
     </div>

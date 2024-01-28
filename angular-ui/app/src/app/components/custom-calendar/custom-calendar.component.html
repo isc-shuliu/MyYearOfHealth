@@ -1,0 +1,14 @@
+<mat-card class="demo-inline-calendar-card">
+    <div class="custom-calendar">
+        <div class="header">
+            <h2></h2>
+        </div>
+        <div class="days">
+            <div *ngFor="let day of calendarDays" class="calendar-day"
+                [ngClass]="{'active-day': day.isActive, 'half-active-day': day.isHalfActive,  'current-day': day.isCurrent, 'selected': day.isSelected, }"
+                (click)="onDayClick(day)" [class.disabled]="isFutureDate(day)" [class.selected]="isSelected">
+                {{ day.date | date: 'dd' }}
+            </div>
+        </div>
+    </div>
+</mat-card>

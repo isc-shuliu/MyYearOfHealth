@@ -12,6 +12,10 @@
     text-align: center;
     background-color: var(--primary-green-font-color);
   }
+
+  &__habits-list {
+    overflow-wrap: anywhere;
+  }
 }
 
 .checkbox-container {   
@@ -19,16 +23,13 @@
   flex-direction: column;  
   margin-bottom: 15px;  
 
-  &__btn {
-    margin: 0 auto;
-  }
 }
 
 .form-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
+  align-items: center; 
+  margin: 20px 0 20px 0;
 }
 
 /* calendar.component.css */
@@ -37,7 +38,29 @@ button.active-day {
   border-radius: 10px;
 }
 
+.active-day {
+  background-color: #00B5AF;
+  border-radius: 10px;
+}
+
 button.half-active-day {
   background-color: #9DD0CE;
   border-radius: 10px;
+}
+
+.half-active-day {
+  background-color: #9DD0CE;
+  border-radius: 10px;
+}
+
+.message-noted-goals {
+  margin: 30px 0 10px 0;
+  text-align: center;
+  color: var(--primary-green-font-color);
+  font-size: 16px;
+}
+
+.message-noted-goals::before {
+  content: ('\2713');
+  margin-right: 5px;
 }
