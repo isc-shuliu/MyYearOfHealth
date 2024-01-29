@@ -116,10 +116,7 @@ The application frontend is available at http://localhost:4200/ [](http://localh
 ### Use of API 
 
 For more efficient and convenient interaction with the api of the application you can use postman-collection or swagger.
-The files with are in the root of the project.
-
-It uses swagger-ui module to provide documentation and test environment for API.
-
+The files with them are in the root of the project.
 
 
 <img src='https://github.com/banksiaglobal/MyYearOfHealth/blob/main/data/image/swagger.png' width='800'/>
