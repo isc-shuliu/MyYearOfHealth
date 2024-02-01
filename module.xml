@@ -3,7 +3,7 @@
   <Document name="health-harbour.ZPM">
     <Module>
       <Name>health-harbour</Name>
-      <Version>0.0.1</Version>
+      <Version>0.0.2</Version>
       <Description>Application for InterSystems FHIR and Digital Health Interoperability Contest</Description>
       <Keywords>FHIR</Keywords>
       <Packaging>module</Packaging>
