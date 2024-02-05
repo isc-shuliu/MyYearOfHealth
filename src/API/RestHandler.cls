@@ -57,6 +57,11 @@ ClassMethod GetUserId(phone As %String) As %Status
         set $NAMESPACE = "FHIRSERVER"
         set response = {}
         &sql(select ID into :userId from HarbourFHIR.Patient where Telecom = :json.phone)
+        if SQLCODE = 100 {
+            set description = "There is no user with this phone number"
+            set %response.Status = ..#HTTP404NOTFOUND
+            return ..Response(description)
+        }
         set response.userId = userId
     }
     catch(ex) {
